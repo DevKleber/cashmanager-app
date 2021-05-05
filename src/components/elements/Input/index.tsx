@@ -8,17 +8,22 @@ import { Container, Input, BoxIcon } from './style';
 interface InputProps {
     placeholder?: string,
     value?: string,
-    icon: string,   
+    icon: string,
+    setState: (elem: string) => void
 }
 
-export function InputText({placeholder, value, icon}: InputProps) {
+export function InputText({placeholder, value, icon, setState}: InputProps) {
+
+    function inputChange(event: any) {
+        setState(event.target.value)
+    }
 
     return (
         <Container>
             <BoxIcon>
                 <Icon name={icon}/>
             </BoxIcon>
-            <Input placeholder={placeholder}/>
+            <Input placeholder={placeholder} onChange={inputChange} value={value}/>
         </Container>
     );
 
