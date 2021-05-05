@@ -1,7 +1,7 @@
 import React from 'react';
+import { Image } from 'react-native';
 import { Icon } from '../../elements/Icon';
 import { InputText } from '../../elements/Input';
-import Logo from './../../../assets/img/logoGreenCash.svg';
 import { 
     BtnLogar, 
     Container, 
@@ -18,7 +18,7 @@ export function Login() {
 
     return (
         <Container>
-            <Logo />
+            <Image source={require('./../../../assets/img/logotype.png')} />
             <Title> Faça seu login</Title>
             <Content>
                 <InputText icon={'person'} placeholder={'Email'}/>

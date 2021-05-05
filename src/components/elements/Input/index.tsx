@@ -17,7 +17,6 @@ export function InputText({placeholder, value, icon}: InputProps) {
         <Container>
             <BoxIcon>
                 <Icon name={icon}/>
-                {/* <Text>{icon}</Text> */}
             </BoxIcon>
             <Input placeholder={placeholder}/>
         </Container>
