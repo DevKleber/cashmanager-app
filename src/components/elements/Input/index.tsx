@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text } from 'react-native';
+import { Icon } from '../Icon';
 import Logo from './../../../assets/img/logoGreenCash.svg';
 
 import { Container, Input, BoxIcon } from './style';
@@ -15,7 +16,8 @@ export function InputText({placeholder, value, icon}: InputProps) {
     return (
         <Container>
             <BoxIcon>
-                <Text>{icon}</Text>
+                <Icon name={icon}/>
+                {/* <Text>{icon}</Text> */}
             </BoxIcon>
             <Input placeholder={placeholder}/>
         </Container>

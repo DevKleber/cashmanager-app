@@ -14,24 +14,13 @@ export const Title = styled.Text`
 `;
 
 export const Content = styled.View`
+    flex: 1;
     width: 100%;
     display: flex;
     align-items: center;
     flex-direction: column;
     padding: 40px 40px;
-    /* border: 1px solid black; */
-    /* flex: 1; */
-    /* border: 1px solid black; */
 `;
-
-export const ViewTest = styled.View`
-    width: 100%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    padding: 10px;
-`;
-
 
 export const BtnLogar = styled.TouchableOpacity`
     width: 100%;
@@ -44,4 +33,34 @@ export const BtnLogar = styled.TouchableOpacity`
     margin-top: 10px;
     padding: 15px;
     font-size: 15px;
+`;
+
+export const TextBtnLogar = styled.Text`
+    font-size: 14px;
+    font-weight: bold;
+`;
+
+export const TextForgotPass = styled.Text``;
+
+
+export const ForgotPass = styled.TouchableOpacity`
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 10px;
+    margin-top: 20px;
+`;
+export const TextBtnNewAcount = styled.Text`
+    color: #00EB84;
+    margin-left: 7px;
+`;
+
+export const BtnNewAcount = styled.TouchableOpacity`
+    width: 100%;
+    height: 50px;
+    background-color: #2A004F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
 `;
