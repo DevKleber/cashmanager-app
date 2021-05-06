@@ -22,7 +22,7 @@ export const Content = styled.View`
     padding: 40px 40px;
 `;
 
-export const BtnLogar = styled.TouchableOpacity`
+export const BtnEnviar = styled.TouchableOpacity`
     width: 100%;
     display: flex;
     align-items: center;
@@ -35,7 +35,7 @@ export const BtnLogar = styled.TouchableOpacity`
     font-size: 15px;
 `;
 
-export const TextBtnLogar = styled.Text`
+export const TextBtnEnviar = styled.Text`
     font-size: 14px;
     font-weight: bold;
 `;
@@ -50,7 +50,7 @@ export const ForgotPass = styled.TouchableOpacity`
     border-radius: 10px;
     margin-top: 20px;
 `;
-export const TextBtnNewAcount = styled.Text`
+export const TextBtnBackToLogin = styled.Text`
     color: #00EB84;
     margin-left: 7px;
 `;

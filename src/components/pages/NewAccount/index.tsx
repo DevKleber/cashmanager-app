@@ -2,45 +2,42 @@ import React, { useState } from 'react';
 import { Image } from 'react-native';
 import { Icon } from '../../elements/Icon';
 import { InputText } from '../../elements/Input';
-import { LoginIn } from './services';
+import { CreateAccount } from './services';
 import { 
     BtnLogar, 
     Container, 
     Content, 
     Title, 
     TextBtnLogar, 
-    TextForgotPass, 
-    ForgotPass, 
-    BtnNewAcount, 
+    BtnBackToLogin, 
     TextBtnNewAcount
 } from './style';
 
-export function Login() {
+export function NewAccount() {
     const [login, setLogin] = useState<string>('');
+    const [name, setName] = useState<string>('');
     const [senha, setSenha] = useState<string>('');
 
     function loginIn() {
-        LoginIn({login, senha})
+        CreateAccount({login, senha, name})
     }
 
     return (
         <Container>
             <Image source={require('./../../../assets/img/logotype.png')} />
-            <Title> Faça seu login</Title>
+            <Title>Crie sua conta</Title>
             <Content>
+                <InputText icon={'person'} placeholder={'Nome'} value={name} setState={setName}/>
                 <InputText icon={'email'} placeholder={'Email'} value={login} setState={setLogin}/>
                 <InputText icon={'lock'} placeholder={'Senha'} value={senha} setState={setSenha}/>
                 <BtnLogar>
                     <TextBtnLogar>Entrar</TextBtnLogar>
                 </BtnLogar>
-                <ForgotPass> 
-                    <TextForgotPass>Esqueci minha senha</TextForgotPass>
-                </ForgotPass>
             </Content>
-            <BtnNewAcount>
-                <Icon name={"exit-to-app"} color={"#00EB84"} size={18}/>
-                <TextBtnNewAcount onPress={loginIn}>Esqueci minha senha</TextBtnNewAcount>
-            </BtnNewAcount>
+            <BtnBackToLogin>
+                <Icon name={"arrow-left"} color={"#00EB84"} size={18}/>
+                <TextBtnNewAcount onPress={loginIn}>Voltar para o login</TextBtnNewAcount>
+            </BtnBackToLogin>
             
         </Container>
     )
