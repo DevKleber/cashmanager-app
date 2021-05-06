@@ -3,17 +3,18 @@ import styled from 'styled-components/native';
 export const Container = styled.View`
     display: flex;
     flex: 1;
+    width: 100%;
     align-items: center;
     flex-direction: column;
-    padding: 32px 25px;
     background-color: #F5F6FC;
 `;
 
 export const HeaderDate = styled.View`
     display: flex;
     align-items: center;
+    justify-content: center;
+    height: 60px;
     flex-direction: row;
-    margin-bottom: 20px;
 `;
 
 export const TextHeaderDate = styled.Text`
@@ -29,7 +30,6 @@ export const Card = styled.View`
     background-color: #fff;
     border-radius: 15px;
     margin-bottom: 20px;
-
 `;
 
 export const Header = styled.View`
@@ -67,5 +67,12 @@ export const Title = styled.Text`
     font-size: 16px;
     color: #666666;
     font-weight: bold;
-    /* font-weight: 900; */
+`;
+
+export const ContentScrollView = styled.ScrollView`
+    width: 100%;
+    display: flex;
+    flex: 1;
+    padding: 0px 25px;
+    margin: 20px 0px;
 `;
