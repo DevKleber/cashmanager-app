@@ -56,9 +56,9 @@ export function NewAccount() {
 					<TextBtnLogar>Entrar</TextBtnLogar>
 				</BtnLogar>
 			</Content>
-			<BtnBackToLogin>
+			<BtnBackToLogin  onPress={loginIn}>
 				<Icon name={'arrow-left'} color={'#00EB84'} size={18} />
-				<TextBtnNewAcount onPress={loginIn}>
+				<TextBtnNewAcount>
 					Voltar para o login
 				</TextBtnNewAcount>
 			</BtnBackToLogin>

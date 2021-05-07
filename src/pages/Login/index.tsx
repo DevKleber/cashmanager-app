@@ -29,16 +29,16 @@ import {
 
 export function Login() {
 	const navigate = useNavigation();
-	const [login, setLogin] = useState<string>('');
-	const [senha, setSenha] = useState<string>('');
+	const [email, setEmail] = useState<string>('');
+	const [password, setPassword] = useState<string>('');
 
 	function signUp() {
 		navigate.navigate('SignUp');
 	}
 	function handleLogin() {
-		console.log({login, senha})
-		navigate.navigate('NewAccount');
-		LoginIn({login, senha});
+		console.log({email, password})
+		LoginIn({email, password});
+		
 
 		// chamar o context user e mudar o status para logado.
 		//assim o arquivo rota irá importar o caminho certo.
@@ -62,17 +62,17 @@ export function Login() {
 							<InputText
 								icon={'email'}
 								placeholder={'Email'}
-								value={login}
-								setState={setLogin}
+								value={email}
+								setState={setEmail}
 							/>
 							<InputText
 								icon={'lock'}
 								placeholder={'Senha'}
-								value={senha}
-								setState={setSenha}
+								value={password}
+								setState={setPassword}
 							/>
-							<BtnLogar>
-								<TextBtnLogar onPress={handleLogin}>
+							<BtnLogar onPress={handleLogin}>
+								<TextBtnLogar >
 									Entrar
 								</TextBtnLogar>
 							</BtnLogar>
@@ -82,14 +82,14 @@ export function Login() {
 								</TextForgotPass>
 							</ForgotPass>
 						</Content>
-						<BtnNewAcount>
+						<BtnNewAcount onPress={signUp}>
 							<Icon
 								name={'exit-to-app'}
 								color={'#00EB84'}
 								size={18}
 							/>
-							<TextBtnNewAcount onPress={signUp}>
-								Esqueci minha senha
+							<TextBtnNewAcount >
+								Criar uma conta
 							</TextBtnNewAcount>
 						</BtnNewAcount>
 					</Container>

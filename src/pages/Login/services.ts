@@ -2,8 +2,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {api} from './../../services/api';
 
 interface propsLogin {
-	senha: string;
-	login: string;
+	password: string;
+	email: string;
 }
 
 export async function clearAllData() {
@@ -31,9 +31,14 @@ async function saveUser() {
 }
 
 export async function LoginIn(form: propsLogin) {
-	const {data} = await api.post('/auth/login', form);
-	console.log(data);
+	api.post('/auth/login', form).then(res => {
+        console.log(res);
+        console.log(res.data)
+    })
+    .catch(error => console.log(error));
+	// console.log(data);
+
 	saveUser();
 
-	return data;
+	// return data;
 }
