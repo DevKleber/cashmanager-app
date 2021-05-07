@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView } from 'react-native';
+import { api } from '../../../services/api';
 import { Icon } from '../../elements/Icon';
 import Logo from './../../../assets/img/masterCard.svg';
 import { 
@@ -10,8 +10,6 @@ import {
     TextValue, 
     TextLighter,
     Card,
-    HeaderDate,
-    TextHeaderDate,
     Container,
     ContentScrollView,
 } from './style';
@@ -19,7 +17,8 @@ import {
 export function CreditCard() {
     const [creditCard, setCreditCard] = useState<any[]>([]);
 
-    function getCreditCards() {
+    async function getCreditCards() {
+        // const cards = await api.get('/credit-card');
         setCreditCard([1, 2, 7, 3, 4, 5])
     }
 
@@ -28,11 +27,6 @@ export function CreditCard() {
     }, []);
     return (
         <Container>
-            {/* <HeaderDate>
-                <Icon name={"arrow-left"} size={18} color={'#666666'}/>
-                <TextHeaderDate>{"Abril"}</TextHeaderDate>
-                <Icon name={"arrow-right"} size={18} color={'#666666'}/>
-            </HeaderDate> */}
             <ContentScrollView>
                 {creditCard.map((item: any) => (
                     <Card style={style.boxShadow} key={item}>

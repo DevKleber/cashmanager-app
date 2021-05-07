@@ -74,5 +74,6 @@ export const ContentScrollView = styled.ScrollView`
     display: flex;
     flex: 1;
     padding: 0px 25px;
-    margin: 20px 0px;
+    margin-top: 20px;
 `;
+
