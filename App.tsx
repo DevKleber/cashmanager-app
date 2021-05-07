@@ -1,11 +1,20 @@
-import React from 'react';
-import { ForgotPassword } from './src/components/pages/ForgotPassword';
-import { Login } from './src/components/pages/Login';
-import { NewAccount } from './src/components/pages/NewAccount';
-import { Splash } from './src/components/pages/Splash';
+import 'react-native-gesture-handler';
 
-const App = () => {
-  return <ForgotPassword />
-};
+import React from 'react';
+import {View, StatusBar} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+
+import {Routes} from './src/routes';
+
+function App() {
+	return (
+		<NavigationContainer>
+			<StatusBar barStyle="dark-content" backgroundColor="#fff" />
+			<View style={{flex: 1, backgroundColor: '#fff'}}>
+				<Routes />
+			</View>
+		</NavigationContainer>
+	);
+}
 
 export default App;
