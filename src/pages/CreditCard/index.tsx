@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { api } from '../../../services/api';
-import { Icon } from '../../elements/Icon';
+import { api } from '../../services/api';
+import { Icon } from '../../components/elements/Icon';
 import Logo from './../../../assets/img/masterCard.svg';
 import { 
     Content, 

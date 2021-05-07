@@ -9,19 +9,6 @@ export const Container = styled.View`
     background-color: #F5F6FC;
 `;
 
-export const HeaderDate = styled.View`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 60px;
-    flex-direction: row;
-`;
-
-export const TextHeaderDate = styled.Text`
-    margin: 0px 20px;
-    color:#666666;
-`;
-
 export const Card = styled.View`
     display: flex;
     width: 100%;
