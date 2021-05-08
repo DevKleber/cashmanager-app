@@ -1,11 +1,20 @@
-import { api } from "../../../services/api";
+import { api } from "../../services/api";
 
-interface propsLogin {
-    senha: string,
-    login: string,
+export interface CreditCard {
+    id: number,
+    name: string,
+    id_user: number,
+    due_day: number,
+    closing_day: number,
+    updated_at: string,
+    created_at: string,
+    items: any[],
+    total: number
 }
 
-export function LoginIn(form: propsLogin)
+export async function getCreditCardById(id: number)
 {
-    return api.post('/auth', form).then(resp => resp.data)
+    const {data} = await api.get(`/credit-card/${id}`);
+    console.log(data);
+    return data;
 }

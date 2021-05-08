@@ -1,7 +1,6 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-    display: flex;
     flex: 1;
     width: 100%;
     align-items: center;
@@ -10,7 +9,6 @@ export const Container = styled.View`
 `;
 
 export const HeaderDate = styled.View`
-    display: flex;
     align-items: center;
     justify-content: center;
     height: 60px;
@@ -23,7 +21,6 @@ export const TextHeaderDate = styled.Text`
 `;
 
 export const Card = styled.View`
-    display: flex;
     width: 100%;
     flex-direction: column;
     padding: 15px 20px;
@@ -35,14 +32,12 @@ export const Card = styled.View`
 
 
 export const Header = styled.View`
-    display: flex;
     flex-direction: row;
     align-items: center;
     flex-direction: row;
 `;
 
 export const Content = styled.View`
-    display: flex;
     flex-direction: column;
     align-items: flex-end;
     margin-top: 20px;
@@ -76,30 +71,25 @@ export const ContentScrollView = styled.ScrollView`
     display: flex;
     flex: 1;
     padding: 0px 25px;
-    margin-top: 20px;
+    margin: 20px 0px;
 `;
 
 export const CardInvoice = styled.View`
-    display: flex;
     width: 100%;
-    flex: 1;
     flex-direction: column;
-    padding: 25px 15px;
     background-color: #fff;
     border-radius: 15px;
-    margin-bottom: 20px;
 `;
 
 export const ItemList = styled.View`
-    display: flex;
     flex-direction: row;
+    min-height: 85px;
 `;
 
 export const ItemIcon = styled.View`
     width: 50px;
     display: flex;
     justify-content: center;
-    /* border: 1px solid black; */
 `;
 
 export const ItemContent = styled.View`
@@ -107,16 +97,26 @@ export const ItemContent = styled.View`
     flex: 1;
     flex-direction: column;
     justify-content: center;
-    /* border: 1px solid black; */
 `;
 
 export const ItemPrice = styled.View`
-    width: 70px;
-    display: flex;
-    flex-direction: column;
+    width: 65px;
     align-items: center;
     justify-content: center;
-    /* border: 1px solid black; */
+`;
+
+export const TextItemPrice = styled.Text`
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #989898;
+`;
+
+export const TextPrePrice = styled.Text`
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+    color: #989898;
 `;
 
 export const ItemTextTitle = styled.Text`
@@ -126,4 +126,16 @@ export const ItemTextTitle = styled.Text`
 export const ItemTextDescription = styled.Text`
     font-weight: bold;
     color: #989898;
+`;
+
+export const DatePrice = styled.Text`
+    font-size: 10px;
+    color: #989898;
+`;
+
+export const RowHr = styled.View`
+    border-width: 0.5px;
+    border-color: #D7D7D7;
+    width: 90%;
+    margin-left: 5%;
 `;

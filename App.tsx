@@ -6,15 +6,16 @@ import {NavigationContainer} from '@react-navigation/native';
 
 import {Routes} from './src/routes';
 import { AuthProvider } from './src/hooks/Auth';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 function App() {
 	return (
 		<NavigationContainer>
-			<StatusBar barStyle="dark-content" backgroundColor="#fff" />
+			<StatusBar barStyle="dark-content" backgroundColor="#f5f6fc" />
 			<AuthProvider>
-				<View style={{flex: 1, backgroundColor: '#fff'}}>
+				<SafeAreaView style={{flex: 1}}>
 					<Routes />
-				</View>
+				</SafeAreaView>
 			</AuthProvider>
 		</NavigationContainer>
 	);
