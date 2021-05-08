@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { api } from '../../services/api';
 import { Icon } from '../../components/elements/Icon';
-// import Logo from './../../../assets/img/masterCard.svg';
+import { format } from 'date-fns'
 import { 
     Content, 
     Title, 
@@ -20,56 +19,72 @@ import {
     ItemContent,
     ItemPrice,
     ItemTextTitle,
-    ItemTextDescription
+    TextItemPrice,
+    TextPrePrice,
+    DatePrice,
+    ItemTextDescription,
+    RowHr
 } from './style';
+import { Image } from 'react-native';
+import { getCreditCardById, CreditCard } from './services';
 
 export function CreditCardDetail() {
-    const [creditCard, setCreditCard] = useState<any[]>([]);
+    const [creditCard, setCreditCard] = useState<CreditCard>({} as CreditCard);
 
-    async function getCreditCards() {
-        // const cards = await api.get('/credit-card');
-        setCreditCard([1, 2, 7, 3, 4, 5])
+    async function getCreditCard() {
+        const dados = await getCreditCardById(1);
+        setCreditCard(dados)
+    }
+
+    function formatDate(date: any) {
+        return format(new Date(date), 'dd/MM')
     }
 
     useEffect(() => {
-        getCreditCards();
+        getCreditCard();
     }, []);
     return (
         <Container>
              <HeaderDate>
-                <Icon name={"arrow-left"} size={18} color={'#666666'}/>
-                <TextHeaderDate>{"Abril"}</TextHeaderDate>
-                <Icon name={"arrow-right"} size={18} color={'#666666'}/>
+                <Icon name="arrow-left" size={18} color='#666666'/>
+                <TextHeaderDate>Abril</TextHeaderDate>
+                <Icon name="arrow-right" size={18} color="#666666"/>
             </HeaderDate>
             <ContentScrollView>
                     <Card style={style.boxShadow} >
                         <Header>
-                            {/* <Logo /> */}
-                            <Title>Nubanck</Title>
+                        <Image
+							source={require('./../../assets/img/card.png')}
+						/>
+                            <Title>{creditCard.name}</Title>
                         </Header>
                         <Content>
-                            <Text>Valor da fatura: <TextValue>R$ 365,25</TextValue></Text>
-                            <Text>Fecha: <TextLighter>10</TextLighter></Text>
-                            <Text>Vencimento: <TextLighter>15</TextLighter></Text>
-
+                            <Text>Valor da fatura: <TextValue>R$ {creditCard.total}</TextValue></Text>
+                            <Text>Fecha: <TextLighter>{creditCard.closing_day}</TextLighter></Text>
+                            <Text>Vencimento: <TextLighter>{creditCard.due_day}</TextLighter></Text>
                         </Content>
                     </Card>
                     <CardInvoice style={style.boxShadowInvoice}>
-                        <ItemList>
-                            <ItemIcon>
-                            <Icon name={'home'}/>
-                            </ItemIcon>
-                            <ItemContent>
-                                <ItemTextTitle>Vestuário</ItemTextTitle>
-                                <ItemTextDescription>Shoptime Mkt Place Limitado</ItemTextDescription>
-                            </ItemContent>
-                            <ItemPrice>
-                                {/* <Logo /> */}
-                            </ItemPrice>
-
-                        </ItemList>
+                        {creditCard.items?.map((item: any, index: number) =>(
+                            < >
+                                <ItemList>
+                                    <ItemIcon>
+                                    <Icon name={item.icon}/>
+                                    </ItemIcon>
+                                    <ItemContent>
+                                        <ItemTextTitle>{item.name}</ItemTextTitle>
+                                        <ItemTextDescription>{item.description}</ItemTextDescription>
+                                    </ItemContent>
+                                    <ItemPrice>
+                                        <TextPrePrice>R$</TextPrePrice>
+                                        <TextItemPrice>{item.value}</TextItemPrice>
+                                        <DatePrice>{formatDate(item.created_at)}</DatePrice>
+                                    </ItemPrice>
+                                </ItemList>
+                                {creditCard.items.length > index + 1 ? <RowHr/> : null}
+                            </>
+                        ))}
                     </CardInvoice>
-
             </ContentScrollView>
         </Container>
     )

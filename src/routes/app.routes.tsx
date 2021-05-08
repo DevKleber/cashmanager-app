@@ -11,10 +11,11 @@ export default function AppRoutes() {
 	return (
 		<Stack.Navigator
 			screenOptions={{
-				headerShown: false,
-				cardStyle: {backgroundColor: '#fff'},
+				headerShown: true,
+				headerStyle: {backgroundColor: '#f5f6fc'},
+
 			}}>
-			<Stack.Screen name="CreditCardDetail" component={CreditCardDetail} />
+			<Stack.Screen name="CreditCardDetail" component={CreditCardDetail} options={{title: 'Cartão de credito'}}/>
 			{/* <Stack.Screen name="Dashboard" component={Dashboard} /> */}
 		</Stack.Navigator>
 	);
