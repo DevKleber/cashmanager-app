@@ -14,8 +14,8 @@ export default function AuthRoutes() {
 				headerShown: false,
 				cardStyle: {backgroundColor: '#fff'},
 			}}>
-			<Auth.Screen name="SignIn" component={Login} />
 			<Auth.Screen name="SignUp" component={NewAccount} />
+			<Auth.Screen name="SignIn" component={Login} />
 			<Auth.Screen name="Splash" component={Splash} />
 		</Auth.Navigator>
 	);

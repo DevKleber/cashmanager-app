@@ -1,8 +1,14 @@
 import React, {useState} from 'react';
-import {Image} from 'react-native';
+import {
+	Image,
+	KeyboardAvoidingView,
+	TouchableWithoutFeedback,
+	Platform,
+	ScrollView,
+	Keyboard,
+} from 'react-native';
 import {Icon} from '../../components/elements/Icon';
 import {InputText} from '../../components/elements/Input';
-import {CreateAccount} from './services';
 import {useNavigation} from '@react-navigation/native';
 
 import {
@@ -13,55 +19,77 @@ import {
 	TextBtnLogar,
 	BtnBackToLogin,
 	TextBtnNewAcount,
+	Logo,
 } from './style';
+import {useAuth} from '../../hooks/Auth';
 
 export function NewAccount() {
 	const navigate = useNavigation();
-	const [login, setLogin] = useState<string>('');
+	const {createNewAccount} = useAuth();
+	const [email, setEmail] = useState<string>('');
 	const [name, setName] = useState<string>('');
-	const [senha, setSenha] = useState<string>('');
+	const [password, setPassword] = useState<string>('');
 
 	function loginIn() {
 		navigate.navigate('SignIn');
 	}
 
-	function createNewAccount() {
-		
+	async function createAccount() {
+		console.log({email, password, name});
+		await createNewAccount({email, password, name});
 	}
 
 	return (
-		<Container>
-			<Image source={require('./../../assets/img/logotype.png')} />
-			<Title>Crie sua conta</Title>
-			<Content>
-				<InputText
-					icon={'person'}
-					placeholder={'Nome'}
-					value={name}
-					setState={setName}
-				/>
-				<InputText
-					icon={'email'}
-					placeholder={'Email'}
-					value={login}
-					setState={setLogin}
-				/>
-				<InputText
-					icon={'lock'}
-					placeholder={'Senha'}
-					value={senha}
-					setState={setSenha}
-				/>
-				<BtnLogar onPress={createNewAccount}>
-					<TextBtnLogar>Entrar</TextBtnLogar>
-				</BtnLogar>
-			</Content>
-			<BtnBackToLogin  onPress={loginIn}>
+		<>
+			<KeyboardAvoidingView
+				style={{flex: 1}}
+				keyboardVerticalOffset={200} // adjust the value here if you need more padding
+				behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+				enabled>
+				<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+					<Container>
+						<Logo
+							source={require('./../../assets/img/logotype.png')}
+						/>
+						<Title>Crie sua conta</Title>
+						<Content>
+							<InputText
+								icon="person"
+								autoCapitalize="words"
+								placeholder="Nome"
+								value={name}
+								onChangeText={setName}
+							/>
+							<InputText
+								icon="email"
+								placeholder="Email"
+								value={email}
+								autoCapitalize="none"
+								onChangeText={setEmail}
+								autoCorrect={false}
+								keyboardType="email-address"
+							/>
+							<InputText
+								icon="lock"
+								placeholder="Senha"
+								value={password}
+								onChangeText={setPassword}
+								secureTextEntry
+								onSubmitEditing={() => {
+									createAccount();
+								}}
+							/>
+							<BtnLogar onPress={createAccount}>
+								<TextBtnLogar>Entrar</TextBtnLogar>
+							</BtnLogar>
+						</Content>
+					</Container>
+				</TouchableWithoutFeedback>
+			</KeyboardAvoidingView>
+			<BtnBackToLogin onPress={loginIn}>
 				<Icon name={'arrow-left'} color={'#00EB84'} size={18} />
-				<TextBtnNewAcount>
-					Voltar para o login
-				</TextBtnNewAcount>
+				<TextBtnNewAcount>Voltar para o login</TextBtnNewAcount>
 			</BtnBackToLogin>
-		</Container>
+		</>
 	);
 }
