@@ -3,6 +3,7 @@ import {Image} from 'react-native';
 import {Icon} from '../../components/elements/Icon';
 import {InputText} from '../../components/elements/Input';
 import {CreateAccount} from './services';
+import {useNavigation} from '@react-navigation/native';
 
 import {
 	BtnLogar,
@@ -15,12 +16,17 @@ import {
 } from './style';
 
 export function NewAccount() {
+	const navigate = useNavigation();
 	const [login, setLogin] = useState<string>('');
 	const [name, setName] = useState<string>('');
 	const [senha, setSenha] = useState<string>('');
 
 	function loginIn() {
-		CreateAccount({login, senha, name});
+		navigate.navigate('SignIn');
+	}
+
+	function createNewAccount() {
+		
 	}
 
 	return (
@@ -46,13 +52,13 @@ export function NewAccount() {
 					value={senha}
 					setState={setSenha}
 				/>
-				<BtnLogar>
+				<BtnLogar onPress={createNewAccount}>
 					<TextBtnLogar>Entrar</TextBtnLogar>
 				</BtnLogar>
 			</Content>
-			<BtnBackToLogin>
+			<BtnBackToLogin  onPress={loginIn}>
 				<Icon name={'arrow-left'} color={'#00EB84'} size={18} />
-				<TextBtnNewAcount onPress={loginIn}>
+				<TextBtnNewAcount>
 					Voltar para o login
 				</TextBtnNewAcount>
 			</BtnBackToLogin>

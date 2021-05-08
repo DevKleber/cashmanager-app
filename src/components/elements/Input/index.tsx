@@ -13,9 +13,6 @@ interface InputProps {
 }
 
 export function InputText({placeholder, value, icon, setState}: InputProps) {
-	function inputChange(event: any) {
-		setState(event.target.value);
-	}
 
 	return (
 		<Container>
@@ -24,7 +21,7 @@ export function InputText({placeholder, value, icon, setState}: InputProps) {
 			</BoxIcon>
 			<Input
 				placeholder={placeholder}
-				onChange={inputChange}
+				onChangeText={text => setState(text)}
 				value={value}
 			/>
 		</Container>
