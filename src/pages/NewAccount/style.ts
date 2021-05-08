@@ -18,9 +18,7 @@ export const Title = styled.Text`
 `;
 
 export const Content = styled.View`
-	/* flex: 1; */
 	width: 100%;
-
 	align-items: center;
 	flex-direction: column;
 `;

@@ -22,7 +22,7 @@ interface AuthContextData {
     user: boolean;
     loginIn: (data: LoginProps) => Promise<void>;
     signOut(): void;
-    createNewAccount(): void;
+    createNewAccount: (form: any) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -41,17 +41,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
         await AsyncStorage.multiRemove(keys);
     }
 
-    async function userIsLoggedin() {
-        const token = await AsyncStorage.getItem('@CashManager:token');
-        clearAllData();
-
-        if (token === null) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
     async function saveUser({ access_token, me }: AuthProps) {
         await AsyncStorage.multiSet([
             ['@CashManager:token', access_token],
@@ -63,11 +52,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
     async function createNewAccount(form: any) {
         try {
             const { data } = await  api.post('/auth/newaccount', form);
+            console.log(data)
             api.defaults.headers.authorization = `Bearer ${data.access_token}`;
             saveUser(data);
             
         } catch (e) {
-            Alert.alert("Usuário e senha não conferem!");
+            console.log(e);
+            Alert.alert("Não foi possível criar conta!");
         }
 
         
