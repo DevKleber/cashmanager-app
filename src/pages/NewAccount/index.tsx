@@ -1,8 +1,15 @@
-import React, { useState } from 'react';
-import { Image, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
-import { Icon } from '../../components/elements/Icon';
-import { InputText } from '../../components/elements/Input';
-import { useNavigation } from '@react-navigation/native';
+import React, {useState} from 'react';
+import {
+	Image,
+	KeyboardAvoidingView,
+	TouchableWithoutFeedback,
+	Platform,
+	ScrollView,
+	Keyboard,
+} from 'react-native';
+import {Icon} from '../../components/elements/Icon';
+import {InputText} from '../../components/elements/Input';
+import {useNavigation} from '@react-navigation/native';
 
 import {
 	BtnLogar,
@@ -12,12 +19,13 @@ import {
 	TextBtnLogar,
 	BtnBackToLogin,
 	TextBtnNewAcount,
+	Logo,
 } from './style';
-import { useAuth } from '../../hooks/Auth';
+import {useAuth} from '../../hooks/Auth';
 
 export function NewAccount() {
 	const navigate = useNavigation();
-	const { createNewAccount } = useAuth();
+	const {createNewAccount} = useAuth();
 	const [email, setEmail] = useState<string>('');
 	const [name, setName] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
@@ -27,47 +35,48 @@ export function NewAccount() {
 	}
 
 	async function createAccount() {
-		console.log({ email, password })
-		await createNewAccount({ email, password  });
+		console.log({email, password});
+		// await createNewAccount({ email, password  });
 	}
 
 	return (
 		<>
 			<KeyboardAvoidingView
-				style={{ flex: 1 }}
+				style={{flex: 1}}
+				keyboardVerticalOffset={200} // adjust the value here if you need more padding
 				behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
 				enabled>
-				<ScrollView
-					keyboardShouldPersistTaps="handled"
-					contentContainerStyle={{ flex: 1 }}>
+				<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 					<Container>
-						<Image source={require('./../../assets/img/logotype.png')} />
+						<Logo
+							source={require('./../../assets/img/logotype.png')}
+						/>
 						<Title>Crie sua conta</Title>
 						<Content>
 							<InputText
-								icon='person'
+								icon="person"
 								autoCapitalize="words"
-								placeholder='Nome'
+								placeholder="Nome"
 								value={name}
 								onChangeText={setName}
 							/>
 							<InputText
-								icon='email'
-								placeholder='Email'
+								icon="email"
+								placeholder="Email"
 								value={email}
 								autoCapitalize="none"
 								onChangeText={setEmail}
 								autoCorrect={false}
-								keyboardType='email-address'
+								keyboardType="email-address"
 							/>
 							<InputText
-								icon='lock'
-								placeholder='Senha'
+								icon="lock"
+								placeholder="Senha"
 								value={password}
 								onChangeText={setPassword}
 								secureTextEntry
 								onSubmitEditing={() => {
-									createAccount()
+									createAccount();
 								}}
 							/>
 							<BtnLogar onPress={createAccount}>
@@ -75,13 +84,11 @@ export function NewAccount() {
 							</BtnLogar>
 						</Content>
 					</Container>
-				</ScrollView>
+				</TouchableWithoutFeedback>
 			</KeyboardAvoidingView>
 			<BtnBackToLogin onPress={loginIn}>
 				<Icon name={'arrow-left'} color={'#00EB84'} size={18} />
-				<TextBtnNewAcount>
-					Voltar para o login
-				</TextBtnNewAcount>
+				<TextBtnNewAcount>Voltar para o login</TextBtnNewAcount>
 			</BtnBackToLogin>
 		</>
 	);
