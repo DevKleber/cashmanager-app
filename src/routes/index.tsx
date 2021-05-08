@@ -4,19 +4,13 @@ import {ActivityIndicator, View} from 'react-native';
 import AuthRoutes from './auth.routes';
 
 import AppRoutes from './app.routes';
-import {userIsLoggedin} from '../pages/Login/services';
+import {useAuth} from './../hooks/Auth';
 
 export function Routes() {
 	const loading = false;
-	const [user, setUser] = useState(false);
+	const {user} = useAuth();
+	console.log('rota user', user);
 
-	useEffect(() => {
-		// não vai ter isso.
-		// fazer uma variavel const user = contexto
-		userIsLoggedin().then(res => {
-			setUser(res);
-		});
-	}, []);
 
 	if (loading) {
 		return (

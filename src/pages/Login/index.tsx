@@ -1,19 +1,15 @@
 import React, {useState} from 'react';
 import {
 	Image,
-	View,
 	KeyboardAvoidingView,
 	ScrollView,
 	Platform,
-	TextInput,
-	Alert,
 	StyleSheet,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import {Icon} from '../../components/elements/Icon';
 import {InputText} from '../../components/elements/Input';
-import {LoginIn} from './services';
 
 import {
 	BtnLogar,
@@ -26,22 +22,19 @@ import {
 	BtnNewAcount,
 	TextBtnNewAcount,
 } from './style';
+import {useAuth} from './../../hooks/Auth';
+
 
 export function Login() {
 	const navigate = useNavigation();
+	const {loginIn} = useAuth();
+	
 	const [email, setEmail] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
 
-	function signUp() {
-		navigate.navigate('SignUp');
-	}
-	function handleLogin() {
+	async function handleLogin() {
 		console.log({email, password})
-		LoginIn({email, password});
-		
-
-		// chamar o context user e mudar o status para logado.
-		//assim o arquivo rota irá importar o caminho certo.
+		await loginIn({email, password});
 	}
 
 	return (
@@ -82,7 +75,7 @@ export function Login() {
 								</TextForgotPass>
 							</ForgotPass>
 						</Content>
-						<BtnNewAcount onPress={signUp}>
+						<BtnNewAcount onPress={() => navigate.navigate('SignUp')}>
 							<Icon
 								name={'exit-to-app'}
 								color={'#00EB84'}

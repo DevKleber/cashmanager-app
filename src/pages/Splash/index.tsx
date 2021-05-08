@@ -3,20 +3,12 @@ import React, {useEffect} from 'react';
 import {Image} from 'react-native';
 import {StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {userIsLoggedin} from './../Login/services';
 
 export function Splash() {
 	const navigation = useNavigation();
 
 	useEffect(() => {
-		userIsLoggedin().then(res => {
-			if (!res) {
-				navigation.navigate('SignIn');
-			} else {
-				navigation.navigate('Dashboard');
-			}
-		});
-		userIsLoggedin();
+		
 	}, []);
 
 	return (
