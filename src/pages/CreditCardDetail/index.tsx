@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { api } from '../../services/api';
 import { Icon } from '../../components/elements/Icon';
-import Logo from './../../../assets/img/masterCard.svg';
+// import Logo from './../../../assets/img/masterCard.svg';
 import { 
     Content, 
     Title, 
@@ -44,7 +44,7 @@ export function CreditCardDetail() {
             <ContentScrollView>
                     <Card style={style.boxShadow} >
                         <Header>
-                            <Logo />
+                            {/* <Logo /> */}
                             <Title>Nubanck</Title>
                         </Header>
                         <Content>
@@ -64,7 +64,7 @@ export function CreditCardDetail() {
                                 <ItemTextDescription>Shoptime Mkt Place Limitado</ItemTextDescription>
                             </ItemContent>
                             <ItemPrice>
-                                <Logo />
+                                {/* <Logo /> */}
                             </ItemPrice>
 
                         </ItemList>

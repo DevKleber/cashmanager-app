@@ -22,6 +22,7 @@ interface AuthContextData {
     user: boolean;
     loginIn: (data: LoginProps) => Promise<void>;
     signOut(): void;
+    createNewAccount(): void;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -59,6 +60,18 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
         setData({access_token, me})
     }
+    async function createNewAccount(form: any) {
+        try {
+            const { data } = await  api.post('/auth/newaccount', form);
+            api.defaults.headers.authorization = `Bearer ${data.access_token}`;
+            saveUser(data);
+            
+        } catch (e) {
+            Alert.alert("Usuário e senha não conferem!");
+        }
+
+        
+    }
 
     async function loginIn(form: LoginProps) {
         try {
@@ -72,7 +85,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
 
     return (
-        <AuthContext.Provider value={{ user: data.me, loginIn, signOut }}>
+        <AuthContext.Provider value={{ user: data.me, loginIn, signOut, createNewAccount }}>
             { children}
         </AuthContext.Provider>
     );

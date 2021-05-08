@@ -1,11 +1,13 @@
+import { Platform } from 'react-native';
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
     display: flex;
     flex: 1;
     align-items: center;
-    padding-top: 14px;
     background-color: #F5F6FC;
+
+    padding: 0 40px ${Platform.OS === 'android' ? 200 : 40}px;
 `;
 
 export const Title = styled.Text`
@@ -19,7 +21,7 @@ export const Content = styled.View`
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding: 40px 40px;
+    /* padding: 40px 40px; */
 `;
 
 export const BtnLogar = styled.TouchableOpacity`
