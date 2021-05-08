@@ -27,8 +27,9 @@ export function NewAccount() {
 	}
 
 	async function createAccount() {
-		console.log({ email, password })
-		await createNewAccount({ email, password  });
+		console.log({ email, password, name })
+		await createNewAccount({ email, password, name });
+
 	}
 
 	return (
