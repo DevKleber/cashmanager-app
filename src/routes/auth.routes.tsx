@@ -11,7 +11,7 @@ export default function AuthRoutes() {
 	return (
 		<Auth.Navigator
 			screenOptions={{
-				headerShown: true,
+				headerShown: false,
 				cardStyle: {backgroundColor: '#fff'},
 			}}>
 			<Auth.Screen name="SignIn" component={Login} />

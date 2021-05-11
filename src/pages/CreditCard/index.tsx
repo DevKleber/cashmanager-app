@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { api } from '../../services/api';
+import { useNavigation } from '@react-navigation/core';
+import { CreditCard } from './services';
+import { getCreditCards, deleteCard } from './services';
+import { Image } from 'react-native';
 import { Icon } from '../../components/elements/Icon';
-import Logo from './../../../assets/img/masterCard.svg';
 import { 
     Content, 
     Title, 
@@ -12,36 +14,58 @@ import {
     Card,
     Container,
     ContentScrollView,
+    BtnNewCard,
+    TextAdd,
+    Actions
 } from './style';
 
-export function CreditCard() {
-    const [creditCard, setCreditCard] = useState<any[]>([]);
+export function CreditCardList() {
+    const navigate = useNavigation();
 
-    async function getCreditCards() {
-        // const cards = await api.get('/credit-card');
-        setCreditCard([1, 2, 7, 3, 4, 5])
+    const [creditCard, setCreditCard] = useState<CreditCard[]>([]);
+
+    async function creditCards() {
+        const cards = await getCreditCards();
+        setCreditCard(cards)
+    }
+
+    async function deleteCreditCard(item: CreditCard) {
+        const cards = await deleteCard(item.id);
+        creditCard.splice(creditCard.indexOf(item), 1);
+        const copyCreditCard = creditCard.splice(creditCard.indexOf(item), 1);
+        setCreditCard(copyCreditCard)
     }
 
     useEffect(() => {
-        getCreditCards();
+        creditCards();
     }, []);
+
     return (
         <Container>
             <ContentScrollView>
                 {creditCard.map((item: any) => (
-                    <Card style={style.boxShadow} key={item}>
+                    <Card style={style.boxShadow} key={item}  onPress={() => navigate.navigate('CreditCardDetail')}>
                         <Header>
-                            <Logo />
-                            <Title>Nubanck</Title>
+                            <Image
+                                source={require('./../../assets/img/card.png')}
+                            />
+                            <Title>{item.name}</Title>
+                            <Actions>
+                                <Icon name="delete" onPress={() => deleteCreditCard(item)} />
+                                <Icon name="edit" onPress={() => navigate.navigate('CreditCardUpdate')} />
+                            </Actions>
                         </Header>
                         <Content>
-                            <Text>Valor da fatura: <TextValue>R$ 365,25</TextValue></Text>
-                            <Text>Fecha: <TextLighter>10</TextLighter></Text>
-                            <Text>Vencimento: <TextLighter>15</TextLighter></Text>
-
+                            <Text>Valor da fatura: <TextValue>R$ {item.total}</TextValue></Text>
+                            <Text>Fecha: <TextLighter>{item.closing_day}</TextLighter></Text>
+                            <Text>Vencimento: <TextLighter>{item.due_day}</TextLighter></Text>
                         </Content>
                     </Card>
                 ))}
+                <BtnNewCard style={style.boxShadow} onPress={() => navigate.navigate('CreditCardInsert')}>
+                    <Icon name="add-circle"/>
+                    <TextAdd>Adicionar novo cartão</TextAdd>
+                </BtnNewCard>
             </ContentScrollView>
         </Container>
     )
