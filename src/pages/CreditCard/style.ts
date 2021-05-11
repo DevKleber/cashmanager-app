@@ -1,7 +1,6 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-    display: flex;
     flex: 1;
     width: 100%;
     align-items: center;
@@ -10,7 +9,6 @@ export const Container = styled.View`
 `;
 
 export const Card = styled.TouchableOpacity`
-    display: flex;
     width: 100%;
     flex-direction: column;
     padding: 15px 20px;
@@ -20,7 +18,6 @@ export const Card = styled.TouchableOpacity`
 `;
 
 export const Header = styled.View`
-    display: flex;
     flex-direction: row;
     align-items: center;
     flex-direction: row;
@@ -56,7 +53,6 @@ export const TextAdd = styled.Text`
 `;
 
 export const Title = styled.Text`
-    display: flex;
     margin-left: 10px;
     font-size: 16px;
     color: #666666;
@@ -65,16 +61,13 @@ export const Title = styled.Text`
 
 export const ContentScrollView = styled.ScrollView`
     width: 100%;
-    display: flex;
     flex: 1;
     padding: 0px 25px;
     margin-top: 20px;
 `;
 
 export const BtnNewCard = styled.TouchableOpacity`
-    width: 100%;
     padding: 10px 15px;
-    /* margin-top: 20px; */
     flex-direction: row;
     align-items: center;
     background-color: #FFFFFF;
@@ -82,3 +75,9 @@ export const BtnNewCard = styled.TouchableOpacity`
     margin-bottom: 20px;
 `;
 
+
+export const Actions = styled.View`
+    flex: 1;
+    flex-direction: row-reverse;
+    align-items: flex-end;
+`;

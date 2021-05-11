@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/core';
+import { CreditCard } from './services';
+import { getCreditCards, deleteCard } from './services';
+import { Image } from 'react-native';
 import { Icon } from '../../components/elements/Icon';
 import { 
     Content, 
@@ -11,13 +15,9 @@ import {
     Container,
     ContentScrollView,
     BtnNewCard,
-    TextAdd
+    TextAdd,
+    Actions
 } from './style';
-import { Image } from 'react-native';
-import { CreditCard } from './services';
-import { getCreditCards } from './services';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/core';
 
 export function CreditCardList() {
     const navigate = useNavigation();
@@ -29,13 +29,14 @@ export function CreditCardList() {
         setCreditCard(cards)
     }
 
-    async function clearAllData() {
-        const keys = await AsyncStorage.getAllKeys();
-        await AsyncStorage.multiRemove(keys);
+    async function deleteCreditCard(item: CreditCard) {
+        const cards = await deleteCard(item.id);
+        creditCard.splice(creditCard.indexOf(item), 1);
+        const copyCreditCard = creditCard.splice(creditCard.indexOf(item), 1);
+        setCreditCard(copyCreditCard)
     }
 
     useEffect(() => {
-        // clearAllData();
         creditCards();
     }, []);
 
@@ -45,10 +46,14 @@ export function CreditCardList() {
                 {creditCard.map((item: any) => (
                     <Card style={style.boxShadow} key={item}  onPress={() => navigate.navigate('CreditCardDetail')}>
                         <Header>
-                        <Image
-							source={require('./../../assets/img/card.png')}
-						/>
+                            <Image
+                                source={require('./../../assets/img/card.png')}
+                            />
                             <Title>{item.name}</Title>
+                            <Actions>
+                                <Icon name="delete" onPress={() => deleteCreditCard(item)} />
+                                <Icon name="edit" onPress={() => navigate.navigate('CreditCardUpdate')} />
+                            </Actions>
                         </Header>
                         <Content>
                             <Text>Valor da fatura: <TextValue>R$ {item.total}</TextValue></Text>

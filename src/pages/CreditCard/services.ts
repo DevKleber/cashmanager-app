@@ -17,6 +17,19 @@ export async function getCreditCardById(id: number)
     return data;
 }
 
+export async function deleteCard(id: number)
+{
+    const {data} = await api.delete(`/credit-card/${id}`);
+    return data;
+}
+
+
+export async function update(form: any)
+{
+    const {data} = await api.put(`/credit-card/${form.id}`, form);
+    return data;
+}
+
 export async function save(form: any)
 {
     const {data} = await api.post(`/credit-card`, form);
