@@ -9,7 +9,7 @@ export const Container = styled.View`
     background-color: #F5F6FC;
 `;
 
-export const Card = styled.View`
+export const Card = styled.TouchableOpacity`
     display: flex;
     width: 100%;
     flex-direction: column;

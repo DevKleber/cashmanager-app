@@ -43,7 +43,7 @@ export function CreditCardList() {
         <Container>
             <ContentScrollView>
                 {creditCard.map((item: any) => (
-                    <Card style={style.boxShadow} key={item}>
+                    <Card style={style.boxShadow} key={item}  onPress={() => navigate.navigate('CreditCardDetail')}>
                         <Header>
                         <Image
 							source={require('./../../assets/img/card.png')}

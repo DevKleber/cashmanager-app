@@ -15,6 +15,5 @@ export interface CreditCard {
 export async function getCreditCardById(id: number)
 {
     const {data} = await api.get(`/credit-card/${id}`);
-    console.log(data);
     return data;
 }
