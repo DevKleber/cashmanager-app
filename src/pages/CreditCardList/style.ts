@@ -48,6 +48,13 @@ export const Text = styled.Text`
     font-weight: bold;
 `;
 
+export const TextAdd = styled.Text`
+    color: #666666;
+    font-weight: bold;
+    font-size: 17px;
+    margin-left: 10px;
+`;
+
 export const Title = styled.Text`
     display: flex;
     margin-left: 10px;
@@ -62,5 +69,15 @@ export const ContentScrollView = styled.ScrollView`
     flex: 1;
     padding: 0px 25px;
     margin-top: 20px;
+`;
+
+export const BtnNewCard = styled.TouchableOpacity`
+    width: 100%;
+    padding: 10px 15px;
+    margin-top: 20px;
+    flex-direction: row;
+    align-items: center;
+    background-color: #FFFFFF;
+    border-radius: 15px;
 `;
 

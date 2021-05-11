@@ -8,8 +8,8 @@ import {useAuth} from './../hooks/Auth';
 
 export function Routes() {
 	const loading = false;
-	// const {user} = useAuth();
-	const user = true;
+	const {user} = useAuth();
+	// const user = true;
 
 	if (loading) {
 		return (

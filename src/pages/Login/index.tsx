@@ -34,7 +34,6 @@ export function Login() {
 	const [password, setPassword] = useState<string>('');
 
 	async function handleLogin() {
-		console.log({email, password});
 		await loginIn({email, password});
 	}
 
