@@ -21,3 +21,9 @@ export const BoxIcon = styled.View`
 export const Input = styled.TextInput`
 
 `;
+
+export const TextPreFixer = styled.Text`
+    font-size: 18px;
+    font-weight: bold;
+    color: #989898;
+`;
