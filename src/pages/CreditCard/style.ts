@@ -74,10 +74,11 @@ export const ContentScrollView = styled.ScrollView`
 export const BtnNewCard = styled.TouchableOpacity`
     width: 100%;
     padding: 10px 15px;
-    margin-top: 20px;
+    /* margin-top: 20px; */
     flex-direction: row;
     align-items: center;
     background-color: #FFFFFF;
     border-radius: 15px;
+    margin-bottom: 20px;
 `;
 

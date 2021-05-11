@@ -14,7 +14,7 @@ import {
     TextAdd
 } from './style';
 import { Image } from 'react-native';
-import { CreditCard } from '../CreditCardDetail/services';
+import { CreditCard } from './services';
 import { getCreditCards } from './services';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/core';
@@ -57,7 +57,7 @@ export function CreditCardList() {
                         </Content>
                     </Card>
                 ))}
-                <BtnNewCard style={style.boxShadow} onPress={() => navigate.navigate('SignUp')}>
+                <BtnNewCard style={style.boxShadow} onPress={() => navigate.navigate('CreditCardInsert')}>
                     <Icon name="add-circle"/>
                     <TextAdd>Adicionar novo cartão</TextAdd>
                 </BtnNewCard>

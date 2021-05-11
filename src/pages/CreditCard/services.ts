@@ -1,5 +1,4 @@
 import { api } from "../../services/api";
-
 export interface CreditCard {
     id: number,
     name: string,
@@ -15,5 +14,18 @@ export interface CreditCard {
 export async function getCreditCardById(id: number)
 {
     const {data} = await api.get(`/credit-card/${id}`);
+    return data;
+}
+
+export async function save(form: any)
+{
+    const {data} = await api.post(`/credit-card`, form);
+    return data;
+}
+
+export async function getCreditCards()
+{
+    const {data} = await api.get(`/credit-card`);
+    console.log(data);
     return data;
 }

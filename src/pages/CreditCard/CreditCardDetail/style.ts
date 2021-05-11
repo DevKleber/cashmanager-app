@@ -59,7 +59,6 @@ export const Text = styled.Text`
 `;
 
 export const Title = styled.Text`
-    display: flex;
     margin-left: 10px;
     font-size: 16px;
     color: #666666;
@@ -93,7 +92,6 @@ export const ItemIcon = styled.View`
 `;
 
 export const ItemContent = styled.View`
-    display: flex;
     flex: 1;
     flex-direction: column;
     justify-content: center;

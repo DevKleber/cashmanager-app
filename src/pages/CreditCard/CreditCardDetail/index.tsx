@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Icon } from '../../components/elements/Icon';
+import { Icon } from '../../../components/elements/Icon';
 import { format } from 'date-fns'
 import { 
     Content, 
@@ -26,7 +26,7 @@ import {
     RowHr
 } from './style';
 import { Image, View } from 'react-native';
-import { getCreditCardById, CreditCard } from './services';
+import { getCreditCardById, CreditCard } from '../services';
 
 export function CreditCardDetail() {
     const [creditCard, setCreditCard] = useState<CreditCard>({} as CreditCard);
@@ -54,7 +54,7 @@ export function CreditCardDetail() {
                     <Card style={style.boxShadow} >
                         <Header>
                         <Image
-							source={require('./../../assets/img/card.png')}
+							source={require('./../../../assets/img/card.png')}
 						/>
                             <Title>{creditCard.name}</Title>
                         </Header>
