@@ -24,5 +24,5 @@ export function Routes() {
 		);
 	}
 
-	return user ? <AppRoutes /> : <AuthRoutes />;
+	return !user ? <AppRoutes /> : <AuthRoutes />;
 }
