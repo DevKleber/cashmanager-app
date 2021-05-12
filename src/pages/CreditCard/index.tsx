@@ -32,7 +32,7 @@ export function CreditCardList() {
     async function deleteCreditCard(item: CreditCard) {
         const cards = await deleteCard(item.id);
         creditCard.splice(creditCard.indexOf(item), 1);
-        const copyCreditCard = creditCard.splice(creditCard.indexOf(item), 1);
+        const copyCreditCard = [...creditCard];
         setCreditCard(copyCreditCard)
     }
 
