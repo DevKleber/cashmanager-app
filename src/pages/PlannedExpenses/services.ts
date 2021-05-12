@@ -6,8 +6,8 @@ export async function save(form: any)
     return data;
 }
 
-export async function getCategories()
+export async function getPlannedExpenses()
 {
-    const {data} = await api.get(`/categories`);
+    const {data} = await api.get(`/planned-expenses`);
     return data;
 }

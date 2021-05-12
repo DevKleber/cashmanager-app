@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/core';
 import { CreditCard } from './services';
 import { getCreditCards, deleteCard } from './services';
 import { Image } from 'react-native';
-import { Icon } from '../../components/elements/Icon';
+import { IconText } from '../../components/elements/Icon';
 import { 
     Content, 
     Title, 
@@ -44,15 +44,15 @@ export function CreditCardList() {
         <Container>
             <ContentScrollView>
                 {creditCard.map((item: any) => (
-                    <Card style={style.boxShadow} key={item}  onPress={() => navigate.navigate('CreditCardDetail')}>
+                    <Card style={style.boxShadow} key={item}  onPress={() => navigate.navigate('CreditCardDetail', item)}>
                         <Header>
                             <Image
                                 source={require('./../../assets/img/card.png')}
                             />
                             <Title>{item.name}</Title>
                             <Actions>
-                                <Icon name="delete" onPress={() => deleteCreditCard(item)} />
-                                <Icon name="edit" onPress={() => navigate.navigate('CreditCardUpdate')} />
+                                <IconText name="delete" onPress={() => deleteCreditCard(item)} />
+                                <IconText name="edit" onPress={() => navigate.navigate('CreditCardUpdate', item)} />
                             </Actions>
                         </Header>
                         <Content>
@@ -63,7 +63,7 @@ export function CreditCardList() {
                     </Card>
                 ))}
                 <BtnNewCard style={style.boxShadow} onPress={() => navigate.navigate('CreditCardInsert')}>
-                    <Icon name="add-circle"/>
+                    <IconText name="add-circle"/>
                     <TextAdd>Adicionar novo cartão</TextAdd>
                 </BtnNewCard>
             </ContentScrollView>

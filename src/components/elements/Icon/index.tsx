@@ -1,11 +1,9 @@
 import React from 'react';
-import { Icon as IconText } from 'react-native-elements/dist/icons/Icon';
+import Icon   from 'react-native-vector-icons/MaterialIcons';
 
-export function Icon(props: any) {
+export function IconText(props: any) {
 
     return (
-        <IconText {...props} color = {props.color ?? "#666360"}/>
+        <Icon {...props} color = {props.color ?? "#666360"} size={props.size ?? 24}/>
     );
-
-
 }

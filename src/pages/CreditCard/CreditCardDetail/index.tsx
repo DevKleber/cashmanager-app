@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Icon } from '../../../components/elements/Icon';
+import { IconText } from '../../../components/elements/Icon';
 import { format } from 'date-fns'
 import { 
     Content, 
@@ -27,12 +27,15 @@ import {
 } from './style';
 import { Image, View } from 'react-native';
 import { getCreditCardById, CreditCard } from '../services';
+import { useRoute } from '@react-navigation/core';
 
 export function CreditCardDetail() {
     const [creditCard, setCreditCard] = useState<CreditCard>({} as CreditCard);
+    const router = useRoute();
 
     async function getCreditCard() {
-        const dados = await getCreditCardById(1);
+        const { id }: any = router.params;
+        const dados = await getCreditCardById(id);
         setCreditCard(dados)
     }
 
@@ -46,9 +49,9 @@ export function CreditCardDetail() {
     return (
         <Container>
              <HeaderDate>
-                <Icon name="arrow-left" size={18} color='#666666'/>
+                <IconText name="arrow-left" size={18} color='#666666'/>
                 <TextHeaderDate>Abril</TextHeaderDate>
-                <Icon name="arrow-right" size={18} color="#666666"/>
+                <IconText name="arrow-right" size={18} color="#666666"/>
             </HeaderDate>
             <ContentScrollView>
                     <Card style={style.boxShadow} >
@@ -69,7 +72,7 @@ export function CreditCardDetail() {
                             <View key={item.id}>
                                 <ItemList >
                                     <ItemIcon>
-                                    <Icon name={item.icon}/>
+                                    <IconText name={item.icon}/>
                                     </ItemIcon>
                                     <ItemContent>
                                         <ItemTextTitle>{item.name}</ItemTextTitle>

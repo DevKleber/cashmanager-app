@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigation } from '@react-navigation/core';
+import { useNavigation, useRoute } from '@react-navigation/core';
 import { getCreditCardById, update } from '../services';
 import { InputText } from '../../../components/elements/Input';
 import { 
@@ -11,6 +11,7 @@ import {
 
 export function CreditCardUpdate() {
     const navigate = useNavigation();
+    const router = useRoute();
 
     const [id, setId] = useState<number>(0);
     const [name, setName] = useState<string>('');
@@ -23,7 +24,8 @@ export function CreditCardUpdate() {
     }
 
     async function getCreditCard() {
-        const dados = await getCreditCardById(1);
+        const { id }: any = router.params;
+        const dados = await getCreditCardById(id);
         setName(dados.name)
         setDueDay(dados.due_day)
         setClosingDay(dados.closing_day)

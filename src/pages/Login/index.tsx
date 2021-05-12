@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-import {Icon} from '../../components/elements/Icon';
+import {IconText} from '../../components/elements/Icon';
 import {InputText} from '../../components/elements/Input';
 
 import {
@@ -83,7 +83,7 @@ export function Login() {
 				</TouchableWithoutFeedback>
 			</KeyboardAvoidingView>
 			<BtnNewAcount onPress={() => navigate.navigate('SignUp')}>
-				<Icon name={'exit-to-app'} color={'#00EB84'} size={18} />
+				<IconText name={'exit-to-app'} color={'#00EB84'} size={18} />
 				<TextBtnNewAcount>Criar uma conta</TextBtnNewAcount>
 			</BtnNewAcount>
 		</>

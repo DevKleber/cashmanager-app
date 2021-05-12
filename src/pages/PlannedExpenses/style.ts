@@ -11,11 +11,11 @@ export const Container = styled.View`
 
 export const ContentTotal = styled.View`
     height: 100px;
-    align-items: center;
+    align-items: flex-start;
 	justify-content: flex-end;
-	flex-direction: row;
+	flex-direction: column;
     background-color: #fff;
-	padding: 0px 25px;
+	padding: 0px 0px;
 	
 `;
 
@@ -49,10 +49,12 @@ export const ContentTitle = styled.View`
 `;
 
 export const ContentPercent = styled.View`
-    width: 90px;
+    width: 85px;
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
+	background-color: #E8E9EF;
+	border-radius: 15px;
 `;
 
 export const Text = styled.Text`
@@ -65,4 +67,36 @@ export const Text = styled.Text`
 export const RowHr = styled.View`
     border-width: 0.5px;
     border-color: #D7D7D7;
+`;
+
+export const BarPorcent = styled.View`
+	width: 100%;
+	background-color: #E8E9EF;
+	height: 11px;
+	border-radius: 4px;
+`;
+
+export const ViewPorcent = styled.View`
+	flex-direction: row-reverse;
+	width: 100%;
+`;
+
+export const Porcent = styled.View`
+	position: absolute;
+	width: 90%;
+	background-color: #00eb84;
+	height: 11px;
+	border-radius: 4px;
+`;
+export const TextPercent = styled.Text`
+	background-color: #E8E9EF;
+	padding: 5px;
+	font-weight: bold;
+	font-size: 18px;
+	color: #666666;
+`;
+export const Input = styled.TextInput`
+	width: 40px;
+	background-color: #E8E9EF;
+	
 `;

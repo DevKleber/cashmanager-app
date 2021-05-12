@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/core';
 import { save } from '../CreditCard/services';
-import { Icon } from '../../components/elements/Icon';
-import { InputText } from '../../components/elements/Input';
+import { IconText } from '../../components/elements/Icon';
 import { 
     Container,
     ContentScrollView,
@@ -12,31 +11,48 @@ import {
     ContentTitle,
     ContentPercent,
     ContentTotal,
-    RowHr
+    RowHr,
+    ViewPorcent,
+    BarPorcent,
+    Porcent,
+    Input,
+    TextPercent
 } from './style';
-import { getCategories } from './services';
+import { getPlannedExpenses } from './services';
 
 export function PlannedExpenses() {
     const navigate = useNavigation();
 
-    const [percent, setPercent] = useState<string>('');
-    const [category, setCategory] = useState<number>(0);
     const [categories, setCategories] = useState<any[]>([]);
 
-    async function savePlannedExpenses() {
-        const dados = await save({value_percent: percent, id_category: category});
-        navigate.navigate('CreditCardList')
+    async function savePlannedExpenses(item: any) {
+        console.log(item);
+        // const dados = await save({value_percent: percent, id_category: category});
+        // navigate.navigate('CreditCardList')
     }
     async function listCategories() {
-        const dados = await getCategories();
+        const dados = await getPlannedExpenses();
         setCategories(dados);
+        calcPorcent();
+    }
+
+    function calcPorcent() {
+        console.log(categories);
     }
 
     useEffect(() => {
         listCategories();
         setCategories([1])
     }, []);
-
+    // preFixer="%"
+    // value={percent[index]}
+    // onChangeText={setPercent}
+    // autoCorrect={false}
+    // maxLength = {3}
+    // keyboardType="numeric"
+    // onSubmitEditing={() => {
+    //     savePlannedExpenses();
+    // }}
     return (
         <Container>
             <ContentScrollView>
@@ -44,20 +60,16 @@ export function PlannedExpenses() {
                 <>
                     <Content key={item.id}>
                         <ContentTitle>
-                            <Icon name={item.icon}/>
+                            <IconText name={item.icon}/>
                             <Text>{item.name}</Text>
                         </ContentTitle>
                         <ContentPercent>
-                            <InputText
-                                preFixer="%"
-                                value={percent}
-                                onChangeText={setPercent}
-                                autoCorrect={false}
-                                maxLength = {3}
+                            <TextPercent>%</TextPercent>
+                            <Input
+                                value={item.value_percent ?? 0}
                                 keyboardType="numeric"
-                                onSubmitEditing={() => {
-                                    savePlannedExpenses();
-                                }}
+                                maxLength = {3}
+                                onChangeText={() => savePlannedExpenses(item)}
                             />
                         </ContentPercent>
                     </Content>
@@ -65,7 +77,12 @@ export function PlannedExpenses() {
                 </>
             ))}
             <ContentTotal>
-                <TextTotal>80%</TextTotal>
+                <BarPorcent>
+                    <Porcent></Porcent>
+                </BarPorcent>
+                <ViewPorcent>
+                    <TextTotal>80%</TextTotal>
+                </ViewPorcent>
             </ContentTotal>
             </ContentScrollView>
         </Container>
