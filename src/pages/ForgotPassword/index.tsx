@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Image} from 'react-native';
-import {Icon} from './../../components/elements/Icon';
+import {IconText} from './../../components/elements/Icon';
 import {InputText} from './../../components/elements/Input';
 import {RecoveryPassword} from './services';
 import {
@@ -36,7 +36,7 @@ export function ForgotPassword() {
 				</BtnEnviar>
 			</Content>
 			<BtnNewAcount>
-				<Icon name={'arrow-left'} color={'#00EB84'} size={18} />
+				<IconText name={'arrow-left'} color={'#00EB84'} size={18} />
 				<TextBtnBackToLogin onPress={forgotPassword}>
 					Voltar para o login
 				</TextBtnBackToLogin>
