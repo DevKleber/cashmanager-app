@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/core';
-import { save } from '../CreditCard/services';
+import { update } from './services';
 import { IconText } from '../../components/elements/Icon';
 import { 
     Container,
@@ -16,10 +16,11 @@ import {
     BarPorcent,
     Porcent,
     Input,
-    TextPercent
+    TextPercent,
+    CategoriesView
 } from './style';
 import { getPlannedExpenses } from './services';
-import { View } from 'react-native';
+import { Alert, View } from 'react-native';
 
 export function PlannedExpenses() {
     const navigate = useNavigation();
@@ -29,11 +30,20 @@ export function PlannedExpenses() {
     async function savePlannedExpenses(value: any, item: any) {
         categories[categories.indexOf(item)].value_percent = value;
         const copyCategories = [...categories];
-        setCategories(copyCategories)
 
-        // const dados = await save(copyCategories);
-        // navigate.navigate('CreditCardList')
-        calcPorcent(copyCategories);
+        const isValid = await calcPorcent(copyCategories);
+
+        if (!isValid) {
+            calcPorcent(categories);
+            Alert.alert("Valor total passou de 100%");
+            return;
+        }
+
+        setCategories(copyCategories)
+        
+
+        const dados = await update(item);
+
 
     }
     async function listCategories() {
@@ -42,12 +52,22 @@ export function PlannedExpenses() {
         calcPorcent(dados);
     }
 
-    function calcPorcent(dados: any[] = []) {
-        const totalPercent = dados.reduce((accumulator, currentValue) => {
-            return parseInt(accumulator.value_percent) + parseInt(currentValue.value_percent != null ? currentValue.value_percent : 0);
-        })
+    async function calcPorcent(dados: any[] = []) {
+        let total = 0;
 
-       setTotal(isNaN(totalPercent) ? 0 : totalPercent);
+        for(let item of dados) {
+            if (item.value_percent !== null && item.value_percent !== '') {
+                total += parseInt(item.value_percent);
+            }
+        }
+
+        if (total > 100) {
+            return false;
+        }
+
+       setTotal(isNaN(total) ? 0 : total);
+
+       return true;
     }
 
     useEffect(() => {
@@ -56,34 +76,36 @@ export function PlannedExpenses() {
     return (
         <Container>
             <ContentScrollView>
-            {categories?.map((item: any, index: number) =>(
-                <View key={index}>
-                    <Content >
-                        <ContentTitle>
-                            <IconText name={item.icon}/>
-                            <Text>{item.name}</Text>
-                        </ContentTitle>
-                        <ContentPercent>
-                            <TextPercent>%</TextPercent>
-                            <Input
-                                value={item.value_percent ? `${item.value_percent}` : ""}
-                                keyboardType="numeric"
-                                maxLength = {3}
-                                onChangeText={(text) => savePlannedExpenses(text, item)}
-                            />
-                        </ContentPercent>
-                    </Content>
-                    <RowHr/>
+                <View>
+                    {categories?.map((item: any, index: number) =>(
+                        <CategoriesView key={index}>
+                            <Content >
+                                <ContentTitle>
+                                    <IconText name={item.icon}/>
+                                    <Text>{item.name}</Text>
+                                </ContentTitle>
+                                <ContentPercent>
+                                    <TextPercent>%</TextPercent>
+                                    <Input
+                                        value={item.value_percent ? `${item.value_percent}` : ""}
+                                        keyboardType="numeric"
+                                        maxLength = {3}
+                                        onChangeText={(text) => savePlannedExpenses(text, item)}
+                                    />
+                                </ContentPercent>
+                            </Content>
+                            <RowHr/>
+                        </CategoriesView>
+                    ))}
                 </View>
-            ))}
-            <ContentTotal>
-                <BarPorcent>
-                    <Porcent style={{width: `${total}%`}}></Porcent>
-                </BarPorcent>
-                <ViewPorcent style={{width: `${(total + 10)}%`}}>
-                    <TextTotal>{total}%</TextTotal>
-                </ViewPorcent>
-            </ContentTotal>
+                <ContentTotal>
+                    <BarPorcent>
+                        <Porcent style={{width: `${total}%`}}></Porcent>
+                    </BarPorcent>
+                    <ViewPorcent style={{width: `${total + (total > 85 ? 0: 15)}%`}}>
+                        <TextTotal>{total}%</TextTotal>
+                    </ViewPorcent>
+                </ContentTotal>
             </ContentScrollView>
         </Container>
     )

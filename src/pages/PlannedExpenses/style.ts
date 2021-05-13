@@ -10,13 +10,11 @@ export const Container = styled.View`
 `;
 
 export const ContentTotal = styled.View`
-    height: 100px;
-    align-items: flex-start;
-	justify-content: flex-end;
+	flex: 1;
 	flex-direction: column;
-    background-color: #fff;
-	padding: 0px 0px;
-	
+`;
+
+export const CategoriesView = styled.View`
 `;
 
 export const TextTotal = styled.Text`
@@ -88,6 +86,7 @@ export const Porcent = styled.View`
 	height: 11px;
 	border-radius: 4px;
 `;
+
 export const TextPercent = styled.Text`
 	background-color: #E8E9EF;
 	padding: 5px;
