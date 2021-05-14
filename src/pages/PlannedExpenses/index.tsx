@@ -17,6 +17,7 @@ import {
     Porcent,
     Input,
     TextPercent,
+    ViewContent,
     CategoriesView
 } from './style';
 import { getPlannedExpenses } from './services';
@@ -34,9 +35,7 @@ export function PlannedExpenses() {
         const isValid = await calcPorcent(copyCategories);
 
         if (!isValid) {
-            calcPorcent(categories);
             Alert.alert("Valor total passou de 100%");
-            return;
         }
 
         setCategories(copyCategories)
@@ -61,12 +60,12 @@ export function PlannedExpenses() {
             }
         }
 
+        
+        setTotal(isNaN(total) ? 0 : total);
+        
         if (total > 100) {
             return false;
         }
-
-       setTotal(isNaN(total) ? 0 : total);
-
        return true;
     }
 
@@ -75,38 +74,40 @@ export function PlannedExpenses() {
     }, []);
     return (
         <Container>
-            <ContentScrollView>
-                <View>
-                    {categories?.map((item: any, index: number) =>(
-                        <CategoriesView key={index}>
-                            <Content >
-                                <ContentTitle>
-                                    <IconText name={item.icon}/>
-                                    <Text>{item.name}</Text>
-                                </ContentTitle>
-                                <ContentPercent>
-                                    <TextPercent>%</TextPercent>
-                                    <Input
-                                        value={item.value_percent ? `${item.value_percent}` : ""}
-                                        keyboardType="numeric"
-                                        maxLength = {3}
-                                        onChangeText={(text) => savePlannedExpenses(text, item)}
-                                    />
-                                </ContentPercent>
-                            </Content>
-                            <RowHr/>
-                        </CategoriesView>
-                    ))}
-                </View>
+            <ViewContent>
+                <ContentScrollView>
+                    <View>
+                        {categories?.map((item: any, index: number) =>(
+                            <CategoriesView key={index}>
+                                <Content >
+                                    <ContentTitle>
+                                        <IconText name={item.icon}/>
+                                        <Text>{item.name}</Text>
+                                    </ContentTitle>
+                                    <ContentPercent>
+                                        <TextPercent>%</TextPercent>
+                                        <Input
+                                            value={item.value_percent ? `${item.value_percent}` : ""}
+                                            keyboardType="numeric"
+                                            maxLength = {3}
+                                            onChangeText={(text) => savePlannedExpenses(text, item)}
+                                        />
+                                    </ContentPercent>
+                                </Content>
+                                <RowHr/>
+                            </CategoriesView>
+                        ))}
+                    </View>
+                </ContentScrollView>
                 <ContentTotal>
                     <BarPorcent>
-                        <Porcent style={{width: `${total}%`}}></Porcent>
+                        <Porcent style={{width: `${total > 100 ? 100 : total}%`}}></Porcent>
                     </BarPorcent>
-                    <ViewPorcent style={{width: `${total + (total > 85 ? 0: 15)}%`}}>
+                    <ViewPorcent>
                         <TextTotal>{total}%</TextTotal>
                     </ViewPorcent>
                 </ContentTotal>
-            </ContentScrollView>
+            </ViewContent>
         </Container>
     )
 };
