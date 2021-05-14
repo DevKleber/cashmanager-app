@@ -11,7 +11,6 @@ export const Container = styled.View`
 
 export const ContentTotal = styled.View`
 	padding: 20px;
-	/* width: 100%; */
 	background-color: #fff;
 	border-radius: 15px;
 `;
