@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/core';
 import { CreditCard } from './services';
-import { getCreditCards, deleteCard } from './services';
 import { Image } from 'react-native';
 import { IconText } from '../../components/elements/Icon';
+import { getCreditCards, deleteCard } from './services';
 import { 
     Content, 
     Title, 
@@ -33,6 +33,7 @@ export function CreditCardList() {
         const cards = await deleteCard(item.id);
         creditCard.splice(creditCard.indexOf(item), 1);
         const copyCreditCard = [...creditCard];
+
         setCreditCard(copyCreditCard)
     }
 
@@ -43,8 +44,8 @@ export function CreditCardList() {
     return (
         <Container>
             <ContentScrollView>
-                {creditCard.map((item: any) => (
-                    <Card style={style.boxShadow} key={item}  onPress={() => navigate.navigate('CreditCardDetail', item)}>
+                {creditCard.map((item: any, index: number) => (
+                    <Card style={style.boxShadow} key={index}  onPress={() => navigate.navigate('CreditCardDetail', item)}>
                         <Header>
                             <Image
                                 source={require('./../../assets/img/card.png')}

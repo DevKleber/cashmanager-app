@@ -26,16 +26,18 @@ import {
     RowHr
 } from './style';
 import { Image, View } from 'react-native';
-import { getCreditCardById, CreditCard } from '../services';
+import { getCreditCardById, CreditCard, Month, getMonths } from '../services';
 import { useRoute } from '@react-navigation/core';
 
 export function CreditCardDetail() {
+    const [months, setMonths] = useState<Month[]>(getMonths());
+    const [month, setMonth] = useState<number>(0);
     const [creditCard, setCreditCard] = useState<CreditCard>({} as CreditCard);
     const router = useRoute();
 
     async function getCreditCard() {
         const { id }: any = router.params;
-        const dados = await getCreditCardById(id);
+        const dados = await getCreditCardById(id, month);
         setCreditCard(dados)
     }
 
@@ -43,15 +45,27 @@ export function CreditCardDetail() {
         return format(new Date(date), 'dd/MM')
     }
 
+    async function setMonthCurrent() {
+        const d = new Date();
+
+        setMonth(d.getMonth());
+    }
+
+    async function alterMonth(month: number) {
+        return setMonth(month);
+    }
+    
+
     useEffect(() => {
+        setMonthCurrent();
         getCreditCard();
     }, []);
     return (
         <Container>
              <HeaderDate>
-                <IconText name="arrow-left" size={18} color='#666666'/>
-                <TextHeaderDate>Abril</TextHeaderDate>
-                <IconText name="arrow-right" size={18} color="#666666"/>
+                <IconText name="arrow-left" size={18} color='#666666'onPress={() => {alterMonth(month > 0 ? month - 1 : 0).then(() => getCreditCard())}} />
+                <TextHeaderDate>{months[month].month}</TextHeaderDate>
+                <IconText name="arrow-right" size={18} color="#666666" onPress={() => {alterMonth(month < 11 ? month + 1 : 11).then(() => getCreditCard())}}/>
             </HeaderDate>
             <ContentScrollView>
                     <Card style={style.boxShadow} >
@@ -69,7 +83,7 @@ export function CreditCardDetail() {
                     </Card>
                     <CardInvoice style={style.boxShadowInvoice}>
                         {creditCard.items?.map((item: any, index: number) =>(
-                            <View key={item.id}>
+                            <View key={index} style={{paddingLeft: 20, paddingRight: 20}}>
                                 <ItemList >
                                     <ItemIcon>
                                     <IconText name={item.icon}/>

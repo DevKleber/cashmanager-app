@@ -11,9 +11,17 @@ export interface CreditCard {
     total: number
 }
 
-export async function getCreditCardById(id: number)
+export interface Month {
+    month: string,
+}
+
+export async function getCreditCardById(id: number, month: number)
 {
-    const {data} = await api.get(`/credit-card/${id}`);
+    const {data} = await api.get(`/credit-card/${id}`, {
+        params: {
+            month
+        }
+    });
     return data;
 }
 
@@ -41,4 +49,47 @@ export async function getCreditCards()
     const {data} = await api.get(`/credit-card`);
     console.log(data);
     return data;
+}
+
+export function getMonths(): Month[]
+{
+    return [
+        {
+            month: 'Janeiro'
+        },
+        {
+            month: 'Fevereiro',
+        },
+        {
+            month: 'Março',
+        },
+        {
+            month: 'Abril',
+        },
+        {
+            month: 'Maio',
+        },
+        {
+            month: 'Junho',
+        },
+        {
+            month: 'Julho',
+        },
+        {
+            month: 'Agosto',
+        },
+        {
+            month: 'Setembro',
+        },
+        {
+            month: 'Outubro',
+        },
+        {
+            month: 'Novembro',
+        },
+        {
+            month: 'Dezembro',
+        },
+
+    ]
 }

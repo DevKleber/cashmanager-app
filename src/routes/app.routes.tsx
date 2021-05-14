@@ -19,8 +19,8 @@ export default function AppRoutes() {
 				headerStyle: {backgroundColor: '#f5f6fc'},
 
 			}}>
-			<Stack.Screen name="PlannedExpenses" component={PlannedExpenses} options={{title: 'Planejamento'}}/>
 			<Stack.Screen name="CreditCardList" component={CreditCardList} options={{title: 'Cartão de credito'}}/>
+			<Stack.Screen name="PlannedExpenses" component={PlannedExpenses} options={{title: 'Planejamento'}}/>
 			<Stack.Screen name="CreditCardUpdate" component={CreditCardUpdate} options={{title: 'Cartão de credito'}}/>
 			<Stack.Screen name="CreditCardInsert" component={CreditCardInsert} options={{title: 'Cartão de credito'}}/>
 			<Stack.Screen name="CreditCardDetail" component={CreditCardDetail} options={{title: 'Cartão de credito'}}/>

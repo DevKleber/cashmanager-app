@@ -134,6 +134,6 @@ export const DatePrice = styled.Text`
 export const RowHr = styled.View`
     border-width: 0.5px;
     border-color: #D7D7D7;
-    width: 90%;
-    margin-left: 5%;
+    width: 100%;
+    /* margin-left: 5%; */
 `;
