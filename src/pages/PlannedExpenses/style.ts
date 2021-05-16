@@ -10,13 +10,18 @@ export const Container = styled.View`
 `;
 
 export const ContentTotal = styled.View`
-    height: 100px;
-    align-items: flex-start;
-	justify-content: flex-end;
-	flex-direction: column;
-    background-color: #fff;
-	padding: 0px 0px;
-	
+	padding: 20px;
+	background-color: #fff;
+	border-radius: 15px;
+`;
+
+export const CategoriesView = styled.View`
+`;
+
+export const ViewContent = styled.View`
+	background-color: #fff;
+	border-radius: 15px;
+    margin: 20px 0px;
 `;
 
 export const TextTotal = styled.Text`
@@ -26,10 +31,8 @@ export const TextTotal = styled.Text`
 `;
 
 export const ContentScrollView = styled.ScrollView`
-    width: 100%;
 	background-color: #fff;
     padding: 0px 25px;
-	border-radius: 15px;
     margin: 20px 0px;
 `;
 
@@ -74,11 +77,17 @@ export const BarPorcent = styled.View`
 	background-color: #E8E9EF;
 	height: 11px;
 	border-radius: 4px;
+	margin-bottom: 30px;
 `;
 
 export const ViewPorcent = styled.View`
-	flex-direction: row-reverse;
+	position: absolute;
 	width: 100%;
+	bottom: 10px;
+	margin: 0px 10%;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
 `;
 
 export const Porcent = styled.View`
@@ -88,6 +97,7 @@ export const Porcent = styled.View`
 	height: 11px;
 	border-radius: 4px;
 `;
+
 export const TextPercent = styled.Text`
 	background-color: #E8E9EF;
 	padding: 5px;

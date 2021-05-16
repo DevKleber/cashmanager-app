@@ -26,19 +26,19 @@ import {
     RowHr
 } from './style';
 import { Image, View } from 'react-native';
-import { getCreditCardById, CreditCard, Month, getMonths } from '../services';
+import { getAccountById, AccountProps, Month, getMonths } from '../services';
 import { useRoute } from '@react-navigation/core';
 
-export function CreditCardDetail() {
+export function AccountDetail() {
     const [months, setMonths] = useState<Month[]>(getMonths());
     const [month, setMonth] = useState<number>(0);
-    const [creditCard, setCreditCard] = useState<CreditCard>({} as CreditCard);
+    const [account, setAccount] = useState<AccountProps>({} as AccountProps);
     const router = useRoute();
 
     async function getCreditCard() {
         const { id }: any = router.params;
-        const dados = await getCreditCardById(id, month);
-        setCreditCard(dados)
+        const dados = await getAccountById(id, month);
+        setAccount(dados)
     }
 
     function formatDate(date: any) {
@@ -70,23 +70,21 @@ export function CreditCardDetail() {
             <ContentScrollView>
                     <Card style={style.boxShadow} >
                         <Header>
-                        <Image
-							source={require('./../../../assets/img/card.png')}
-						/>
-                            <Title>{creditCard.name}</Title>
+                        <Image style={{width: 30, height: 30}}
+                                source={require('./../../../assets/img/wallet.png')}
+                        />
+                            <Title>{account.description}</Title>
                         </Header>
                         <Content>
-                            <Text>Valor da fatura: <TextValue>R$ {creditCard.total}</TextValue></Text>
-                            <Text>Fecha: <TextLighter>{creditCard.closing_day}</TextLighter></Text>
-                            <Text>Vencimento: <TextLighter>{creditCard.due_day}</TextLighter></Text>
+                            <Text>Valor da fatura: <TextValue>R$ {account.current_balance}</TextValue></Text>
                         </Content>
                     </Card>
                     <CardInvoice style={style.boxShadowInvoice}>
-                        {creditCard.items?.map((item: any, index: number) =>(
+                        {account.items?.map((item: any, index: number) =>(
                             <View key={index} style={{paddingLeft: 20, paddingRight: 20}}>
                                 <ItemList >
                                     <ItemIcon>
-                                    <IconText name={item.icon}/>
+                                    <IconText name={item.is_income ? 'arrow-downward': 'arrow-upward'} color={item.is_income ? 'green' : 'red'}/>
                                     </ItemIcon>
                                     <ItemContent>
                                         <ItemTextTitle>{item.name}</ItemTextTitle>
@@ -98,7 +96,7 @@ export function CreditCardDetail() {
                                         <DatePrice>{formatDate(item.created_at)}</DatePrice>
                                     </ItemPrice>
                                 </ItemList>
-                                {creditCard.items.length > index + 1 ? <RowHr/> : null}
+                                {account.items.length > index + 1 ? <RowHr/> : null}
                             </View>
                         ))}
                     </CardInvoice>

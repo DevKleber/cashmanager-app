@@ -1,8 +1,8 @@
 import { api } from "../../services/api";
 
-export async function save(form: any)
+export async function update(form: any)
 {
-    const {data} = await api.post(`/planned-expenses`, form);
+    const {data} = await api.put(`/planned-expenses/${form.id}`, form);
     return data;
 }
 
