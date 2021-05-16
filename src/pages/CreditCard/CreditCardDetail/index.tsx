@@ -45,10 +45,10 @@ export function CreditCardDetail() {
         return format(new Date(date), 'dd/MM')
     }
 
-    async function setMonthCurrent() {
-        const d = new Date();
+    async function setCurrentMonth() {
+        const date = new Date();
 
-        setMonth(d.getMonth());
+        setMonth(date.getMonth());
     }
 
     async function alterMonth(month: number) {
@@ -57,7 +57,7 @@ export function CreditCardDetail() {
     
 
     useEffect(() => {
-        setMonthCurrent();
+        setCurrentMonth();
         getCreditCard();
     }, []);
     return (
