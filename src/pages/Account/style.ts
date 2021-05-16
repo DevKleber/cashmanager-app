@@ -43,6 +43,7 @@ export const TextLighter = styled.Text`
 export const Text = styled.Text`
     color: #666666;
     font-weight: bold;
+    font-size: 18px;
 `;
 
 export const TextAdd = styled.Text`

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigation, useRoute } from '@react-navigation/core';
-import { getAccountById, update } from '../services';
+import { useNavigation } from '@react-navigation/core';
+import { save } from '../services';
 import { InputText } from '../../../components/elements/Input';
 import { 
     Container,
@@ -9,33 +9,20 @@ import {
     BtnNewCard
 } from './style';
 
-export function AccountUpdate() {
+export function AccountInsert() {
     const navigate = useNavigation();
-    const router = useRoute();
 
-    const [id, setId] = useState<number>(0);
     const [description, setDescription] = useState<string>('');
-    const [banking, setBanking] = useState<number>(0);
+    const [banking, setBanking] = useState<string>('');
     const [currentBalance, setCurrentBalance] = useState<string>('');
 
-    async function updateAccount() {
-        const dados = await update({description, banking, current_balance: currentBalance, id});
-        navigate.navigate('AccountList')
+    async function saveAccount() {
+        const dados = await save({description, banking, current_balance: currentBalance}).then(() => {
+            navigate.navigate('AccountList')
+        });
     }
 
-    async function getAccount() {
-        const { id }: any = router.params;
-        const dados = await getAccountById(id);
-        console.log(dados);
-        setDescription(dados.description)
-        setBanking(dados.banking)
-        setCurrentBalance(dados.current_balance)
-        setId(dados.id)
-    }
-
-    useEffect(() => {
-        getAccount()
-    }, []);
+    useEffect(() => {}, []);
 
     return (
         <Container>
@@ -65,8 +52,8 @@ export function AccountUpdate() {
                     keyboardType="numeric"
 
                 />
-            <BtnNewCard onPress={updateAccount}>
-                <TextBtnNewCard>Alterar</TextBtnNewCard>
+            <BtnNewCard onPress={saveAccount}>
+                <TextBtnNewCard>Criar</TextBtnNewCard>
             </BtnNewCard>
             </ContentScrollView>
         </Container>

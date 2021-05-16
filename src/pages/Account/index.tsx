@@ -23,12 +23,12 @@ export function AccountList() {
 
     const [accounts, setAccounts] = useState<AccountProps[]>([]);
 
-    async function getAcconts() {
-        const accontsItems = await getAccounts();
-        setAccounts(accontsItems)
+    async function listAccounts() {
+        const accountsItems = await getAccounts();
+        setAccounts(accountsItems)
     }
 
-    async function removeAccont(item: AccountProps) {
+    async function removeAccount(item: AccountProps) {
         await deleteAccount(item.id);
         accounts.splice(accounts.indexOf(item), 1);
         const copyAcconts = [...accounts];
@@ -37,7 +37,7 @@ export function AccountList() {
     }
 
     useEffect(() => {
-        getAcconts();
+        listAccounts();
     }, []);
 
     return (
@@ -46,19 +46,17 @@ export function AccountList() {
                 {accounts.map((item: any, index: number) => (
                     <Card style={style.boxShadow} key={index}  onPress={() => navigate.navigate('AccountDetail', item)}>
                         <Header>
-                            <Image
-                                source={require('./../../assets/img/card.png')}
+                            <Image style={{width: 30, height: 30}}
+                                source={require('./../../assets/img/wallet.png')}
                             />
-                            <Title>{item.name}</Title>
+                            <Title>{item.description}</Title>
                             <Actions>
-                                <IconText name="delete" onPress={() => removeAccont(item)} />
+                                <IconText name="delete" onPress={() => removeAccount(item)} />
                                 <IconText name="edit" onPress={() => navigate.navigate('AccountUpdate', item)} />
                             </Actions>
                         </Header>
                         <Content>
-                            <Text>Valor da fatura: <TextValue>R$ {item.total}</TextValue></Text>
-                            <Text>Fecha: <TextLighter>{item.closing_day}</TextLighter></Text>
-                            <Text>Vencimento: <TextLighter>{item.due_day}</TextLighter></Text>
+                            <Text>Total: <TextLighter>R$ {item.current_balance}</TextLighter></Text>
                         </Content>
                     </Card>
                 ))}
