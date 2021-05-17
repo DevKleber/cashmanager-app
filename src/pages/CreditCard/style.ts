@@ -5,7 +5,7 @@ export const Container = styled.View`
 	width: 100%;
 	align-items: center;
 	flex-direction: column;
-	background-color: #f5f6fc;
+	background-color: #f0f2f5;
 `;
 
 export const Card = styled.TouchableOpacity`

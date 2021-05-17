@@ -9,7 +9,7 @@ export default function RoutesTransactions() {
 		<Stack.Navigator
 			screenOptions={{
 				headerShown: true,
-				headerStyle: {backgroundColor: '#f5f6fc'},
+				headerStyle: {backgroundColor: '#F0F2F5'},
 			}}>
 			<Stack.Screen
 				name="add"
