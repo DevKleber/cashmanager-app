@@ -3,6 +3,7 @@ import {useNavigation} from '@react-navigation/core';
 import {CreditCard} from './services';
 import {Image} from 'react-native';
 import {IconText} from '../../components/elements/Icon';
+
 import {getCreditCards, deleteCard} from './services';
 import {
 	Content,
@@ -59,10 +60,12 @@ export function CreditCardList() {
 							<Actions>
 								<IconText
 									name="delete"
+									size={15}
 									onPress={() => deleteCreditCard(item)}
 								/>
 								<IconText
 									name="edit"
+									size={15}
 									onPress={() =>
 										navigate.navigate(
 											'CreditCardUpdate',

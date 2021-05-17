@@ -2,9 +2,12 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import {Dashboard} from '../pages/Dashboard';
-import {CreditCardList} from '../pages/CreditCard';
 import {CustomTabBar} from '../components/customTabBar';
-import {PlannedExpenses} from '../pages/PlannedExpenses';
+
+import RoutesCreditCard from '../pages/CreditCard/routesCreditCard';
+import RoutesPlanned from '../pages/PlannedExpenses/routesPlanned';
+import More from '../pages/more';
+import RoutesAccount from '../pages/Account/routesAccount';
 
 const Tab = createBottomTabNavigator();
 export function AppTab() {
@@ -22,15 +25,13 @@ export function AppTab() {
 			/>
 			<Tab.Screen
 				name="add"
-				options={{title: '+'}}
+				options={{title: 'Nova transação'}}
 				component={Dashboard}
 			/>
-			<Tab.Screen name="planned" component={PlannedExpenses} />
-			<Tab.Screen
-				name="more"
-				options={{title: '...'}}
-				component={CreditCardList}
-			/>
+			<Tab.Screen name="planned" component={RoutesPlanned} />
+			<Tab.Screen name="more" options={{title: '...'}} component={More} />
+			<Tab.Screen name="credit" component={RoutesCreditCard} />
+			<Tab.Screen name="account" component={RoutesAccount} />
 		</Tab.Navigator>
 	);
 }
