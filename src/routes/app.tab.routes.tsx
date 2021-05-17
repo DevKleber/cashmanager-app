@@ -8,6 +8,7 @@ import RoutesCreditCard from '../pages/CreditCard/routesCreditCard';
 import RoutesPlanned from '../pages/PlannedExpenses/routesPlanned';
 import More from '../pages/more';
 import RoutesAccount from '../pages/Account/routesAccount';
+import RoutesTransactions from '../pages/Transaction/routesTransactions';
 
 const Tab = createBottomTabNavigator();
 export function AppTab() {
@@ -26,7 +27,7 @@ export function AppTab() {
 			<Tab.Screen
 				name="add"
 				options={{title: 'Nova transação'}}
-				component={Dashboard}
+				component={RoutesTransactions}
 			/>
 			<Tab.Screen name="planned" component={RoutesPlanned} />
 			<Tab.Screen name="more" options={{title: '...'}} component={More} />
