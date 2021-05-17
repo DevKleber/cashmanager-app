@@ -1,18 +1,7 @@
 import React from 'react';
 import {IconText} from '../../components/elements/Icon';
-import {
-	Wrapper,
-	Container,
-	Button,
-	Months,
-	MonthLabel,
-	Summary,
-	Header,
-	Content,
-	Card,
-	Name,
-	Value,
-} from './style';
+import {Sammary} from './Sammary';
+import {Wrapper, Container, Button, Months, MonthLabel} from './style';
 
 export function Dashboard() {
 	return (
@@ -27,47 +16,7 @@ export function Dashboard() {
 						<IconText name="navigate-next" size={20} />
 					</Button>
 				</Months>
-				<Summary>
-					<Card style={style.boxShadow} background="#00EB84">
-						<Header>
-							<Name>Entrada</Name>
-							<IconText
-								name="arrow-circle-up"
-								color="#fff"
-								size={27}
-							/>
-						</Header>
-						<Content>
-							<Value>R$ 175.325,50</Value>
-						</Content>
-					</Card>
-					<Card style={style.boxShadow} background="#E62E4D">
-						<Header>
-							<Name>Entrada</Name>
-							<IconText
-								name="arrow-circle-down"
-								color="#fff"
-								size={27}
-							/>
-						</Header>
-						<Content>
-							<Value>R$ 175.325,50</Value>
-						</Content>
-					</Card>
-					<Card style={style.boxShadow} background="#2A004F">
-						<Header>
-							<Name>Entrada</Name>
-							<IconText
-								name="outlined-flag"
-								color="#fff"
-								size={27}
-							/>
-						</Header>
-						<Content>
-							<Value>R$ 175.325,50</Value>
-						</Content>
-					</Card>
-				</Summary>
+				<Sammary />
 			</Container>
 		</Wrapper>
 	);
