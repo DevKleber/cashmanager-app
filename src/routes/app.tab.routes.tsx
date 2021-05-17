@@ -9,11 +9,12 @@ import RoutesPlanned from '../pages/PlannedExpenses/routesPlanned';
 import More from '../pages/more';
 import RoutesAccount from '../pages/Account/routesAccount';
 import RoutesTransactions from '../pages/Transaction/routesTransactions';
+import { TransactionList } from '../pages/Transaction';
 
 const Tab = createBottomTabNavigator();
 export function AppTab() {
 	return (
-		<Tab.Navigator tabBar={props => <CustomTabBar {...props} />}>
+		<Tab.Navigator tabBar={(props: any) => <CustomTabBar {...props} />}>
 			<Tab.Screen
 				name="Home"
 				options={{title: 'Inicio'}}
@@ -22,7 +23,7 @@ export function AppTab() {
 			<Tab.Screen
 				name="transacoes"
 				options={{title: 'Transações'}}
-				component={Dashboard}
+				component={TransactionList}
 			/>
 			<Tab.Screen
 				name="add"

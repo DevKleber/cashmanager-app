@@ -55,12 +55,12 @@ export function CustomTabBar({state, navigation}: any) {
 
 			<TabItem onPress={() => handleGoTo('more')}>
 				<Icon
-					style={{opacity: state.index === 4 ? 1 : 0.5}}
-					name="more-horiz"
-					size={33}
-					color="#666666"
+				style={{opacity: state.index >= 4 ? 1 : 0.5}}
+				name="more-horiz"
+				size={33}
+				color="#666666"
 				/>
-				<Name style={{opacity: state.index === 4 ? 1 : 0.5}}>Mais</Name>
+				<Name style={{opacity: state.index >= 4 ? 1 : 0.5}}>Mais</Name>
 			</TabItem>
 		</Container>
 	);
