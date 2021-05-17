@@ -12,6 +12,7 @@ import { AccountList } from '../pages/Account';
 import { AccountUpdate } from '../pages/Account/AccountUpdate';
 import { AccountInsert } from '../pages/Account/AccountInsert';
 import { AccountDetail } from '../pages/Account/AccountDetail';
+import { TransactionInsert } from '../pages/Transaction/TransactionInsert';
 
 const Stack = createStackNavigator();
 
@@ -23,6 +24,7 @@ export default function AppRoutes() {
 				headerStyle: {backgroundColor: '#f5f6fc'},
 
 			}}>
+			<Stack.Screen name="TransactionInsert" component={TransactionInsert} options={{title: 'Nova Transação'}}/>
 			<Stack.Screen name="AccountList" component={AccountList} options={{title: 'Contas'}}/>
 			<Stack.Screen name="AccountUpdate" component={AccountUpdate} options={{title: 'Contas'}}/>
 			<Stack.Screen name="AccountInsert" component={AccountInsert} options={{title: 'Contas'}}/>
