@@ -22,12 +22,6 @@ export default function AppRoutes() {
 					headerShown: true,
 					headerStyle: {backgroundColor: '#f5f6fc'},
 				}}>
-				<Stack.Screen name="Dashboard" component={Dashboard} />
-				<Stack.Screen
-					name="CreditCardList"
-					component={CreditCardList}
-					options={{title: 'Cartão de credito'}}
-				/>
 				<Stack.Screen
 					name="CreditCardUpdate"
 					component={CreditCardUpdate}

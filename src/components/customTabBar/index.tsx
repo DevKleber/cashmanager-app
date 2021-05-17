@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {Container, TabItem, TabItemAdd, Name} from './styles';
 
-export function CustomTabBar({stack, navigation}: any) {
+export function CustomTabBar({state, navigation}: any) {
 	function handleGoTo(screenName: string) {
 		navigation.navigate(screenName);
 	}
@@ -12,12 +12,26 @@ export function CustomTabBar({stack, navigation}: any) {
 	return (
 		<Container>
 			<TabItem onPress={() => handleGoTo('Home')}>
-				<Icon name="home" size={33} color="#666666" />
-				<Name>Início</Name>
+				<Icon
+					style={{opacity: state.index === 0 ? 1 : 0.5}}
+					name="home"
+					size={33}
+					color="#666666"
+				/>
+				<Name style={{opacity: state.index === 0 ? 1 : 0.5}}>
+					Início
+				</Name>
 			</TabItem>
 			<TabItem onPress={() => handleGoTo('transacoes')}>
-				<Icon name="receipt-long" size={33} color="#666666" />
-				<Name>Transações</Name>
+				<Icon
+					style={{opacity: state.index === 1 ? 1 : 0.5}}
+					name="receipt-long"
+					size={33}
+					color="#666666"
+				/>
+				<Name style={{opacity: state.index === 1 ? 1 : 0.5}}>
+					Transações
+				</Name>
 			</TabItem>
 			<TabItemAdd
 				style={style.boxShadow}
@@ -25,12 +39,24 @@ export function CustomTabBar({stack, navigation}: any) {
 				<Icon name="add" size={40} color="#fff" />
 			</TabItemAdd>
 			<TabItem onPress={() => handleGoTo('more')}>
-				<Icon name="outlined-flag" size={33} color="#666666" />
-				<Name>Planejamento</Name>
+				<Icon
+					style={{opacity: state.index === 3 ? 1 : 0.5}}
+					name="outlined-flag"
+					size={33}
+					color="#666666"
+				/>
+				<Name style={{opacity: state.index === 3 ? 1 : 0.5}}>
+					Planejamento
+				</Name>
 			</TabItem>
 			<TabItem onPress={() => handleGoTo('more')}>
-				<Icon name="more-horiz" size={33} color="#666666" />
-				<Name>Mais</Name>
+				<Icon
+					style={{opacity: state.index === 4 ? 1 : 0.5}}
+					name="more-horiz"
+					size={33}
+					color="#666666"
+				/>
+				<Name style={{opacity: state.index === 4 ? 1 : 0.5}}>Mais</Name>
 			</TabItem>
 		</Container>
 	);
