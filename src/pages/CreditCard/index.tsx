@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/core';
 import {CreditCard} from './services';
-import {getCreditCards, deleteCard} from './services';
 import {Image} from 'react-native';
-import {Icon} from '../../components/elements/Icon';
+import {IconText} from '../../components/elements/Icon';
+import {getCreditCards, deleteCard} from './services';
 import {
 	Content,
 	Title,
@@ -32,7 +32,8 @@ export function CreditCardList() {
 	async function deleteCreditCard(item: CreditCard) {
 		const cards = await deleteCard(item.id);
 		creditCard.splice(creditCard.indexOf(item), 1);
-		const copyCreditCard = creditCard.splice(creditCard.indexOf(item), 1);
+		const copyCreditCard = [...creditCard];
+
 		setCreditCard(copyCreditCard);
 	}
 
@@ -43,25 +44,30 @@ export function CreditCardList() {
 	return (
 		<Container>
 			<ContentScrollView>
-				{creditCard.map((item: any) => (
+				{creditCard.map((item: any, index: number) => (
 					<Card
 						style={style.boxShadow}
-						key={item.id}
-						onPress={() => navigate.navigate('CreditCardDetail')}>
+						key={index}
+						onPress={() =>
+							navigate.navigate('CreditCardDetail', item)
+						}>
 						<Header>
 							<Image
 								source={require('./../../assets/img/card.png')}
 							/>
 							<Title>{item.name}</Title>
 							<Actions>
-								<Icon
+								<IconText
 									name="delete"
 									onPress={() => deleteCreditCard(item)}
 								/>
-								<Icon
+								<IconText
 									name="edit"
 									onPress={() =>
-										navigate.navigate('CreditCardUpdate')
+										navigate.navigate(
+											'CreditCardUpdate',
+											item,
+										)
 									}
 								/>
 							</Actions>
@@ -85,7 +91,7 @@ export function CreditCardList() {
 				<BtnNewCard
 					style={style.boxShadow}
 					onPress={() => navigate.navigate('CreditCardInsert')}>
-					<Icon name="add-circle" />
+					<IconText name="add-circle" />
 					<TextAdd>Adicionar novo cartão</TextAdd>
 				</BtnNewCard>
 			</ContentScrollView>

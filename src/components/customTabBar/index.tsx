@@ -22,6 +22,7 @@ export function CustomTabBar({state, navigation}: any) {
 					Início
 				</Name>
 			</TabItem>
+
 			<TabItem onPress={() => handleGoTo('transacoes')}>
 				<Icon
 					style={{opacity: state.index === 1 ? 1 : 0.5}}
@@ -33,12 +34,14 @@ export function CustomTabBar({state, navigation}: any) {
 					Transações
 				</Name>
 			</TabItem>
+
 			<TabItemAdd
 				style={style.boxShadow}
 				onPress={() => handleGoTo('add')}>
 				<Icon name="add" size={40} color="#fff" />
 			</TabItemAdd>
-			<TabItem onPress={() => handleGoTo('more')}>
+
+			<TabItem onPress={() => handleGoTo('planned')}>
 				<Icon
 					style={{opacity: state.index === 3 ? 1 : 0.5}}
 					name="outlined-flag"
@@ -49,6 +52,7 @@ export function CustomTabBar({state, navigation}: any) {
 					Planejamento
 				</Name>
 			</TabItem>
+
 			<TabItem onPress={() => handleGoTo('more')}>
 				<Icon
 					style={{opacity: state.index === 4 ? 1 : 0.5}}

@@ -1,23 +1,22 @@
 import { api } from "../../services/api";
-export interface CreditCard {
+export interface AccountProps {
     id: number,
-    name: string,
+    description: string,
+    id_banking: number,
+    current_balance: number,
     id_user: number,
-    due_day: number,
-    closing_day: number,
     updated_at: string,
     created_at: string,
     items: any[],
-    total: number
+    is_active: boolean
 }
-
 export interface Month {
     month: string,
 }
 
-export async function getCreditCardById(id: number, month: number = 0)
+export async function getAccountById(id: number, month: number = 0)
 {
-    const {data} = await api.get(`/credit-card/${id}`, {
+    const {data} = await api.get(`/accounts/${id}`, {
         params: {
             month
         }
@@ -25,29 +24,28 @@ export async function getCreditCardById(id: number, month: number = 0)
     return data;
 }
 
-export async function deleteCard(id: number)
+export async function deleteAccount(id: number)
 {
-    const {data} = await api.delete(`/credit-card/${id}`);
+    const {data} = await api.delete(`/accounts/${id}`);
     return data;
 }
 
 
 export async function update(form: any)
 {
-    const {data} = await api.put(`/credit-card/${form.id}`, form);
+    const {data} = await api.put(`/accounts/${form.id}`, form);
     return data;
 }
 
 export async function save(form: any)
 {
-    const {data} = await api.post(`/credit-card`, form);
+    const {data} = await api.post(`/accounts`, form);
     return data;
 }
 
-export async function getCreditCards()
+export async function getAccounts()
 {
-    const {data} = await api.get(`/credit-card`);
-    console.log(data);
+    const {data} = await api.get(`/accounts`);
     return data;
 }
 

@@ -1,13 +1,13 @@
 import { api } from "../../services/api";
 
-export async function save(form: any)
+export async function update(form: any)
 {
-    const {data} = await api.post(`/credit-card`, form);
+    const {data} = await api.put(`/planned-expenses/${form.id}`, form);
     return data;
 }
 
-export async function getCategories()
+export async function getPlannedExpenses()
 {
-    const {data} = await api.get(`/categories`);
+    const {data} = await api.get(`/planned-expenses`);
     return data;
 }
