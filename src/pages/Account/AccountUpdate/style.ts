@@ -28,5 +28,5 @@ export const BtnNewCard = styled.TouchableOpacity`
 
 export const TextBtnNewCard = styled.Text`
 	font-size: 14px;
-	font-weight: bold;
+	font-family: 'Poppins-Bold';
 `;

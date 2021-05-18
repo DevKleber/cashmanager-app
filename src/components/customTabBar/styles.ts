@@ -25,4 +25,5 @@ export const TabItemAdd = styled.TouchableOpacity`
 `;
 export const Name = styled.Text`
 	font-size: 10px;
+	font-family: 'Poppins-Regular';
 `;

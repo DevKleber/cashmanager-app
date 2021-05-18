@@ -18,6 +18,7 @@ export const HeaderDate = styled.View`
 export const TextHeaderDate = styled.Text`
 	margin: 0px 20px;
 	color: #666666;
+	font-family: 'Poppins-Regular';
 `;
 
 export const Card = styled.View`
@@ -44,23 +45,25 @@ export const Content = styled.View`
 export const TextValue = styled.Text`
 	font-weight: 200;
 	color: #f55e53;
+	font-family: 'Poppins-Regular';
 `;
 
 export const TextLighter = styled.Text`
 	color: #666666;
 	font-weight: 200;
+	font-family: 'Poppins-Regular';
 `;
 
 export const Text = styled.Text`
 	color: #666666;
-	font-weight: bold;
+	font-family: 'Poppins-Bold';
 `;
 
 export const Title = styled.Text`
 	margin-left: 10px;
 	font-size: 16px;
 	color: #666666;
-	font-weight: bold;
+	font-family: 'Poppins-Bold';
 `;
 
 export const ContentScrollView = styled.ScrollView`
@@ -104,12 +107,12 @@ export const ItemPrice = styled.View`
 export const TextItemPrice = styled.Text`
 	align-items: center;
 	justify-content: center;
-	font-weight: bold;
+	font-family: 'Poppins-Bold';
 	color: #989898;
 `;
 
 export const TextPrePrice = styled.Text`
-	font-weight: bold;
+	font-family: 'Poppins-Bold';
 	align-items: center;
 	justify-content: center;
 	color: #989898;
@@ -117,16 +120,18 @@ export const TextPrePrice = styled.Text`
 
 export const ItemTextTitle = styled.Text`
 	color: #989898;
+	font-family: 'Poppins-Regular';
 `;
 
 export const ItemTextDescription = styled.Text`
-	font-weight: bold;
+	font-family: 'Poppins-Bold';
 	color: #989898;
 `;
 
 export const DatePrice = styled.Text`
 	font-size: 10px;
 	color: #989898;
+	font-family: 'Poppins-Regular';
 `;
 
 export const RowHr = styled.View`

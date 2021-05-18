@@ -21,6 +21,7 @@ export const Months = styled.View`
 export const Button = styled.TouchableOpacity``;
 export const MonthLabel = styled.Text`
 	padding: 0 25px;
+	font-family: 'Poppins-Regular';
 `;
 
 //Summary
@@ -52,7 +53,7 @@ export const Header = styled.View`
 `;
 export const Name = styled.Text`
 	color: #fff;
-	font-weight: bold;
+	font-family: 'Poppins-Bold';
 	font-size: 16px;
 `;
 export const Content = styled.View`
@@ -61,7 +62,7 @@ export const Content = styled.View`
 	padding: 15px 25px;
 `;
 export const Value = styled.Text`
-	font-weight: bold;
+	font-family: 'Poppins-Bold';
 	font-size: 32px;
 	color: #fff;
 	text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);

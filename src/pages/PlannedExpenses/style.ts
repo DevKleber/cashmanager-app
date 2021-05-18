@@ -25,7 +25,7 @@ export const ViewContent = styled.View`
 
 export const TextTotal = styled.Text`
 	font-size: 30px;
-	font-weight: bold;
+	font-family: 'Poppins-Bold';
 	color: #666666;
 `;
 
@@ -61,7 +61,7 @@ export const ContentPercent = styled.View`
 
 export const Text = styled.Text`
 	font-size: 14px;
-	font-weight: bold;
+	font-family: 'Poppins-Bold';
 	margin-left: 10px;
 	color: #989898;
 `;
@@ -100,7 +100,7 @@ export const Porcent = styled.View`
 export const TextPercent = styled.Text`
 	background-color: #e8e9ef;
 	padding: 5px;
-	font-weight: bold;
+	font-family: 'Poppins-Bold';
 	font-size: 18px;
 	color: #666666;
 `;

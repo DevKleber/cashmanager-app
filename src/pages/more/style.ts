@@ -7,6 +7,7 @@ export const Container = styled.View`
 `;
 export const Menu = styled.Text`
 	font-size: 25px;
+	font-family: 'Poppins-Regular';
 
 	/* align-items: flex-start; */
 `;
@@ -28,4 +29,5 @@ export const Item = styled.TouchableOpacity`
 
 export const Text = styled.Text`
 	color: #666666;
+	font-family: 'Poppins-Regular';
 `;

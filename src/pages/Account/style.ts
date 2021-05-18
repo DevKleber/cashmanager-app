@@ -33,22 +33,24 @@ export const Content = styled.View`
 export const TextValue = styled.Text`
 	font-weight: 200;
 	color: #f55e53;
+	font-family: 'Poppins-Regular';
 `;
 
 export const TextLighter = styled.Text`
 	color: #666666;
 	font-weight: 200;
+	font-family: 'Poppins-Regular';
 `;
 
 export const Text = styled.Text`
 	color: #666666;
-	font-weight: bold;
+	font-family: 'Poppins-Bold';
 	font-size: 18px;
 `;
 
 export const TextAdd = styled.Text`
 	color: #666666;
-	font-weight: bold;
+	font-family: 'Poppins-Bold';
 	font-size: 17px;
 	margin-left: 10px;
 `;
@@ -57,7 +59,7 @@ export const Title = styled.Text`
 	margin-left: 10px;
 	font-size: 16px;
 	color: #666666;
-	font-weight: bold;
+	font-family: 'Poppins-Bold';
 `;
 
 export const ContentScrollView = styled.ScrollView`

@@ -31,8 +31,8 @@ export const Header = styled.View`
 `;
 export const Name = styled.Text`
 	color: #fff;
-	font-weight: bold;
 	font-size: 16px;
+	font-family: 'Poppins-Bold';
 `;
 export const Content = styled.View`
 	justify-content: center;
@@ -40,8 +40,8 @@ export const Content = styled.View`
 	padding: 15px 25px;
 `;
 export const Value = styled.Text`
-	font-weight: bold;
 	font-size: 32px;
 	color: #fff;
 	text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	font-family: 'Poppins-Bold';
 `;
