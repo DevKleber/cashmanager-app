@@ -22,6 +22,7 @@ export const Button = styled.TouchableOpacity``;
 export const MonthLabel = styled.Text`
 	padding: 0 25px;
 	font-family: 'Poppins-Regular';
+	color: #666666;
 `;
 
 //Summary
