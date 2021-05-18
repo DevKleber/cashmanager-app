@@ -39,14 +39,6 @@ export const Summary = styled.ScrollView.attrs(() => ({
 	margin-top: 30px;
 `;
 
-export const Card = styled.View<CardProps>`
-	width: 289px;
-	height: 141px;
-	background: ${props => props.background};
-	border-radius: 15px;
-	margin-right: 25px;
-`;
-
 export const Header = styled.View`
 	flex-direction: row;
 	padding: 15px 25px;
@@ -67,4 +59,17 @@ export const Value = styled.Text`
 	font-size: 32px;
 	color: #fff;
 	text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+`;
+
+export const ContainerItem = styled.View`
+	padding: 25px;
+	flex: 1;
+`;
+
+export const Card = styled.View`
+	width: 100%;
+	height: 141px;
+	background: #fff;
+	border-radius: 15px;
+	margin-bottom: 25px;
 `;
