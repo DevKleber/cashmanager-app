@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
 	height: 68px;
-	background: #f5f6fc;
+	background: #f0f2f5;
 	flex-direction: row;
 	border-top-color: #dadada;
 	border-top-width: 1px;
@@ -25,4 +25,5 @@ export const TabItemAdd = styled.TouchableOpacity`
 `;
 export const Name = styled.Text`
 	font-size: 10px;
+	font-family: 'Poppins-Regular';
 `;

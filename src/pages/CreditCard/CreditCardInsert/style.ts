@@ -1,17 +1,17 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-    flex: 1;
-    width: 100%;
-    align-items: center;
-    flex-direction: column;
-    background-color: #F5F6FC;
+	flex: 1;
+	width: 100%;
+	align-items: center;
+	flex-direction: column;
+	background-color: #f0f2f5;
 `;
 
 export const ContentScrollView = styled.ScrollView`
-    width: 100%;
-    padding: 0px 25px;
-    margin: 20px 0px;
+	width: 100%;
+	padding: 0px 25px;
+	margin: 20px 0px;
 `;
 
 export const BtnNewCard = styled.TouchableOpacity`
@@ -28,5 +28,5 @@ export const BtnNewCard = styled.TouchableOpacity`
 
 export const TextBtnNewCard = styled.Text`
 	font-size: 14px;
-	font-weight: bold;
+	font-family: 'Poppins-Bold';
 `;

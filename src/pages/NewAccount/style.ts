@@ -15,6 +15,7 @@ export const Title = styled.Text`
 	margin-bottom: 25px;
 	font-size: 20px;
 	color: #180a29;
+	font-family: 'Poppins-Regular';
 `;
 
 export const Content = styled.View`
@@ -38,12 +39,13 @@ export const BtnLogar = styled.TouchableOpacity`
 
 export const TextBtnLogar = styled.Text`
 	font-size: 14px;
-	font-weight: bold;
+	font-family: 'Poppins-Bold';
 `;
 
 export const TextBtnNewAcount = styled.Text`
 	color: #00eb84;
 	margin-left: 7px;
+	font-family: 'Poppins-Regular';
 `;
 
 export const BtnBackToLogin = styled.TouchableOpacity`
