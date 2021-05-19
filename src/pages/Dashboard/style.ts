@@ -62,13 +62,13 @@ export const Value = styled.Text`
 `;
 
 export const ContainerItem = styled.View`
-	padding: 25px;
+	padding: 20px;
 	flex: 1;
 `;
 
 export const Card = styled.View`
 	width: 100%;
-	height: 141px;
+	/* height: 141px; */
 	background: #fff;
 	border-radius: 15px;
 	margin-bottom: 25px;

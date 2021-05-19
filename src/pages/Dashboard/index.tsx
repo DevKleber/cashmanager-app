@@ -1,6 +1,7 @@
 import React from 'react';
 import {IconText} from '../../components/elements/Icon';
 import {Sammary} from './Sammary';
+
 import {
 	Wrapper,
 	Container,
@@ -10,6 +11,9 @@ import {
 	ContainerItem,
 	Card,
 } from './style';
+import {DashboardIncome} from './Income';
+import {DashboardOutcome} from './Outcome';
+import {DashboardCategory} from './Category';
 
 export function Dashboard() {
 	return (
@@ -26,9 +30,15 @@ export function Dashboard() {
 				</Months>
 				<Sammary />
 				<ContainerItem>
-					<Card style={style.boxShadow}></Card>
-					<Card style={style.boxShadow}></Card>
-					<Card style={style.boxShadow}></Card>
+					<Card style={style.boxShadow}>
+						<DashboardIncome />
+					</Card>
+					<Card style={style.boxShadow}>
+						<DashboardOutcome />
+					</Card>
+					<Card style={style.boxShadow}>
+						<DashboardCategory />
+					</Card>
 				</ContainerItem>
 			</Container>
 		</Wrapper>
@@ -41,6 +51,6 @@ const style = {
 		shadowOffset: {width: 0, height: 4},
 		shadowRadius: 4,
 		shadowOpacity: 0.25,
-		elevation: 4,
+		elevation: 6,
 	},
 };
