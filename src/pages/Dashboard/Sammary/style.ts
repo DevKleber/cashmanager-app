@@ -9,7 +9,7 @@ export const Summary = styled.ScrollView.attrs(() => ({
 	showsHorizontalScrollIndicator: false,
 	contentContainerStyle: {
 		alignItems: 'center',
-		paddingLeft: 25,
+		paddingLeft: 20,
 	},
 }))`
 	height: 143px;
