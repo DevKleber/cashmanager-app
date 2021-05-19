@@ -70,6 +70,6 @@ export const Card = styled.View`
 	width: 100%;
 	/* height: 141px; */
 	background: #fff;
-	border-radius: 15px;
+	border-radius: 20px;
 	margin-bottom: 25px;
 `;
