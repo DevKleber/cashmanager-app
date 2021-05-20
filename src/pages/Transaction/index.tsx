@@ -62,7 +62,7 @@ export function TransactionList() {
                 <IconText name="navigate-next" size={20} onPress={() => {alterMonth(month < 11 ? month + 1 : 11).then(() => listTransactions())}}/>
             </HeaderDate>
             <BoxSammary>
-                <Sammary />
+                <Sammary isTransaction={true} />
             </BoxSammary>
             <ContentScrollView>
                     <CardInvoice style={style.boxShadowInvoice}>
