@@ -62,7 +62,12 @@ export function TransactionList() {
                 <IconText name="navigate-next" size={20} onPress={() => {alterMonth(month < 11 ? month + 1 : 11).then(() => listTransactions())}}/>
             </HeaderDate>
             <BoxSammary>
-                <Sammary isTransaction={true} />
+                <Sammary 
+                    isTransaction={true}
+                    fisrtCard={{title: 'Entrada', value: 25410}}
+                    middleCard={{title: 'Saida', value: 25410}}
+                    lastCard={{title: 'Total', value: 25410}}
+                />
             </BoxSammary>
             <ContentScrollView>
                     <CardInvoice style={style.boxShadowInvoice}>
