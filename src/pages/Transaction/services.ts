@@ -37,6 +37,12 @@ export async function deleteAccount(id: number)
 //     return data;
 // }
 
+export async function getCategories()
+{
+    const {data} = await api.get(`/categories`);
+    return data;
+}
+
 export async function save(form: any)
 { 
     console.log(form);

@@ -18,6 +18,8 @@ export const ContentTotal = styled.View`
 export const CategoriesView = styled.View``;
 
 export const ViewContent = styled.View`
+	width: 100%;
+	flex: 1;
 	background-color: #fff;
 	border-radius: 15px;
 	margin: 20px 0px;
@@ -82,7 +84,7 @@ export const BarPorcent = styled.View`
 export const ViewPorcent = styled.View`
 	position: absolute;
 	width: 100%;
-	bottom: 10px;
+	bottom: 5px;
 	margin: 0px 10%;
 	flex-direction: row;
 	align-items: center;

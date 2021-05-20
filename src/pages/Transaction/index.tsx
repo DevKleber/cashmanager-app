@@ -2,13 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { IconText } from '../../components/elements/Icon';
 import { format } from 'date-fns'
 import { 
-    Content, 
-    Title, 
-    Header, 
-    Text, 
-    TextValue, 
-    TextLighter,
-    Card,
     Container,
     ContentScrollView,
     HeaderDate,
@@ -23,11 +16,13 @@ import {
     TextPrePrice,
     DatePrice,
     ItemTextDescription,
-    RowHr
+    RowHr,
+    BoxSammary
 } from './style';
 import { Image, View } from 'react-native';
 import { TransactionProps, Month, getTransactions, getMonths } from './services';
 import { useRoute } from '@react-navigation/core';
+import { Sammary } from '../Dashboard/Sammary';
 
 export function TransactionList() {
     const [months, setMonths] = useState<Month[]>(getMonths());
@@ -62,36 +57,28 @@ export function TransactionList() {
     return (
         <Container>
              <HeaderDate>
-                <IconText name="arrow-left" size={18} color='#666666'onPress={() => {alterMonth(month > 0 ? month - 1 : 0).then(() => listTransactions())}} />
+                <IconText name="navigate-before" size={20} onPress={() => {alterMonth(month > 0 ? month - 1 : 0).then(() => listTransactions())}} />
                 <TextHeaderDate>{months[month].month}</TextHeaderDate>
-                <IconText name="arrow-right" size={18} color="#666666" onPress={() => {alterMonth(month < 11 ? month + 1 : 11).then(() => listTransactions())}}/>
+                <IconText name="navigate-next" size={20} onPress={() => {alterMonth(month < 11 ? month + 1 : 11).then(() => listTransactions())}}/>
             </HeaderDate>
+            <BoxSammary>
+                <Sammary />
+            </BoxSammary>
             <ContentScrollView>
-                    {/* <Card style={style.boxShadow} >
-                        <Header>
-                        <Image style={{width: 30, height: 30}}
-                                source={require('./../../assets/img/wallet.png')}
-                        />
-                            <Title>{account.description}</Title>
-                        </Header>
-                        <Content>
-                            <Text>Valor da fatura: <TextValue>R$ {account.current_balance}</TextValue></Text>
-                        </Content>
-                    </Card> */}
                     <CardInvoice style={style.boxShadowInvoice}>
                         {transactions?.map((item: any, index: number) =>(
                             <View key={index} style={{paddingLeft: 20, paddingRight: 20}}>
                                 <ItemList >
                                     <ItemIcon>
-                                    <IconText name={item.is_income ? 'arrow-downward': 'arrow-upward'} color={item.is_income ? 'green' : 'red'}/>
+                                        <IconText name={item.icon}/>
                                     </ItemIcon>
                                     <ItemContent>
                                         <ItemTextTitle>{item.name}</ItemTextTitle>
                                         <ItemTextDescription>{item.description}</ItemTextDescription>
                                     </ItemContent>
                                     <ItemPrice>
-                                        <TextPrePrice>R$</TextPrePrice>
-                                        <TextItemPrice>{item.value}</TextItemPrice>
+                                        <TextPrePrice isIncome={item.is_income}>R$</TextPrePrice>
+                                        <TextItemPrice isIncome={item.is_income}>{item.value}</TextItemPrice>
                                         <DatePrice>{formatDate(item.created_at)}</DatePrice>
                                     </ItemPrice>
                                 </ItemList>
