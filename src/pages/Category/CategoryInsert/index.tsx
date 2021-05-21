@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Text } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
-import { save, optionsParcel, optionsIsPaid, getCategories} from '../services';
+import { save } from '../services';
 import { InputText } from '../../../components/elements/Input';
 import { AccountProps, getAccounts } from '../../Account/services';
 import { Select } from '../../../components/elements/Select';
@@ -51,11 +51,6 @@ export function CategoryInsert() {
         });
     }
 
-    async function listAccounts() {
-        const accountsItems = await getAccounts();
-        setAccounts(accountsItems)
-    }
-
     async function clearForm() {
         setDescription('');
         setValue('');
@@ -69,23 +64,12 @@ export function CategoryInsert() {
         setIdCategory('');
     }
 
-    async function listCategories() {
-        const categoriesItems = await getCategories();
-        setCategories(categoriesItems)
-    }
-
-    async function creditCards() {
-        const cards = await getCreditCards();
-        setCreditCard(cards)
-    }
+  
     function clearSelecteds() {
         setIsPaid(false);
     }
 
     useEffect(() => { 
-        listCategories();
-        listAccounts();
-        creditCards();
     }, []);
 
     return (
@@ -117,56 +101,6 @@ export function CategoryInsert() {
                     autoCorrect={false}
                     keyboardType="numeric"
 
-                />
-                <InputText
-                    icon="attach-money"
-                    placeholder="Valor"
-                    value={value}
-                    onChangeText={setValue}
-                    autoCorrect={false}
-                    keyboardType="numeric"
-
-                />
-
-                <InputText
-                    icon="event"
-                    placeholder="Data de pagamento"
-                    value={dueDate}
-                    onChangeText={setDueDate}
-                    autoCorrect={false}
-
-                />
-                <Select 
-                     icon="account-balance-wallet"
-                     onChange={setIdAccount}
-                     options={accounts}
-                     fields={{label: 'description', value: 'id'}}
-                     placeholder='Selecionar conta'
-                />
-
-                {isIncome === false ? <Select 
-                     icon="credit-card"
-                     onChange={setIdCreditCard}
-                     options={creditCard}
-                     fields={{label: 'name', value: 'id'}}
-                     placeholder='Selecionar cartão'
-                /> : null}
-
-               <Select 
-                     icon="point-of-sale"
-                     onChange={setIsPaid}
-                     options={optionsIsPaid}
-                     fields={{label: 'label', value: 'value'}}
-                     placeholder='Status do pagamento'
-                />
-
-                
-                <Select 
-                     icon="repeat"
-                     onChange={setInstallment}
-                     options={optionsParcel}
-                     fields={{label: 'label', value: 'value'}}
-                     placeholder='Repetir transação'
                 />
 
                 <Select 

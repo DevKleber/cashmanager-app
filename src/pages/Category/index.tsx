@@ -1,35 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { IconText } from '../../components/elements/Icon';
-import { format } from 'date-fns'
 import { 
     Container,
     ContentScrollView,
-    HeaderDate,
-    TextHeaderDate,
     CardInvoice,
     ItemList,
     ItemIcon,
     ItemContent,
-    ItemPrice,
     ItemTextTitle,
-    TextItemPrice,
-    TextPrePrice,
-    DatePrice,
     ItemTextDescription,
     RowHr,
-    BoxSammary,
     BtnNewCategory
 } from './style';
-import { Image, View } from 'react-native';
-import { TransactionProps, Month, getTransactions, getMonths, getCategories } from './services';
+import { View } from 'react-native';
+import { getCategories } from './services';
 import { useNavigation, useRoute } from '@react-navigation/core';
-import { Sammary } from '../Dashboard/Sammary';
 import { BtnNewCard, TextAdd } from '../CreditCard/style';
 
 export function CategoryList() {
     const navigate = useNavigation();
     const [categories, setCategories] = useState<any[]>([]);
-    const router = useRoute();
 
     async function listCategories() {
         const dados = await getCategories();
