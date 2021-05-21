@@ -6,7 +6,7 @@ import {IconText} from '../Icon';
 import {Container, BoxIcon, TextPreFixer} from './style';
 
 function itemsTree({placeholder, options, fields}: any) {
-	let element = [<Picker.Item label={placeholder} value='' color='#8b8b8b'/>];
+	let element = [<Picker.Item key={''} label={placeholder} value='' color='#8b8b8b'/>];
 
 	options?.map((item:any) => {
 
@@ -23,7 +23,7 @@ function itemsTree({placeholder, options, fields}: any) {
 
 function items({placeholder, options, fields}: any) {
 	
-	let element = [<Picker.Item label={placeholder} value='' color='#8b8b8b'/>];
+	let element = [<Picker.Item key={''} label={placeholder} value='' color='#8b8b8b'/>];
 
 	options?.map((item:any) => {
 		element = [...element, <Picker.Item key={item.id} label={item[fields.label]} value={item[fields.value]}  color='#1f1f1f'/>];

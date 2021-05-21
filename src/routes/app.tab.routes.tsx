@@ -10,6 +10,8 @@ import More from '../pages/more';
 import RoutesAccount from '../pages/Account/routesAccount';
 import RoutesTransactions from '../pages/Transaction/routesTransactions';
 import { TransactionList } from '../pages/Transaction';
+import { CategoryList } from '../pages/Category';
+import RoutesCategories from '../pages/Category/routesCategories';
 
 const Tab = createBottomTabNavigator();
 export function AppTab() {
@@ -23,7 +25,8 @@ export function AppTab() {
 			<Tab.Screen
 				name="transacoes"
 				options={{title: 'Transações'}}
-				component={TransactionList}
+				component={CategoryList}
+				// component={TransactionList}
 			/>
 			<Tab.Screen
 				name="add"
@@ -34,6 +37,7 @@ export function AppTab() {
 			<Tab.Screen name="more" options={{title: '...'}} component={More} />
 			<Tab.Screen name="credit" component={RoutesCreditCard} />
 			<Tab.Screen name="account" component={RoutesAccount} />
+			<Tab.Screen name="category" component={RoutesCategories} />
 		</Tab.Navigator>
 	);
 }
