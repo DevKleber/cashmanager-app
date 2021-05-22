@@ -34,7 +34,9 @@ export const TextValue = styled.Text`
 
 export const ContentScrollView = styled.ScrollView`
     width: 100%;
-    margin: 20px 0px;
+    flex: 1;
+    height: 30px;
+    margin-top: 20px ;
 `;
 
 export const BoxSammary = styled.View`
@@ -45,7 +47,8 @@ export const CardInvoice = styled.View`
     width: 100%;
     flex-direction: column;
     background-color: #fff;
-    border-radius: 15px;
+    border-top-left-radius: 45px;
+    border-top-right-radius: 45px;
 `;
 
 export const ItemList = styled.View`

@@ -23,17 +23,20 @@ import {
     TextPrePrice,
     DatePrice,
     ItemTextDescription,
-    RowHr
+    RowHr,
+    ViewMesage
 } from './style';
 import { Image, View } from 'react-native';
 import { getCreditCardById, CreditCard, Month, getMonths } from '../services';
-import { useRoute } from '@react-navigation/core';
+import { useNavigation, useRoute } from '@react-navigation/core';
+import { BtnNewCard, TextAdd } from '../style';
 
 export function CreditCardDetail() {
     const [months, setMonths] = useState<Month[]>(getMonths());
     const [month, setMonth] = useState<number>(0);
     const [creditCard, setCreditCard] = useState<CreditCard>({} as CreditCard);
     const router = useRoute();
+    const navigate = useNavigation();
 
     async function getCreditCard() {
         const { id }: any = router.params;
@@ -63,9 +66,9 @@ export function CreditCardDetail() {
     return (
         <Container>
              <HeaderDate>
-                <IconText name="arrow-left" size={18} color='#666666'onPress={() => {alterMonth(month > 0 ? month - 1 : 0).then(() => getCreditCard())}} />
+                <IconText name="navigate-before" size={25} color='#fff'onPress={() => {alterMonth(month > 0 ? month - 1 : 0).then(() => getCreditCard())}} />
                 <TextHeaderDate>{months[month].month}</TextHeaderDate>
-                <IconText name="arrow-right" size={18} color="#666666" onPress={() => {alterMonth(month < 11 ? month + 1 : 11).then(() => getCreditCard())}}/>
+                <IconText name="navigate-next" size={25} color="#fff" onPress={() => {alterMonth(month < 11 ? month + 1 : 11).then(() => getCreditCard())}}/>
             </HeaderDate>
             <ContentScrollView>
                     <Card style={style.boxShadow} >
@@ -81,7 +84,7 @@ export function CreditCardDetail() {
                             <Text>Vencimento: <TextLighter>{creditCard.due_day}</TextLighter></Text>
                         </Content>
                     </Card>
-                    <CardInvoice style={style.boxShadowInvoice}>
+                    <CardInvoice >
                         {creditCard.items?.map((item: any, index: number) =>(
                             <View key={index} style={{paddingLeft: 20, paddingRight: 20}}>
                                 <ItemList >
@@ -101,6 +104,12 @@ export function CreditCardDetail() {
                                 {creditCard.items.length > index + 1 ? <RowHr/> : null}
                             </View>
                         ))}
+
+                        {   creditCard.items?.length == 0 ? 
+                            <ViewMesage><Text>Esse cartão não possui movimentações</Text></ViewMesage> :
+                            null
+
+                        }
                     </CardInvoice>
             </ContentScrollView>
         </Container>

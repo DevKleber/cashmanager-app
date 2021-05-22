@@ -5,7 +5,8 @@ export const Container = styled.View`
 	width: 100%;
 	align-items: center;
 	flex-direction: column;
-	background-color: #f0f2f5;
+	background-color: #009788;
+	/* border-top-left-radius: 45px; */
 `;
 
 export const Card = styled.TouchableOpacity`
@@ -15,6 +16,7 @@ export const Card = styled.TouchableOpacity`
 	background-color: #fff;
 	border-radius: 15px;
 	margin-bottom: 20px;
+	border: 1px solid #cbcbcb;
 `;
 
 export const Header = styled.View`
@@ -67,15 +69,21 @@ export const ContentScrollView = styled.ScrollView`
 	flex: 1;
 	padding: 0px 25px;
 	margin-top: 20px;
+	background-color: #fff;
+	border-top-left-radius: 45px;
+	border-top-right-radius: 45px;
+	padding-top: 70px;
+	margin-top: 50px;
 `;
 
 export const BtnNewCard = styled.TouchableOpacity`
 	padding: 10px 15px;
 	flex-direction: row;
 	align-items: center;
-	background-color: #ffffff;
+	background-color: #FFF;
 	border-radius: 15px;
 	margin-bottom: 20px;
+	border: 1px solid #cbcbcb;
 `;
 
 export const Actions = styled.View`

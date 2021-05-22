@@ -94,7 +94,7 @@ export function CreditCardList() {
 				<BtnNewCard
 					style={style.boxShadow}
 					onPress={() => navigate.navigate('CreditCardInsert')}>
-					<IconText name="add-circle" />
+					<IconText name="add-circle" color="#666666" />
 					<TextAdd>Adicionar novo cartão</TextAdd>
 				</BtnNewCard>
 			</ContentScrollView>
@@ -112,6 +112,6 @@ const style = {
 		shadowOpacity: 0.58,
 		shadowRadius: 16.0,
 
-		elevation: 2,
+		elevation: 4,
 	},
 };

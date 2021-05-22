@@ -32,10 +32,10 @@ export function CategoryList() {
     return (
         <Container>
             <ContentScrollView>
-                    <CardInvoice style={style.boxShadowInvoice}>
+                    <CardInvoice>
                         {categories?.map((item: any, index: number) =>(
                             <>
-                                <View key={item.id} style={{paddingLeft: 20, paddingRight: 20}}>
+                                <View key={item.id}>
                                     <ItemList >
                                         <ItemIcon>
                                             <IconText name={item.icon}/>
@@ -44,13 +44,13 @@ export function CategoryList() {
                                             <ItemTextDescription>{item.name}</ItemTextDescription>
                                         </ItemContent>
                                         <BtnNewCategory onPress={() => navigate.navigate('CategoryInsert', item.id)}>
-                                            <IconText name="add-circle" />
+                                            <IconText name="add" color="#fff" />
                                         </BtnNewCategory>
                                     </ItemList>
                                     <RowHr/>
                                 </View>
                                 {item.children?.map((subItem: any, subIndex: number) => (
-                                    <View key={subItem.id} style={{paddingLeft: 60, paddingRight: 20}}>
+                                    <View key={subItem.id} style={{paddingLeft: 40, paddingRight: 40}}>
                                         <ItemList >
                                             <ItemIcon>
                                                 <IconText name={subItem.icon}/>
@@ -64,13 +64,13 @@ export function CategoryList() {
                                 ))}
                             </>
                         ))}
+                        <BtnNewCard
+                            style={style.boxShadow}
+                            onPress={() => navigate.navigate('CategoryInsert')}>
+                            <IconText name="add-circle" color="#2A004F"/>
+                            <TextAdd>Adicionar nova categoria</TextAdd>
+                        </BtnNewCard>
                     </CardInvoice>
-                    <BtnNewCard
-                        style={style.boxShadow}
-                        onPress={() => navigate.navigate('CategoryInsert')}>
-                        <IconText name="add-circle" />
-                        <TextAdd>Adicionar nova categoria</TextAdd>
-                    </BtnNewCard>
             </ContentScrollView>
         </Container>
     )
