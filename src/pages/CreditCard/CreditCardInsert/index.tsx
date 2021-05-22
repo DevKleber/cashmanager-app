@@ -8,6 +8,7 @@ import {
     TextBtnNewCard,
     BtnNewCard
 } from './style';
+import { StatusBar } from 'react-native';
 
 export function CreditCardInsert() {
     const navigate = useNavigation();
@@ -25,6 +26,7 @@ export function CreditCardInsert() {
 
     return (
         <Container>
+            <StatusBar barStyle="light-content" backgroundColor="#009788" />
             <ContentScrollView>
                 <InputText
                     icon="credit-card"

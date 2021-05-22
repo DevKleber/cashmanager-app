@@ -9,9 +9,8 @@ import { StatusBar } from 'react-native';
 const Stack = createStackNavigator();
 
 export default function RoutesCreditCard() {
+
 	return (
-		<>
-		<StatusBar barStyle="light-content" backgroundColor="#009788" />
 		<Stack.Navigator
 
 			screenOptions={{
@@ -48,6 +47,5 @@ export default function RoutesCreditCard() {
 				options={{title: 'Cartão de credito'}}
 			/>
 		</Stack.Navigator>
-		</>
 	);
 }

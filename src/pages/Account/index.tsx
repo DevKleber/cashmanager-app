@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/core';
-import {Image} from 'react-native';
+import {Image, StatusBar} from 'react-native';
 import {IconText} from '../../components/elements/Icon';
 import {getAccounts, deleteAccount, AccountProps} from './services';
 import {
@@ -41,52 +41,55 @@ export function AccountList() {
 	}, []);
 
 	return (
-		<Container>
-			<ContentScrollView>
-				{accounts.map((item: any, index: number) => (
-					<Card
+		<>
+			<StatusBar barStyle="light-content" backgroundColor="green" /> 
+			<Container>
+				<ContentScrollView>
+					{accounts.map((item: any, index: number) => (
+						<Card
+							style={style.boxShadow}
+							key={index}
+							onPress={() =>
+								navigate.navigate('AccountDetail', item)
+							}>
+							<Header>
+								<Image
+									style={{width: 30, height: 30}}
+									source={require('./../../assets/img/purse.png')}
+								/>
+								<Title>{item.description}</Title>
+								<Actions>
+									<IconText
+										name="delete"
+										onPress={() => removeAccount(item)}
+									/>
+									<IconText
+										name="edit"
+										onPress={() =>
+											navigate.navigate('AccountUpdate', item)
+										}
+									/>
+								</Actions>
+							</Header>
+							<Content>
+								<Text>
+									Saldo:{' '}
+									<TextLighter>
+										R$ {item.current_balance}
+									</TextLighter>
+								</Text>
+							</Content>
+						</Card>
+					))}
+					<BtnNewCard
 						style={style.boxShadow}
-						key={index}
-						onPress={() =>
-							navigate.navigate('AccountDetail', item)
-						}>
-						<Header>
-							<Image
-								style={{width: 30, height: 30}}
-								source={require('./../../assets/img/purse.png')}
-							/>
-							<Title>{item.description}</Title>
-							<Actions>
-								<IconText
-									name="delete"
-									onPress={() => removeAccount(item)}
-								/>
-								<IconText
-									name="edit"
-									onPress={() =>
-										navigate.navigate('AccountUpdate', item)
-									}
-								/>
-							</Actions>
-						</Header>
-						<Content>
-							<Text>
-								Saldo:{' '}
-								<TextLighter>
-									R$ {item.current_balance}
-								</TextLighter>
-							</Text>
-						</Content>
-					</Card>
-				))}
-				<BtnNewCard
-					style={style.boxShadow}
-					onPress={() => navigate.navigate('AccountInsert')}>
-					<IconText name="add-circle" />
-					<TextAdd>Adicionar nova conta</TextAdd>
-				</BtnNewCard>
-			</ContentScrollView>
-		</Container>
+						onPress={() => navigate.navigate('AccountInsert')}>
+						<IconText name="add-circle" />
+						<TextAdd>Adicionar nova conta</TextAdd>
+					</BtnNewCard>
+				</ContentScrollView>
+			</Container>
+		</>
 	);
 }
 

@@ -1,18 +1,19 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.View`
+export const Container = styled.SafeAreaView`
 	flex: 1;
 	width: 100%;
 	align-items: center;
 	flex-direction: column;
-	background-color: #f0f2f5;
-	padding: 0px 25px;
+	background-color: #2C88D9;
+	/* padding: 0px 25px; */
 `;
 
 export const ContentTotal = styled.View`
 	padding: 20px;
 	background-color: #fff;
 	border-radius: 15px;
+	/* border: 1px solid black; */
 `;
 
 export const CategoriesView = styled.View``;
@@ -21,8 +22,9 @@ export const ViewContent = styled.View`
 	width: 100%;
 	flex: 1;
 	background-color: #fff;
-	border-radius: 15px;
-	margin: 20px 0px;
+	border-top-left-radius: 45px;
+	border-top-right-radius: 45px;
+	margin-top: 25px ;
 `;
 
 export const TextTotal = styled.Text`
@@ -33,8 +35,8 @@ export const TextTotal = styled.Text`
 
 export const ContentScrollView = styled.ScrollView`
 	background-color: #fff;
-	padding: 0px 25px;
-	margin: 20px 0px;
+	border-top-left-radius: 45px;
+	border-top-right-radius: 45px;
 `;
 
 export const Content = styled.View`
@@ -83,18 +85,20 @@ export const BarPorcent = styled.View`
 
 export const ViewPorcent = styled.View`
 	position: absolute;
-	width: 100%;
+	width: 100px;
 	bottom: 5px;
-	margin: 0px 10%;
-	flex-direction: row;
-	align-items: center;
+	/* margin: 0px 2%; */
+	/* flex-direction: row; */
+	/* border: 1px solid black; */
+	/* align-items: center; */
+	/* transform: translateX(-50%); */
 	justify-content: center;
 `;
 
 export const Porcent = styled.View`
 	position: absolute;
 	width: 90%;
-	background-color: #00eb84;
+	background-color: #2C88D9;
 	height: 11px;
 	border-radius: 4px;
 `;
