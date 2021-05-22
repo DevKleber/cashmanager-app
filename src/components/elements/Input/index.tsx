@@ -6,7 +6,7 @@ import {Container, Input, BoxIcon, TextPreFixer} from './style';
 export function InputText( props: any) {
 
 	return (
-		<Container>
+		<Container style={{backgroundColor: props.backgroundColor, borderWidth: props.outline ? 1 : 0 , borderColor:  props.outline ? '#dadada' :  'none'}}>
 			<BoxIcon>
 				{props.icon ? <IconText name={props.icon} /> : <TextPreFixer>{props?.preFixer}</TextPreFixer>}
 			</BoxIcon>

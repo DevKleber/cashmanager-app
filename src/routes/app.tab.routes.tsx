@@ -8,10 +8,9 @@ import RoutesCreditCard from '../pages/CreditCard/routesCreditCard';
 import RoutesPlanned from '../pages/PlannedExpenses/routesPlanned';
 import More from '../pages/more';
 import RoutesAccount from '../pages/Account/routesAccount';
-import RoutesTransactions from '../pages/Transaction/routesTransactions';
-import { TransactionList } from '../pages/Transaction';
-import { CategoryList } from '../pages/Category';
 import RoutesCategories from '../pages/Category/routesCategories';
+import routesTransactionsList from '../pages/Transaction/routesTransactionsList';
+import routesTransactionsInsert from '../pages/Transaction/routesTransactionsInsert';
 
 const Tab = createBottomTabNavigator();
 export function AppTab() {
@@ -24,13 +23,13 @@ export function AppTab() {
 			/>
 			<Tab.Screen
 				name="transacoes"
-				options={{title: 'Transações'}}
-				component={TransactionList}
+				options={{title: 'Movimentações'}}
+				component={routesTransactionsList}
 			/>
 			<Tab.Screen
 				name="add"
-				options={{title: 'Nova transação'}}
-				component={RoutesTransactions}
+				options={{title: 'Nova movimentação'}}
+				component={routesTransactionsInsert}
 			/>
 			<Tab.Screen name="planned" component={RoutesPlanned} />
 			<Tab.Screen name="more" options={{title: '...'}} component={More} />

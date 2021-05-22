@@ -19,7 +19,7 @@ export const TextHeaderDate = styled.Text`
 	padding: 0 25%;
 	color: #fff;
 	font-family: 'Poppins-Regular';
-	font-size: 20px;
+	font-size: 18px;
 `;
 
 export const Card = styled.View`

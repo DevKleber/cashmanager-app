@@ -21,8 +21,9 @@ export const HeaderDate = styled.View`
 `;
 
 export const TextHeaderDate = styled.Text`
-    margin: 0px 20px;
-    font-family: 'Poppins-Regular';
+    padding: 0 25%;
+	font-family: 'Poppins-Regular';
+	font-size: 18px;
     color:#666666;
 `;
 

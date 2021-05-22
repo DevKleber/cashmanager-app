@@ -5,6 +5,7 @@ import { InputText } from '../../../components/elements/Input';
 import { AccountProps, getAccounts } from '../../Account/services';
 import { Select } from '../../../components/elements/Select';
 import { CreditCard, getCreditCards } from '../../CreditCard/services';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import {
     Container,
     ContentScrollView,
@@ -14,15 +15,22 @@ import {
     BtnOptionExpense,
     BtnOptionIncome,
     IconTextIncome,
-    TextBoldExpense
+    TextBoldExpense,
+    BoxIsPaidOut,
+    ContentIcon,
+    ContentCheckBox,
+    BoxCardAccount,
+    BtnCreditCard,
+    BtnAccount
 } from './style';
 import { IconText } from '../../../components/elements/Icon';
+import { Platform, StatusBar, Text, View } from 'react-native';
 
 export function TransactionInsert() {
     const navigate = useNavigation();
     const [name, setName] = useState<string>('');
     const [description, setDescription] = useState<string>('');
-    const [isIncome, setIsIncome] = useState<boolean>();
+    const [isIncome, setIsIncome] = useState<boolean>(true);
     const [value, setValue] = useState<string>('');
     const [idAccount, setIdAccount] = useState<any>({});
     const [idCreditCard, setIdCreditCard] = useState<string>('');
@@ -33,7 +41,19 @@ export function TransactionInsert() {
     const [dueDate, setDueDate] = useState<string>('');
     const [categories, setCategories] = useState<any[]>([]);
     const [idCategory, setIdCategory] = useState<string>('');
-    
+
+    const [date, setDate] = useState(new Date(new Date().getTime()));
+    const [show, setShow] = useState(false);
+
+    const onChange = (event:any, selectedDate:any) => {
+        const currentDate = selectedDate || date;
+        setShow(Platform.OS === 'ios');
+        setDate(currentDate);
+    };
+    const showDatepicker = () => {
+        setShow(true);
+    };
+
     async function saveAccount() {
         const dados = await save({ 
             description,
@@ -62,7 +82,7 @@ export function TransactionInsert() {
         setValue('');
         setName('');
         setInstallment('');
-        setIsIncome(undefined);
+        // setIsIncome(true);
         setDueDate('');
         setIdAccount('');
         setIdCreditCard('');
@@ -83,31 +103,97 @@ export function TransactionInsert() {
         setIsPaid(false);
     }
 
+    function alterBackgroundColor(bgIsIncome: boolean) {
+        let color:string = "#E62E4D";
+        let title: string = "#fff";
+
+        if (bgIsIncome) {
+            title = "#666666";
+            color = "#00eb84";
+        }
+
+        navigate.setOptions({
+            headerShown: true,
+			headerStyle: {
+				backgroundColor: color, 
+				borderColor: color, 
+				shadowColor: 'transparent'
+			},
+			headerTitleStyle: {
+				color: title,
+                fontFamily: 'Poppins-Medium',
+                fontSize: 16,
+			},
+			headerTintColor: title
+        });
+        StatusBar.setBackgroundColor(color); 
+    }
+
     useEffect(() => { 
+        StatusBar.setBarStyle('dark-content');
+		StatusBar.setBackgroundColor('#00eb84');
         listCategories();
         listAccounts();
         creditCards();
     }, []);
 
     return (
-        <Container>
-            <ContentScrollView>
+        <Container selected={isIncome}>
                 <BoxOptions>
-                <BtnOptionIncome onPress={() => (setIsIncome(true), clearSelecteds())} selected={isIncome}>
+                    <BtnOptionIncome onPress={() => (setIsIncome(true), clearSelecteds(), alterBackgroundColor(true))} selected={isIncome}>
                         <IconTextIncome selected={isIncome}>Entrada</IconTextIncome>
-                        <IconText name='arrow-circle-up' color={isIncome ? '#fff' : '#00eb84'}/>
+                        <IconText name='arrow-circle-up' color={isIncome ? '#fff' : '#a7e9d1'} size={26}/>
                     </BtnOptionIncome>
-                    <BtnOptionExpense onPress={() => setIsIncome(false)} selected={isIncome}>
-                        <TextBoldExpense selected={isIncome}>Saida</TextBoldExpense>
-                        <IconText name='arrow-circle-down' color={isIncome !== false ? '#E62E4D' : '#fff'}/>
+                    <BtnOptionExpense onPress={() => (setIsIncome(false), clearSelecteds(), alterBackgroundColor(false))} selected={isIncome}>
+                        <TextBoldExpense selected={isIncome}>Saída</TextBoldExpense>
+                        <IconText name='arrow-circle-down' color={isIncome !== false ? '#e8d1d9' : '#fff'} size={26}/>
                     </BtnOptionExpense>
                 </BoxOptions>
+            <ContentScrollView>
+
+
+                {/* <View>
+                    <Button onPress={showDatepicker} title="Show date picker!" />
+                </View> */}
+                {/* {show && (
+                    <DateTimePicker
+                        testID="dateTimePicker"
+                        value={date}
+                        mode="date"
+                        is24Hour={true}
+                        display="default"
+                        onChange={onChange}
+                    />
+                )} */}
+
+                <BoxIsPaidOut>
+                    <ContentIcon>
+                        <IconText name="add-task" />
+                        <Text style={{marginLeft: 10}}>Pago</Text>
+                    </ContentIcon>
+                    <ContentCheckBox>
+                        <IconText name="add-task" />
+                    </ContentCheckBox>
+                </BoxIsPaidOut>
+                <BoxCardAccount>
+                    <BtnCreditCard>
+                        <IconText name="credit-card" color="#fff" />
+                        <Text style={{color: '#fff', marginLeft: 5}}>Cartão de credito</Text>
+                    </BtnCreditCard>
+                    <BtnAccount>
+                        <IconText name="account-balance-wallet" color="#fff" />
+                        <Text style={{color: '#fff', marginLeft: 5}}>Conta</Text>
+                    </BtnAccount>
+                </BoxCardAccount>
+                
                 <InputText
                     icon="account-balance-wallet"
                     placeholder="Nome"
                     value={name}
                     onChangeText={setName}
                     autoCorrect={false}
+                    backgroundColor="#fff"
+                    outline={true}
                 />
                 <InputText
                     icon="account-balance"
@@ -116,6 +202,8 @@ export function TransactionInsert() {
                     onChangeText={setDescription}
                     autoCorrect={false}
                     keyboardType="numeric"
+                    backgroundColor="#fff"
+                    outline={true}
 
                 />
                 <InputText
@@ -125,6 +213,8 @@ export function TransactionInsert() {
                     onChangeText={setValue}
                     autoCorrect={false}
                     keyboardType="numeric"
+                    backgroundColor="#fff"
+                    outline={true}
 
                 />
 
@@ -134,6 +224,8 @@ export function TransactionInsert() {
                     value={dueDate}
                     onChangeText={setDueDate}
                     autoCorrect={false}
+                    backgroundColor="#fff"
+                    outline={true}
 
                 />
                 <Select 
