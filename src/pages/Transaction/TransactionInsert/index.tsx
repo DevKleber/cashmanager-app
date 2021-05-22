@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Text } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
 import { save, optionsParcel, optionsIsPaid, getCategories} from '../services';
 import { InputText } from '../../../components/elements/Input';
@@ -14,6 +13,8 @@ import {
     BoxOptions,
     BtnOptionExpense,
     BtnOptionIncome,
+    IconTextIncome,
+    TextBoldExpense
 } from './style';
 import { IconText } from '../../../components/elements/Icon';
 
@@ -92,15 +93,14 @@ export function TransactionInsert() {
         <Container>
             <ContentScrollView>
                 <BoxOptions>
-                    <BtnOptionIncome onPress={() => (setIsIncome(true), clearSelecteds())} selected={isIncome}>
-                        <Text>Entrada</Text>
-                        <IconText name='arrow-downward' color='green'/>
+                <BtnOptionIncome onPress={() => (setIsIncome(true), clearSelecteds())} selected={isIncome}>
+                        <IconTextIncome selected={isIncome}>Entrada</IconTextIncome>
+                        <IconText name='arrow-circle-up' color={isIncome ? '#fff' : '#00eb84'}/>
                     </BtnOptionIncome>
                     <BtnOptionExpense onPress={() => setIsIncome(false)} selected={isIncome}>
-                        <Text>Saida</Text>
-                        <IconText name='arrow-upward' color='orange'/>
+                        <TextBoldExpense selected={isIncome}>Saida</TextBoldExpense>
+                        <IconText name='arrow-circle-down' color={isIncome !== false ? '#E62E4D' : '#fff'}/>
                     </BtnOptionExpense>
-
                 </BoxOptions>
                 <InputText
                     icon="account-balance-wallet"

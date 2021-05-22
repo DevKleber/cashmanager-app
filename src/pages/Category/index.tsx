@@ -43,7 +43,7 @@ export function CategoryList() {
                                         <ItemContent>
                                             <ItemTextDescription>{item.name}</ItemTextDescription>
                                         </ItemContent>
-                                        <BtnNewCategory onPress={() => navigate.navigate('category', item.id)}>
+                                        <BtnNewCategory onPress={() => navigate.navigate('CategoryInsert', item.id)}>
                                             <IconText name="add-circle" />
                                         </BtnNewCategory>
                                     </ItemList>
@@ -67,7 +67,7 @@ export function CategoryList() {
                     </CardInvoice>
                     <BtnNewCard
                         style={style.boxShadow}
-                        onPress={() => navigate.navigate('category')}>
+                        onPress={() => navigate.navigate('CategoryInsert')}>
                         <IconText name="add-circle" />
                         <TextAdd>Adicionar nova categoria</TextAdd>
                     </BtnNewCard>

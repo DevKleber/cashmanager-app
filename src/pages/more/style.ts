@@ -14,17 +14,25 @@ export const Menu = styled.Text`
 export const View = styled.View`
 	flex: 1;
 	width: 100%;
-	flex-direction: row;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: center;
+	flex-direction: column;
 `;
+export const ViewBox = styled.View`
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
+`;
+
 export const Item = styled.TouchableOpacity`
 	justify-content: center;
 	align-items: center;
-	width: 30%;
-	height: 100px;
+	width: 40%;
+	height: 120px;
 	background-color: #fff;
 	border-radius: 15px;
+	margin: 10px
 `;
 
 export const Text = styled.Text`

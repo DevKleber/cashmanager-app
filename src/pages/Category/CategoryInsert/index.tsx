@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Text } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
 import { save } from '../services';
 import { InputText } from '../../../components/elements/Input';
-import { AccountProps, getAccounts } from '../../Account/services';
-import { Select } from '../../../components/elements/Select';
-import { CreditCard, getCreditCards } from '../../CreditCard/services';
 import {
     Container,
     ContentScrollView,
@@ -14,6 +10,8 @@ import {
     BoxOptions,
     BtnOptionExpense,
     BtnOptionIncome,
+    IconTextIncome,
+    TextBoldExpense
 } from './style';
 import { IconText } from '../../../components/elements/Icon';
 
@@ -25,12 +23,9 @@ export function CategoryInsert() {
     const [value, setValue] = useState<string>('');
     const [idAccount, setIdAccount] = useState<any>({});
     const [idCreditCard, setIdCreditCard] = useState<string>('');
-    const [accounts, setAccounts] = useState<AccountProps[]>([]);
-    const [creditCard, setCreditCard] = useState<CreditCard[]>([]);
     const [isPaid, setIsPaid] = useState<any>();
     const [installment, setInstallment] = useState<string>('');
     const [dueDate, setDueDate] = useState<string>('');
-    const [categories, setCategories] = useState<any[]>([]);
     const [idCategory, setIdCategory] = useState<string>('');
     
     async function saveAccount() {
@@ -50,6 +45,11 @@ export function CategoryInsert() {
             navigate.navigate('transacoes');
         });
     }
+
+    const options:any = [
+        {label: 'Entrada', value: true},
+        {label: 'Saída', value: false},
+    ]
 
     async function clearForm() {
         setDescription('');
@@ -77,12 +77,12 @@ export function CategoryInsert() {
             <ContentScrollView>
                 <BoxOptions>
                     <BtnOptionIncome onPress={() => (setIsIncome(true), clearSelecteds())} selected={isIncome}>
-                        <Text>Entrada</Text>
-                        <IconText name='arrow-downward' color='green'/>
+                        <IconTextIncome selected={isIncome}>Entrada</IconTextIncome>
+                        <IconText name='arrow-circle-up' color={isIncome ? '#fff' : '#00eb84'}/>
                     </BtnOptionIncome>
                     <BtnOptionExpense onPress={() => setIsIncome(false)} selected={isIncome}>
-                        <Text>Saida</Text>
-                        <IconText name='arrow-upward' color='orange'/>
+                        <TextBoldExpense selected={isIncome}>Saida</TextBoldExpense>
+                        <IconText name='arrow-circle-down' color={isIncome !== false ? '#E62E4D' : '#fff'}/>
                     </BtnOptionExpense>
 
                 </BoxOptions>
@@ -92,24 +92,6 @@ export function CategoryInsert() {
                     value={name}
                     onChangeText={setName}
                     autoCorrect={false}
-                />
-                <InputText
-                    icon="account-balance"
-                    placeholder="Descrição"
-                    value={description}
-                    onChangeText={setDescription}
-                    autoCorrect={false}
-                    keyboardType="numeric"
-
-                />
-
-                <Select 
-                     icon="category"
-                     onChange={setIdCategory}
-                     options={categories}
-                     fields={{label: 'name', value: 'id'}}
-                     placeholder='Selecionar categorias'
-                     isTree={true}
                 />
                 
                 <BtnNewCard onPress={saveAccount}>

@@ -1,5 +1,4 @@
-import {Picker} from '@react-native-picker/picker';
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 
 export const Container = styled.View`
 	flex: 1;
@@ -14,12 +13,9 @@ export const Container = styled.View`
 `;
 
 export const BoxOptions = styled.View`
-	/* flex: 1; */
-	/* width: 100%; */
 	align-items: center;
 	flex-direction: row;
 	height: 100px;
-	/* border: 1px solid black; */
 `;
 
 export const ContentScrollView = styled.ScrollView`
@@ -47,24 +43,18 @@ export const BtnOptionExpense = styled.TouchableOpacity<IsIncomeProps>`
 	align-items: center;
 	flex-direction: row;
 	justify-content: center;
-	border-radius: 10px;
+	border-radius: 25px;
 	padding: 15px;
 	padding: 30px;
-	background-color: #e8e9ef;
+	background-color: #E8E9EF;
+	border: 1px solid #E62E4D;
 
-	${({selected}) => {
-		if (selected === false) {
-			return `
-			  	background-color: #FFA50020;
-				border: 1px solid orange;
-			`;
-		}
-
-		return `
-			background-color: #E8E9EF;
-			border: none;
-  		`;
-	}}
+	${({selected}) =>
+    selected === false &&
+		css`
+			background-color: #E62E4D;
+    	`
+	}
 `;
 
 export const BtnOptionIncome = styled.TouchableOpacity<IsIncomeProps>`
@@ -72,27 +62,52 @@ export const BtnOptionIncome = styled.TouchableOpacity<IsIncomeProps>`
 	align-items: center;
 	justify-content: center;
 	flex-direction: row;
-	border-radius: 10px;
+	border-radius: 25px;
 	padding: 15px;
 	padding: 30px;
 	margin-right: 5%;
+	background-color: #E8E9EF;
+	border: 1px solid #00eb84;
 
-	${({selected}) => {
-		if (selected === true) {
-			return `
-			  	background-color: #00eb8419;
-				border: 1px solid green;
-			`;
-		}
-
-		return `
-			background-color: #E8E9EF;
-			border: none;
-  		`;
-	}}
+	${({selected}) =>
+    selected &&
+		css`
+			background-color: #00eb84;
+    	`
+	}
 `;
 
 export const TextBtnNewCard = styled.Text`
 	font-size: 14px;
 	font-family: 'Poppins-Bold';
+`;
+
+
+
+export const IconTextIncome = styled.Text<IsIncomeProps>`
+	font-family: 'Poppins-Bold';
+	margin-right: 5px;
+	color: black;
+
+	${({selected}) =>
+    selected &&
+		css`
+			color: #fff;
+    	`
+	}
+
+`;
+
+export const TextBoldExpense = styled.Text<IsIncomeProps>`
+	font-family: 'Poppins-Bold';
+	margin-right: 5px;
+	color: black;
+
+	${({selected}) =>
+    selected === false &&
+		css`
+			color: #fff;
+    	`
+	}
+
 `;

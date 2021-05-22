@@ -25,8 +25,7 @@ export function AppTab() {
 			<Tab.Screen
 				name="transacoes"
 				options={{title: 'Transações'}}
-				component={CategoryList}
-				// component={TransactionList}
+				component={TransactionList}
 			/>
 			<Tab.Screen
 				name="add"
