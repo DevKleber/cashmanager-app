@@ -16,6 +16,7 @@ export default function AuthRoutes() {
 				screenOptions={{
 					headerShown: false,
 					cardStyle: {backgroundColor: '#fff'},
+					
 				}}>
 				<Auth.Screen name="SignIn" component={Login} />
 				<Auth.Screen name="SignUp" component={NewAccount} />

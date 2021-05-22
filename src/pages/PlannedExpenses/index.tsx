@@ -21,7 +21,7 @@ import {
     CategoriesView
 } from './style';
 import { getPlannedExpenses } from './services';
-import { Alert, View } from 'react-native';
+import { Alert, StatusBar, View } from 'react-native';
 
 export function PlannedExpenses() {
     const navigate = useNavigation();
@@ -74,6 +74,7 @@ export function PlannedExpenses() {
     }, []);
     return (
         <Container>
+            <StatusBar barStyle="light-content" backgroundColor="#2C88D9" /> 
             <ViewContent>
                 <ContentScrollView>
                     <View>
@@ -103,7 +104,7 @@ export function PlannedExpenses() {
                     <BarPorcent>
                         <Porcent style={{width: `${total > 100 ? 100 : total}%`}}></Porcent>
                     </BarPorcent>
-                    <ViewPorcent>
+                    <ViewPorcent style={{left: total >= 80 ? '80%' : `${total}%`, transform: [{translateX: -10}]}}>
                         <TextTotal>{total}%</TextTotal>
                     </ViewPorcent>
                 </ContentTotal>

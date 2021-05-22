@@ -1,11 +1,11 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.View`
+export const Container = styled.SafeAreaView`
 	flex: 1;
 	width: 100%;
 	align-items: center;
 	flex-direction: column;
-	background-color: #f0f2f5;
+	background-color: #009788;
 `;
 
 export const HeaderDate = styled.View`
@@ -16,13 +16,15 @@ export const HeaderDate = styled.View`
 `;
 
 export const TextHeaderDate = styled.Text`
-	margin: 0px 20px;
-	color: #666666;
+	padding: 0 25%;
+	color: #fff;
 	font-family: 'Poppins-Regular';
+	font-size: 18px;
 `;
 
 export const Card = styled.View`
-	width: 100%;
+	width: 86%;
+	margin-left: 7%;
 	flex-direction: column;
 	padding: 15px 20px;
 	background-color: #fff;
@@ -70,15 +72,19 @@ export const ContentScrollView = styled.ScrollView`
 	width: 100%;
 	display: flex;
 	flex: 1;
-	padding: 0px 25px;
-	margin: 20px 0px;
+	/* padding: 0px 25px; */
+	margin-top: 20px;
+	
 `;
 
 export const CardInvoice = styled.View`
 	width: 100%;
+	flex: 1;
+	min-height: 350px;
 	flex-direction: column;
 	background-color: #fff;
-	border-radius: 15px;
+	border-top-left-radius: 45px;
+	border-top-right-radius: 45px;
 `;
 
 export const ItemList = styled.View`
@@ -138,5 +144,11 @@ export const RowHr = styled.View`
 	border-width: 0.5px;
 	border-color: #d7d7d7;
 	width: 100%;
-	/* margin-left: 5%; */
+`;
+
+export const ViewMesage = styled.View`
+	flex: 1;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
 `;

@@ -2,34 +2,49 @@ import React from 'react';
 import {IconText} from '../../../components/elements/Icon';
 import {Summary, Header, Content, Card, Name, Value} from './style';
 
-export function Sammary() {
+interface SammaryProps {
+	isTransaction?: boolean;
+	fisrtCard: any;
+	middleCard: any;
+	lastCard: any;
+}
+export function Sammary({isTransaction, fisrtCard, middleCard, lastCard} : SammaryProps) {
+
+	function formatValueBR(value: any) {
+		return value;
+		// return new Intl.NumberFormat('pt-BR', {
+		// 	style: 'currency',
+		// 	currency: 'BRL'
+		// }).format(value);
+	}
+
 	return (
 		<Summary>
 			<Card style={style.boxShadow} background="#00EB84">
 				<Header>
-					<Name>Entrada</Name>
+					<Name>{fisrtCard.title}</Name>
 					<IconText name="arrow-circle-up" color="#fff" size={27} />
 				</Header>
 				<Content>
-					<Value>R$ 175.325,50</Value>
+					<Value>{formatValueBR(fisrtCard.value)}</Value>
 				</Content>
 			</Card>
 			<Card style={style.boxShadow} background="#E62E4D">
 				<Header>
-					<Name>Entrada</Name>
+					<Name>{middleCard.title}</Name>
 					<IconText name="arrow-circle-down" color="#fff" size={27} />
 				</Header>
 				<Content>
-					<Value>R$ 175.325,50</Value>
+					<Value>{formatValueBR(middleCard.value)}</Value>
 				</Content>
 			</Card>
-			<Card style={style.boxShadow} background="#2A004F">
+			<Card style={style.boxShadow} background={isTransaction ? "#fff" : '#2A004F'} isTransaction={isTransaction}>
 				<Header>
-					<Name>Entrada</Name>
-					<IconText name="outlined-flag" color="#fff" size={27} />
+					<Name style={{color: isTransaction ? "#E62E4D" : '#fff'}}>{lastCard.title}</Name>
+					<IconText name="outlined-flag" color={isTransaction ? "#E62E4D" : '#fff'} size={27} />
 				</Header>
 				<Content>
-					<Value>R$ 175.325,50</Value>
+					<Value style={{color: isTransaction ? "#E62E4D" : '#fff'}}>{formatValueBR(lastCard.value)}</Value>
 				</Content>
 			</Card>
 		</Summary>

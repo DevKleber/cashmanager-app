@@ -1,12 +1,15 @@
-import {Picker} from '@react-native-picker/picker';
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 
-export const Container = styled.View`
+interface IsIncomeProps {
+	selected: boolean | undefined;
+}
+
+export const Container = styled.View<IsIncomeProps>`
 	flex: 1;
 	width: 100%;
 	align-items: center;
 	flex-direction: column;
-	background-color: #f0f2f5;
+	background-color: ${({selected}) => selected ? "#00eb84" : "#E62E4D"};
 
 	.btnSelected {
 		background-color: black;
@@ -14,18 +17,24 @@ export const Container = styled.View`
 `;
 
 export const BoxOptions = styled.View`
-	/* flex: 1; */
-	/* width: 100%; */
 	align-items: center;
 	flex-direction: row;
-	height: 100px;
-	/* border: 1px solid black; */
+	height: 69px;
+	width: 327px;
+	background-color: #E8E9EF;
+	border-radius: 35px;
+
 `;
 
 export const ContentScrollView = styled.ScrollView`
 	width: 100%;
 	padding: 0px 25px;
-	margin: 20px 0px;
+	padding-top: 25px;
+	margin-top: 20px;
+	background-color: #fff;
+	border-top-left-radius: 45px;
+	border-top-right-radius: 45px;
+
 `;
 
 export const BtnNewCard = styled.TouchableOpacity`
@@ -38,61 +47,132 @@ export const BtnNewCard = styled.TouchableOpacity`
 	margin-top: 10px;
 	padding: 15px;
 `;
-interface IsIncomeProps {
-	selected: boolean | undefined;
-}
 
 export const BtnOptionExpense = styled.TouchableOpacity<IsIncomeProps>`
-	width: 47.5%;
+	width: 165px;
 	align-items: center;
 	flex-direction: row;
 	justify-content: center;
-	border-radius: 10px;
-	padding: 15px;
-	padding: 30px;
-	background-color: #e8e9ef;
+	align-items: center;
+	border-radius: 35px;
+	height: 69px;
+	background-color: #E8E9EF;
 
-	${({selected}) => {
-		if (selected === false) {
-			return `
-			  	background-color: #FFA50020;
-				border: 1px solid orange;
-			`;
-		}
-
-		return `
-			background-color: #E8E9EF;
-			border: none;
-  		`;
-	}}
+	${({selected}) =>
+    selected === false &&
+		css`
+			background-color: #cf2945;
+    	`
+	}
 `;
 
 export const BtnOptionIncome = styled.TouchableOpacity<IsIncomeProps>`
-	width: 47.5%;
+	width: 162px;
 	align-items: center;
 	justify-content: center;
 	flex-direction: row;
-	border-radius: 10px;
-	padding: 15px;
-	padding: 30px;
-	margin-right: 5%;
+	border-radius: 35px;
+	height: 69px;
+	background-color: #E8E9EF;
 
-	${({selected}) => {
-		if (selected === true) {
-			return `
-			  	background-color: #00eb8419;
-				border: 1px solid green;
-			`;
-		}
-
-		return `
-			background-color: #E8E9EF;
-			border: none;
-  		`;
-	}}
+	${({selected}) =>
+    selected &&
+		css`
+			background-color: #00d377;
+    	`
+	}
 `;
 
 export const TextBtnNewCard = styled.Text`
 	font-size: 14px;
 	font-family: 'Poppins-Bold';
+`;
+
+
+
+export const IconTextIncome = styled.Text<IsIncomeProps>`
+	font-family: 'Poppins-Bold';
+	margin-right: 5px;
+	color: #aaa;
+
+	${({selected}) =>
+    selected &&
+		css`
+			color: #fff;
+    	`
+	}
+
+`;
+
+export const TextBoldExpense = styled.Text<IsIncomeProps>`
+	font-family: 'Poppins-Bold';
+	margin-right: 5px;
+	color: #aaa;
+
+	${({selected}) =>
+    selected === false &&
+		css`
+			color: #fff;
+    	`
+	}
+
+`;
+
+export const BoxCardCount = styled.View`
+	width: 100%;
+	flex-direction: row;
+	align-items: center;
+
+`;
+
+export const BoxIsPaidOut = styled.View`
+	width: 100%;
+	flex-direction: row;
+	align-items: center;
+	margin-bottom: 10px;
+
+`;
+
+export const ContentIcon = styled.View`
+	width: 70%;
+	flex-direction: row;
+	align-items: center;
+	margin-left: 20px;
+
+`;
+
+export const ContentCheckBox = styled.View`
+	/* width: 80%; */
+	flex-direction: row;
+	align-items: center;
+
+`;
+
+export const BoxCardAccount = styled.View`
+	width: 100%;
+	flex-direction: row;
+
+
+`;
+
+export const BtnCreditCard = styled.TouchableOpacity`
+	background-color: #CF2945;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	width: 175px;
+	border-radius: 50px;
+	height: 33px;
+	margin-right: 6px;
+`;
+
+export const BtnAccount = styled.TouchableOpacity`
+	background-color: #CF2945;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	flex: 1;
+	border-radius: 50px;
+	height: 33px;
+	margin-right: 6px;
 `;

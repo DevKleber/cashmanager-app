@@ -8,12 +8,14 @@ import RoutesCreditCard from '../pages/CreditCard/routesCreditCard';
 import RoutesPlanned from '../pages/PlannedExpenses/routesPlanned';
 import More from '../pages/more';
 import RoutesAccount from '../pages/Account/routesAccount';
-import RoutesTransactions from '../pages/Transaction/routesTransactions';
+import RoutesCategories from '../pages/Category/routesCategories';
+import routesTransactionsList from '../pages/Transaction/routesTransactionsList';
+import routesTransactionsInsert from '../pages/Transaction/routesTransactionsInsert';
 
 const Tab = createBottomTabNavigator();
 export function AppTab() {
 	return (
-		<Tab.Navigator tabBar={props => <CustomTabBar {...props} />}>
+		<Tab.Navigator tabBar={(props: any) => <CustomTabBar {...props} />}>
 			<Tab.Screen
 				name="Home"
 				options={{title: 'Inicio'}}
@@ -21,18 +23,19 @@ export function AppTab() {
 			/>
 			<Tab.Screen
 				name="transacoes"
-				options={{title: 'Transações'}}
-				component={Dashboard}
+				options={{title: 'Movimentações'}}
+				component={routesTransactionsList}
 			/>
 			<Tab.Screen
 				name="add"
-				options={{title: 'Nova transação'}}
-				component={RoutesTransactions}
+				options={{title: 'Nova movimentação'}}
+				component={routesTransactionsInsert}
 			/>
 			<Tab.Screen name="planned" component={RoutesPlanned} />
 			<Tab.Screen name="more" options={{title: '...'}} component={More} />
 			<Tab.Screen name="credit" component={RoutesCreditCard} />
 			<Tab.Screen name="account" component={RoutesAccount} />
+			<Tab.Screen name="category" component={RoutesCategories} />
 		</Tab.Navigator>
 	);
 }

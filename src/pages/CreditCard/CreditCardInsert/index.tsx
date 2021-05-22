@@ -8,6 +8,7 @@ import {
     TextBtnNewCard,
     BtnNewCard
 } from './style';
+import { StatusBar } from 'react-native';
 
 export function CreditCardInsert() {
     const navigate = useNavigation();
@@ -25,35 +26,36 @@ export function CreditCardInsert() {
 
     return (
         <Container>
+            <StatusBar barStyle="light-content" backgroundColor="#009788" />
             <ContentScrollView>
-            <InputText
-                icon="credit-card"
-                placeholder="Nome"
-                value={name}
-                onChangeText={setName}
-                autoCorrect={false}
-            />
-            <InputText
-                icon="event"
-                placeholder="Dia do vencimento"
-                value={dueDay}
-                onChangeText={setDueDay}
-                autoCorrect={false}
-                keyboardType="numeric"
+                <InputText
+                    icon="credit-card"
+                    placeholder="Nome"
+                    value={name}
+                    onChangeText={setName}
+                    autoCorrect={false}
+                />
+                <InputText
+                    icon="event"
+                    placeholder="Dia do vencimento"
+                    value={dueDay}
+                    onChangeText={setDueDay}
+                    autoCorrect={false}
+                    keyboardType="numeric"
 
-            />
-            <InputText
-                icon="event"
-                placeholder="Dia do fechamento"
-                value={closingDay}
-                onChangeText={setClosingDay}
-                autoCorrect={false}
-                keyboardType="numeric"
+                />
+                <InputText
+                    icon="event"
+                    placeholder="Dia do fechamento"
+                    value={closingDay}
+                    onChangeText={setClosingDay}
+                    autoCorrect={false}
+                    keyboardType="numeric"
 
-            />
-            <BtnNewCard onPress={saveCreditCard}>
-                <TextBtnNewCard>Criar</TextBtnNewCard>
-            </BtnNewCard>
+                />
+                <BtnNewCard onPress={saveCreditCard}>
+                    <TextBtnNewCard>Criar</TextBtnNewCard>
+                </BtnNewCard>
             </ContentScrollView>
         </Container>
     )

@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { IconText } from '../../../components/elements/Icon';
+import { IconText } from '../../components/elements/Icon';
 import { format } from 'date-fns'
 import { 
-    Content, 
-    Title, 
-    Header, 
-    Text, 
-    TextValue, 
-    TextLighter,
-    Card,
     Container,
     ContentScrollView,
     HeaderDate,
@@ -24,24 +17,22 @@ import {
     DatePrice,
     ItemTextDescription,
     RowHr,
-    ViewMesage
+    BoxSammary
 } from './style';
 import { Image, View } from 'react-native';
-import { getCreditCardById, CreditCard, Month, getMonths } from '../services';
-import { useNavigation, useRoute } from '@react-navigation/core';
-import { BtnNewCard, TextAdd } from '../style';
+import { TransactionProps, Month, getTransactions, getMonths } from './services';
+import { useRoute } from '@react-navigation/core';
+import { Sammary } from '../Dashboard/Sammary';
 
-export function CreditCardDetail() {
+export function TransactionList() {
     const [months, setMonths] = useState<Month[]>(getMonths());
     const [month, setMonth] = useState<number>(0);
-    const [creditCard, setCreditCard] = useState<CreditCard>({} as CreditCard);
+    const [transactions, setTransactions] = useState<TransactionProps[]>([]);
     const router = useRoute();
-    const navigate = useNavigation();
 
-    async function getCreditCard() {
-        const { id }: any = router.params;
-        const dados = await getCreditCardById(id, month);
-        setCreditCard(dados)
+    async function listTransactions() {
+        const dados = await getTransactions(month);
+        setTransactions(dados);
     }
 
     function formatDate(date: any) {
@@ -61,55 +52,44 @@ export function CreditCardDetail() {
 
     useEffect(() => {
         setCurrentMonth();
-        getCreditCard();
+        listTransactions();
     }, []);
     return (
         <Container>
              <HeaderDate>
-                <IconText name="navigate-before" size={25} color='#fff'onPress={() => {alterMonth(month > 0 ? month - 1 : 0).then(() => getCreditCard())}} />
+                <IconText name="navigate-before" size={20} onPress={() => {alterMonth(month > 0 ? month - 1 : 0).then(() => listTransactions())}} />
                 <TextHeaderDate>{months[month].month}</TextHeaderDate>
-                <IconText name="navigate-next" size={25} color="#fff" onPress={() => {alterMonth(month < 11 ? month + 1 : 11).then(() => getCreditCard())}}/>
+                <IconText name="navigate-next" size={20} onPress={() => {alterMonth(month < 11 ? month + 1 : 11).then(() => listTransactions())}}/>
             </HeaderDate>
+            <BoxSammary>
+                <Sammary 
+                    isTransaction={true}
+                    fisrtCard={{title: 'Entrada', value: 25410}}
+                    middleCard={{title: 'Saida', value: 25410}}
+                    lastCard={{title: 'Total', value: 25410}}
+                />
+            </BoxSammary>
             <ContentScrollView>
-                    <Card style={style.boxShadow} >
-                        <Header>
-                        <Image
-							source={require('./../../../assets/img/card.png')}
-						/>
-                            <Title>{creditCard.name}</Title>
-                        </Header>
-                        <Content>
-                            <Text>Valor da fatura: <TextValue>R$ {creditCard.total}</TextValue></Text>
-                            <Text>Fecha: <TextLighter>{creditCard.closing_day}</TextLighter></Text>
-                            <Text>Vencimento: <TextLighter>{creditCard.due_day}</TextLighter></Text>
-                        </Content>
-                    </Card>
-                    <CardInvoice >
-                        {creditCard.items?.map((item: any, index: number) =>(
+                    <CardInvoice style={style.boxShadowInvoice}>
+                        {transactions?.map((item: any, index: number) =>(
                             <View key={index} style={{paddingLeft: 20, paddingRight: 20}}>
                                 <ItemList >
                                     <ItemIcon>
-                                    <IconText name={item.icon}/>
+                                        <IconText name={item.icon}/>
                                     </ItemIcon>
                                     <ItemContent>
                                         <ItemTextTitle>{item.name}</ItemTextTitle>
                                         <ItemTextDescription>{item.description}</ItemTextDescription>
                                     </ItemContent>
                                     <ItemPrice>
-                                        <TextPrePrice>R$</TextPrePrice>
-                                        <TextItemPrice>{item.value}</TextItemPrice>
+                                        <TextPrePrice isIncome={item.is_income}>R$</TextPrePrice>
+                                        <TextItemPrice isIncome={item.is_income}>{item.value}</TextItemPrice>
                                         <DatePrice>{formatDate(item.created_at)}</DatePrice>
                                     </ItemPrice>
                                 </ItemList>
-                                {creditCard.items.length > index + 1 ? <RowHr/> : null}
+                                {transactions.length > index + 1 ? <RowHr/> : null}
                             </View>
                         ))}
-
-                        {   creditCard.items?.length == 0 ? 
-                            <ViewMesage><Text>Esse cartão não possui movimentações</Text></ViewMesage> :
-                            null
-
-                        }
                     </CardInvoice>
             </ContentScrollView>
         </Container>

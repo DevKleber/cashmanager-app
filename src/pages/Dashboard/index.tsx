@@ -28,7 +28,11 @@ export function Dashboard() {
 						<IconText name="navigate-next" size={20} />
 					</Button>
 				</Months>
-				<Sammary />
+				<Sammary 
+					fisrtCard={{title: 'Entrada', value: 25410}}
+					middleCard={{title: 'Saida', value: 25410}}
+					lastCard={{title: 'Total', value: 25410}}
+				/>
 				<ContainerItem>
 					<Card style={style.boxShadow}>
 						<DashboardIncome />

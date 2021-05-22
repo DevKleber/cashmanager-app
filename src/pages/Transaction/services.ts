@@ -1,5 +1,5 @@
 import { api } from "../../services/api";
-export interface AccountProps {
+export interface TransactionProps {
     id: number,
     description: string,
     id_banking: number,
@@ -24,11 +24,11 @@ export interface Month {
 //     return data;
 // }
 
-// export async function deleteAccount(id: number)
-// {
-//     const {data} = await api.delete(`/accounts/${id}`);
-//     return data;
-// }
+export async function deleteAccount(id: number)
+{
+    const {data} = await api.delete(`/accounts/${id}`);
+    return data;
+}
 
 
 // export async function update(form: any)
@@ -36,6 +36,12 @@ export interface Month {
 //     const {data} = await api.put(`/accounts/${form.id}`, form);
 //     return data;
 // }
+
+export async function getCategories()
+{
+    const {data} = await api.get(`/categories`);
+    return data;
+}
 
 export async function save(form: any)
 { 
@@ -56,51 +62,56 @@ export const optionsParcel = [
     {label: '3x', value: '3'},
     {label: '4x', value: '4'},
 ];
-// export async function getAccounts()
-// {
-//     const {data} = await api.get(`/accounts`);
-//     return data;
-// }
+export async function getTransactions(month:number = 0)
+{
+    const {data} = await api.get(`/transactions`, {
+        params: {
+            month
+        }
+    });
 
-// export function getMonths(): Month[]
-// {
-//     return [
-//         {
-//             month: 'Janeiro'
-//         },
-//         {
-//             month: 'Fevereiro',
-//         },
-//         {
-//             month: 'Março',
-//         },
-//         {
-//             month: 'Abril',
-//         },
-//         {
-//             month: 'Maio',
-//         },
-//         {
-//             month: 'Junho',
-//         },
-//         {
-//             month: 'Julho',
-//         },
-//         {
-//             month: 'Agosto',
-//         },
-//         {
-//             month: 'Setembro',
-//         },
-//         {
-//             month: 'Outubro',
-//         },
-//         {
-//             month: 'Novembro',
-//         },
-//         {
-//             month: 'Dezembro',
-//         },
+    return data;
+}
 
-//     ]
-// }
+export function getMonths(): Month[]
+{
+    return [
+        {
+            month: 'Janeiro'
+        },
+        {
+            month: 'Fevereiro',
+        },
+        {
+            month: 'Março',
+        },
+        {
+            month: 'Abril',
+        },
+        {
+            month: 'Maio',
+        },
+        {
+            month: 'Junho',
+        },
+        {
+            month: 'Julho',
+        },
+        {
+            month: 'Agosto',
+        },
+        {
+            month: 'Setembro',
+        },
+        {
+            month: 'Outubro',
+        },
+        {
+            month: 'Novembro',
+        },
+        {
+            month: 'Dezembro',
+        },
+
+    ]
+}
