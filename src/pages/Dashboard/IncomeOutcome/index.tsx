@@ -1,4 +1,5 @@
 import React from 'react';
+import NumberFormat from 'react-number-format';
 import {
 	Chart,
 	Line,
@@ -24,16 +25,39 @@ export function DashboardIncomeOutcome() {
 			<Info>
 				<Item>
 					<Label>Entradas</Label>
-					<ValueIncome>R$ 6.000,00</ValueIncome>
+					<NumberFormat
+						value={6000.0}
+						prefix={'R$ '}
+						displayType={'text'}
+						thousandSeparator="."
+						decimalSeparator=","
+						renderText={value => <ValueIncome>{value}</ValueIncome>}
+					/>
 				</Item>
 				<Item>
 					<Label>Saídas</Label>
-					<ValueOutcome>R$ 4.000,00</ValueOutcome>
+					<NumberFormat
+						value={4000.0}
+						prefix={'R$ '}
+						displayType={'text'}
+						thousandSeparator="."
+						decimalSeparator=","
+						renderText={value => (
+							<ValueOutcome>{value}</ValueOutcome>
+						)}
+					/>
 				</Item>
 				<Line />
 				<Item>
-					<Label>Saldo</Label>
-					<Value>R$ 1.000,00</Value>
+					<Label>Saldo mês</Label>
+					<NumberFormat
+						value={1000.0}
+						prefix={'R$ '}
+						displayType={'text'}
+						thousandSeparator="."
+						decimalSeparator=","
+						renderText={value => <Value>{value}</Value>}
+					/>
 				</Item>
 			</Info>
 		</Balance>
