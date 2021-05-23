@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {IconText} from '../../components/elements/Icon';
 import {Sammary} from './Sammary';
 
@@ -15,8 +15,23 @@ import {DashboardIncome} from './Income';
 import {DashboardOutcome} from './Outcome';
 import {DashboardCategory} from './Category';
 import {DashboardIncomeOutcome} from './IncomeOutcome';
+import {getDashboardData} from './services';
+import {DashboardProps} from './Interface';
 
 export function Dashboard() {
+	const [dashboard, setDasboard] = useState<DashboardProps>(
+		{} as DashboardProps,
+	);
+
+	async function getDataToDashboard() {
+		const data = await getDashboardData();
+		setDasboard(data);
+	}
+
+	useEffect(() => {
+		getDataToDashboard();
+	}, []);
+
 	return (
 		<Wrapper>
 			<Container>
@@ -30,13 +45,25 @@ export function Dashboard() {
 					</Button>
 				</Months>
 				<Sammary
-					fisrtCard={{title: 'Entradas', value: 25410.35}}
-					middleCard={{title: 'Saidas', value: 25410}}
-					lastCard={{title: 'Planejamento', value: 25410}}
+					fisrtCard={{
+						title: 'Entradas',
+						value: Number(dashboard.totalEntradas.total),
+					}}
+					middleCard={{
+						title: 'Saidas',
+						value: Number(dashboard.totalSaida.total),
+					}}
+					lastCard={{
+						title: 'Planejamento',
+						value: Number(dashboard.totalPlanejamento.total),
+					}}
 				/>
 				<ContainerItem>
 					<Card style={style.boxShadow}>
-						<DashboardIncomeOutcome />
+						<DashboardIncomeOutcome
+							totalEntrada={Number(dashboard.totalEntradas.total)}
+							totalSaida={Number(dashboard.totalSaida.total)}
+						/>
 					</Card>
 					<Card style={style.boxShadow}>
 						<DashboardIncome />
