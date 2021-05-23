@@ -62,8 +62,13 @@ export const Value = styled.Text`
 `;
 
 export const ContainerItem = styled.View`
-	padding: 20px;
 	flex: 1;
+	width: 100%;
+	background: #fff;
+	margin-top: 25px;
+	padding: 35px 20px;
+	border-top-left-radius: 46px;
+	border-top-right-radius: 46px;
 `;
 
 export const Card = styled.View`

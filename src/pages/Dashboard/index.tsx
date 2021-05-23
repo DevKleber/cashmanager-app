@@ -14,6 +14,7 @@ import {
 import {DashboardIncome} from './Income';
 import {DashboardOutcome} from './Outcome';
 import {DashboardCategory} from './Category';
+import {DashboardIncomeOutcome} from './IncomeOutcome';
 
 export function Dashboard() {
 	return (
@@ -28,12 +29,15 @@ export function Dashboard() {
 						<IconText name="navigate-next" size={20} />
 					</Button>
 				</Months>
-				<Sammary 
-					fisrtCard={{title: 'Entrada', value: 25410}}
-					middleCard={{title: 'Saida', value: 25410}}
-					lastCard={{title: 'Total', value: 25410}}
+				<Sammary
+					fisrtCard={{title: 'Entradas', value: 25410}}
+					middleCard={{title: 'Saidas', value: 25410}}
+					lastCard={{title: 'Planejamento', value: 25410}}
 				/>
 				<ContainerItem>
+					<Card style={style.boxShadow}>
+						<DashboardIncomeOutcome />
+					</Card>
 					<Card style={style.boxShadow}>
 						<DashboardIncome />
 					</Card>
@@ -55,6 +59,6 @@ const style = {
 		shadowOffset: {width: 0, height: 4},
 		shadowRadius: 4,
 		shadowOpacity: 0.25,
-		elevation: 6,
+		elevation: 2,
 	},
 };
