@@ -3,37 +3,12 @@ import {Dimensions} from 'react-native';
 
 import {LineChart} from 'react-native-chart-kit';
 
-export function DashboardOutcome() {
+export function DashboardOutcome({data}: any) {
 	const screenWidth = Dimensions.get('window').width;
 
-	const dataSaida = {
-		labels: [
-			'Jan',
-			'Fev',
-			'Mar',
-			'Apr',
-			'Mai',
-			'Jun',
-			'Jul',
-			'Ago',
-			'Set',
-			'Out',
-			'Nov',
-			'Dez',
-		],
-		datasets: [
-			{
-				data: [20, 45, 28, 80, 99, 43, 20, 45, 28, 80, 99, 43],
-				color: (opacity = 1) => `rgba(42, 0, 79 , ${opacity})`, // optional
-				strokeWidth: 2, // optional
-			},
-		],
-		legend: ['Saidas do ano'], // optional
-	};
-
-	return (
+	return data != undefined ? (
 		<LineChart
-			data={dataSaida}
+			data={data}
 			width={screenWidth - 50}
 			height={220}
 			verticalLabelRotation={30}
@@ -60,5 +35,7 @@ export function DashboardOutcome() {
 				borderRadius: 16,
 			}}
 		/>
+	) : (
+		<></>
 	);
 }
