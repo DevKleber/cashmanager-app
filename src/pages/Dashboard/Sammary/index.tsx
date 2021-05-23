@@ -8,14 +8,14 @@ interface SammaryProps {
 	middleCard: any;
 	lastCard: any;
 }
-export function Sammary({isTransaction, fisrtCard, middleCard, lastCard} : SammaryProps) {
-
+export function Sammary({
+	isTransaction,
+	fisrtCard,
+	middleCard,
+	lastCard,
+}: SammaryProps) {
 	function formatValueBR(value: any) {
 		return value;
-		// return new Intl.NumberFormat('pt-BR', {
-		// 	style: 'currency',
-		// 	currency: 'BRL'
-		// }).format(value);
 	}
 
 	return (
@@ -38,13 +38,24 @@ export function Sammary({isTransaction, fisrtCard, middleCard, lastCard} : Samma
 					<Value>{formatValueBR(middleCard.value)}</Value>
 				</Content>
 			</Card>
-			<Card style={style.boxShadow} background={isTransaction ? "#fff" : '#2A004F'} isTransaction={isTransaction}>
+			<Card
+				style={style.boxShadow}
+				background={isTransaction ? '#fff' : '#2C88D9'}
+				isTransaction={isTransaction}>
 				<Header>
-					<Name style={{color: isTransaction ? "#E62E4D" : '#fff'}}>{lastCard.title}</Name>
-					<IconText name="outlined-flag" color={isTransaction ? "#E62E4D" : '#fff'} size={27} />
+					<Name style={{color: isTransaction ? '#E62E4D' : '#fff'}}>
+						{lastCard.title}
+					</Name>
+					<IconText
+						name="outlined-flag"
+						color={isTransaction ? '#E62E4D' : '#fff'}
+						size={27}
+					/>
 				</Header>
 				<Content>
-					<Value style={{color: isTransaction ? "#E62E4D" : '#fff'}}>{formatValueBR(lastCard.value)}</Value>
+					<Value style={{color: isTransaction ? '#E62E4D' : '#fff'}}>
+						{formatValueBR(lastCard.value)}
+					</Value>
 				</Content>
 			</Card>
 		</Summary>
