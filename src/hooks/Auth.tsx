@@ -62,6 +62,8 @@ export function AuthProvider({children}: AuthProviderProps) {
 
 	async function loginIn(form: LoginProps) {
 		try {
+			console.log(form);
+
 			const {data} = await api.post('/auth/login', form);
 			api.defaults.headers.authorization = `Bearer ${data.access_token}`;
 			saveUser(data);
