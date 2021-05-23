@@ -7,6 +7,7 @@ export interface DashboardProps {
 	};
 	totalPlanejamento: {
 		total: number;
+		totalPlanejado: number;
 	};
 
 	planejamento: [

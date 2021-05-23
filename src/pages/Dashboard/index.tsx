@@ -62,7 +62,7 @@ export function Dashboard() {
 					}}
 					lastCard={{
 						title: 'Planejamento',
-						value: Number(dashboard?.totalPlanejamento?.total),
+						value: dashboard?.totalPlanejamento,
 					}}
 				/>
 				<ContainerItem>
