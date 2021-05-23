@@ -30,6 +30,8 @@ export function ForgotPassword() {
 					placeholder={'Email'}
 					value={email}
 					setState={setEmail}
+					backgroundColor="#fff"
+					outline={true}
 				/>
 				<BtnEnviar>
 					<TextBtnEnviar>Enviar</TextBtnEnviar>

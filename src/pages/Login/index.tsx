@@ -57,6 +57,8 @@ export function Login() {
 								value={email}
 								onChangeText={setEmail}
 								autoCorrect={false}
+								backgroundColor="#fff"
+								outline={true}
 								keyboardType="email-address"
 							/>
 							<InputText
@@ -65,6 +67,8 @@ export function Login() {
 								value={password}
 								onChangeText={setPassword}
 								secureTextEntry
+								backgroundColor="#fff"
+								outline={true}
 								returnKeyType="send"
 								onSubmitEditing={() => {
 									handleLogin();
