@@ -12,7 +12,17 @@ export default function RoutesAccount() {
 		<Stack.Navigator
 			screenOptions={{
 				headerShown: true,
-				headerStyle: {backgroundColor: '#F0F2F5'},
+				headerStyle: {
+					backgroundColor: '#F7C325', 
+					borderColor: '#F7C325', 
+					shadowColor: 'transparent'
+				},
+				headerTitleStyle: {
+					color: '#000',
+					fontFamily: 'Poppins-Regular',
+					fontSize: 16,
+				},
+				headerTintColor: '#000'
 			}}>
 			<Stack.Screen
 				name="AccountList"
@@ -22,17 +32,17 @@ export default function RoutesAccount() {
 			<Stack.Screen
 				name="AccountUpdate"
 				component={AccountUpdate}
-				options={{title: 'Contas'}}
+				options={{title: 'Alterar conta'}}
 			/>
 			<Stack.Screen
 				name="AccountInsert"
 				component={AccountInsert}
-				options={{title: 'Contas'}}
+				options={{title: 'Nova conta'}}
 			/>
 			<Stack.Screen
 				name="AccountDetail"
 				component={AccountDetail}
-				options={{title: 'Contas'}}
+				options={{title: 'Movimentações de conta'}}
 			/>
 		</Stack.Navigator>
 	);

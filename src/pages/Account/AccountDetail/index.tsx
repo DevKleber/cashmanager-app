@@ -7,7 +7,6 @@ import {
 	Header,
 	Text,
 	TextValue,
-	TextLighter,
 	Card,
 	Container,
 	ContentScrollView,
@@ -28,6 +27,7 @@ import {
 import {Image, View} from 'react-native';
 import {getAccountById, AccountProps, Month, getMonths} from '../services';
 import {useRoute} from '@react-navigation/core';
+import { ViewMesage } from '../../CreditCard/CreditCardDetail/style';
 
 export function AccountDetail() {
 	const [months, setMonths] = useState<Month[]>(getMonths());
@@ -63,8 +63,8 @@ export function AccountDetail() {
 		<Container>
 			<HeaderDate>
 				<IconText
-					name="arrow-left"
-					size={18}
+					name="navigate-before"
+					size={25}
 					color="#666666"
 					onPress={() => {
 						alterMonth(month > 0 ? month - 1 : 0).then(() =>
@@ -74,8 +74,8 @@ export function AccountDetail() {
 				/>
 				<TextHeaderDate>{months[month].month}</TextHeaderDate>
 				<IconText
-					name="arrow-right"
-					size={18}
+					name="navigate-next"
+					size={25}
 					color="#666666"
 					onPress={() => {
 						alterMonth(month < 11 ? month + 1 : 11).then(() =>
@@ -95,8 +95,8 @@ export function AccountDetail() {
 					</Header>
 					<Content>
 						<Text>
-							Valor da fatura:{' '}
-							<TextValue>R$ {account.current_balance}</TextValue>
+							Valor da fatura: 
+							<TextValue> R$ {account.current_balance}</TextValue>
 						</Text>
 					</Content>
 				</Card>
@@ -139,6 +139,11 @@ export function AccountDetail() {
 							) : null}
 						</View>
 					))}
+
+					{account.items?.length == 0 ? 
+						<ViewMesage><Text>Essa conta não possui movimentações</Text></ViewMesage> :
+						null
+					}
 				</CardInvoice>
 			</ContentScrollView>
 		</Container>

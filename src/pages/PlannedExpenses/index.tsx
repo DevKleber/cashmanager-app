@@ -70,6 +70,8 @@ export function PlannedExpenses() {
     }
 
     useEffect(() => {
+        StatusBar.setBarStyle('dark-content');
+		StatusBar.setBackgroundColor('#2C88D9');
         listCategories();
     }, []);
     return (

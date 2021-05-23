@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/core';
 import { save } from '../services';
 import { InputText } from '../../../components/elements/Input';
@@ -22,8 +22,6 @@ export function AccountInsert() {
         });
     }
 
-    useEffect(() => {}, []);
-
     return (
         <Container>
             <ContentScrollView>
@@ -33,6 +31,7 @@ export function AccountInsert() {
                     value={description}
                     onChangeText={setDescription}
                     autoCorrect={false}
+                    backgroundColor="#E8E9EF"
                 />
                 <InputText
                     icon="account-balance"
@@ -41,42 +40,23 @@ export function AccountInsert() {
                     onChangeText={setBanking}
                     autoCorrect={false}
                     keyboardType="numeric"
+                    backgroundColor="#E8E9EF"
 
                 />
                 <InputText
-                    icon="attach-money"
+                    icon="payments"
                     placeholder="Valor"
                     value={currentBalance}
                     onChangeText={setCurrentBalance}
                     autoCorrect={false}
                     keyboardType="numeric"
+                    backgroundColor="#E8E9EF"
 
                 />
             <BtnNewCard onPress={saveAccount}>
-                <TextBtnNewCard>Criar</TextBtnNewCard>
+                <TextBtnNewCard>Salvar conta</TextBtnNewCard>
             </BtnNewCard>
             </ContentScrollView>
         </Container>
     )
 };
-
-const style = {
-    boxShadow: {
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 12,
-        },
-
-        elevation: 2,
-    },
-    boxShadowInvoice: {
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 12,
-        },
-
-        elevation: 1,
-    }
-}
