@@ -1,10 +1,8 @@
 import React, {useState} from 'react';
 import {
-	Image,
 	KeyboardAvoidingView,
 	TouchableWithoutFeedback,
 	Platform,
-	ScrollView,
 	Keyboard,
 } from 'react-native';
 import {IconText} from '../../components/elements/Icon';
@@ -43,7 +41,7 @@ export function NewAccount() {
 		<>
 			<KeyboardAvoidingView
 				style={{flex: 1}}
-				keyboardVerticalOffset={200} // adjust the value here if you need more padding
+				keyboardVerticalOffset={200}
 				behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
 				enabled>
 				<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -58,6 +56,8 @@ export function NewAccount() {
 								autoCapitalize="words"
 								placeholder="Nome"
 								value={name}
+								backgroundColor="#fff"
+								outline={true}
 								onChangeText={setName}
 							/>
 							<InputText
@@ -67,6 +67,8 @@ export function NewAccount() {
 								autoCapitalize="none"
 								onChangeText={setEmail}
 								autoCorrect={false}
+								backgroundColor="#fff"
+								outline={true}
 								keyboardType="email-address"
 							/>
 							<InputText
@@ -75,6 +77,8 @@ export function NewAccount() {
 								value={password}
 								onChangeText={setPassword}
 								secureTextEntry
+								backgroundColor="#fff"
+								outline={true}
 								onSubmitEditing={() => {
 									createAccount();
 								}}

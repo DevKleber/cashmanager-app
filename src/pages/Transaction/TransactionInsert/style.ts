@@ -2,7 +2,9 @@ import styled, { css } from 'styled-components/native';
 
 interface IsIncomeProps {
 	selected: boolean | undefined;
+	colorBg?: string
 }
+
 
 export const Container = styled.View<IsIncomeProps>`
 	flex: 1;
@@ -45,6 +47,7 @@ export const BtnNewCard = styled.TouchableOpacity`
 	color: #2a004f;
 	border-radius: 10px;
 	margin-top: 10px;
+	margin-bottom: 70px;
 	padding: 15px;
 `;
 
@@ -73,7 +76,7 @@ export const BtnOptionIncome = styled.TouchableOpacity<IsIncomeProps>`
 	flex-direction: row;
 	border-radius: 35px;
 	height: 69px;
-	background-color: #E8E9EF;
+	;
 
 	${({selected}) =>
     selected &&
@@ -129,7 +132,7 @@ export const BoxIsPaidOut = styled.View`
 	width: 100%;
 	flex-direction: row;
 	align-items: center;
-	margin-bottom: 10px;
+	margin-bottom: 20px;
 
 `;
 
@@ -138,6 +141,8 @@ export const ContentIcon = styled.View`
 	flex-direction: row;
 	align-items: center;
 	margin-left: 20px;
+
+
 
 `;
 
@@ -148,15 +153,57 @@ export const ContentCheckBox = styled.View`
 
 `;
 
-export const BoxCardAccount = styled.View`
+export const BoxDate = styled.View`
 	width: 100%;
 	flex-direction: row;
+	margin-bottom: 10px;
 
 
 `;
 
-export const BtnCreditCard = styled.TouchableOpacity`
-	background-color: #CF2945;
+export const BtnYesterday = styled.TouchableOpacity<IsIncomeProps>`
+	background-color: ${({selected, colorBg})=>(selected ? colorBg : '#fff')};
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	width: 91px;
+	border-radius: 50px;
+	height: 33px;
+	margin-right: 10px;
+`;
+
+export const BtnToday = styled.TouchableOpacity<IsIncomeProps>`
+	background-color: ${({selected, colorBg})=>(selected ? colorBg : '#fff')};
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50px;
+	height: 33px;
+	margin-right: 6px;
+	width: 70px;
+`;
+
+export const BtnInform = styled.TouchableOpacity<IsIncomeProps>`
+	background-color: ${({selected, colorBg})=>(selected ? colorBg : '#fff')};
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	flex: 1;
+	border-radius: 50px;
+	height: 33px;
+	margin-right: 6px;
+`;
+
+export const BoxCardAccount = styled.View`
+	width: 100%;
+	flex-direction: row;
+	margin-bottom: 15px;
+
+
+`;
+
+export const BtnCreditCard = styled.TouchableOpacity<IsIncomeProps>`
+	background-color: ${({selected, colorBg})=>(!selected ? colorBg : '#E8E9EE')};
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
@@ -166,8 +213,8 @@ export const BtnCreditCard = styled.TouchableOpacity`
 	margin-right: 6px;
 `;
 
-export const BtnAccount = styled.TouchableOpacity`
-	background-color: #CF2945;
+export const BtnAccount = styled.TouchableOpacity<IsIncomeProps>`
+	background-color: ${({selected, colorBg})=>(selected ? colorBg : '#E8E9EE')};
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
@@ -175,4 +222,45 @@ export const BtnAccount = styled.TouchableOpacity`
 	border-radius: 50px;
 	height: 33px;
 	margin-right: 6px;
+`;
+
+export const BoxPorcent = styled.View`
+	width: 100%;
+	height: 11px;
+	background-color: #E8E9EE;
+	border-radius: 4px;
+	margin-bottom: 3px;
+
+	
+`;
+
+export const BoxPorcentText = styled.View`
+	width: 100%;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+`;
+export const Porcent = styled.View<IsIncomeProps>`
+	width: 80%;
+	height: 11px;
+	background-color: ${({selected}) => (selected ? '#00d377' : '#E62E4D' )};
+	border-radius: 4px;
+`;
+export const TextPorcent = styled.Text`
+`;
+
+export const CheckBox = styled.View<IsIncomeProps>`
+	width: 71px;
+	border-radius: 16px;
+	height: 26px;
+	background-color: ${({selected}) => (selected ? '#00d377' : '#E62E4D')};
+	justify-content: center;
+	padding: 0px 1px ;
+`;
+
+export const Check = styled.TouchableOpacity`
+	width: 24px;
+	height: 24px;
+	border-radius: 12px;
+	background-color: #fff;
 `;
