@@ -8,22 +8,28 @@ export interface DashboardProps {
 	totalPlanejamento: {
 		total: number;
 	};
+
 	entradasDoAno: {
 		labels: [];
-		datasets: {
-			data: [];
-			color: [];
-			strokeWidth: number;
-		};
+		datasets: [
+			{
+				data: [];
+				color: any;
+				strokeWidth: number;
+			},
+		];
 		legend: [];
 	};
+
 	saidasDoAno: {
 		labels: [];
-		datasets: {
-			data: [];
-			color: [];
-			strokeWidth: 2;
-		};
+		datasets: [
+			{
+				data: [];
+				color: any;
+				strokeWidth: number;
+			},
+		];
 		legend: [];
 	};
 

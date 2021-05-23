@@ -24,8 +24,14 @@ export function Dashboard() {
 	);
 
 	async function getDataToDashboard() {
-		const data = await getDashboardData();
+		const data: DashboardProps = await getDashboardData();
+		data.entradasDoAno.datasets[0].color = (opacity = 1) =>
+			`rgba(42, 0, 79, ${opacity})`;
+		data.saidasDoAno.datasets[0].color = (opacity = 1) =>
+			`rgba(42, 0, 79, ${opacity})`;
 		setDasboard(data);
+
+		console.log(dashboard.categoriasDoAno);
 	}
 
 	useEffect(() => {
@@ -47,32 +53,34 @@ export function Dashboard() {
 				<Sammary
 					fisrtCard={{
 						title: 'Entradas',
-						value: Number(dashboard.totalEntradas.total),
+						value: Number(dashboard?.totalEntradas?.total),
 					}}
 					middleCard={{
 						title: 'Saidas',
-						value: Number(dashboard.totalSaida.total),
+						value: Number(dashboard?.totalSaida?.total),
 					}}
 					lastCard={{
 						title: 'Planejamento',
-						value: Number(dashboard.totalPlanejamento.total),
+						value: Number(dashboard?.totalPlanejamento?.total),
 					}}
 				/>
 				<ContainerItem>
 					<Card style={style.boxShadow}>
 						<DashboardIncomeOutcome
-							totalEntrada={Number(dashboard.totalEntradas.total)}
-							totalSaida={Number(dashboard.totalSaida.total)}
+							totalEntrada={Number(
+								dashboard?.totalEntradas?.total,
+							)}
+							totalSaida={Number(dashboard?.totalSaida?.total)}
 						/>
 					</Card>
 					<Card style={style.boxShadow}>
-						<DashboardIncome />
+						<DashboardIncome data={dashboard?.entradasDoAno} />
 					</Card>
 					<Card style={style.boxShadow}>
-						<DashboardOutcome />
+						<DashboardOutcome data={dashboard?.saidasDoAno} />
 					</Card>
 					<Card style={style.boxShadow}>
-						<DashboardCategory />
+						<DashboardCategory data={dashboard?.categoriasDoAno} />
 					</Card>
 				</ContainerItem>
 			</Container>
