@@ -14,6 +14,7 @@ import {
 import {DashboardIncome} from './Income';
 import {DashboardOutcome} from './Outcome';
 import {DashboardCategory} from './Category';
+import {DashboardPlanned} from './Planned';
 import {DashboardIncomeOutcome} from './IncomeOutcome';
 import {getDashboardData} from './services';
 import {DashboardProps} from './Interface';
@@ -31,7 +32,7 @@ export function Dashboard() {
 			`rgba(42, 0, 79, ${opacity})`;
 		setDasboard(data);
 
-		console.log(dashboard.categoriasDoAno);
+		console.log(dashboard.planejamento);
 	}
 
 	useEffect(() => {
@@ -80,7 +81,8 @@ export function Dashboard() {
 						<DashboardOutcome data={dashboard?.saidasDoAno} />
 					</Card>
 					<Card style={style.boxShadow}>
-						<DashboardCategory data={dashboard?.categoriasDoAno} />
+						{/* <DashboardCategory data={dashboard?.categoriasDoAno} /> */}
+						<DashboardPlanned data={dashboard?.planejamento} />
 					</Card>
 				</ContainerItem>
 			</Container>

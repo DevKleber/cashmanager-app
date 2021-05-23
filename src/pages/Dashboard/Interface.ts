@@ -9,6 +9,16 @@ export interface DashboardProps {
 		total: number;
 	};
 
+	planejamento: [
+		{
+			id_category: number;
+			name: string;
+			total: number;
+			value_percent: number;
+			income: number;
+		},
+	];
+
 	entradasDoAno: {
 		labels: [];
 		datasets: [
