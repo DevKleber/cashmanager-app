@@ -1,5 +1,9 @@
 import styled from 'styled-components/native';
 
+interface ChartProps {
+	valor: number;
+}
+
 export const Balance = styled.View`
 	flex-direction: row;
 	height: 220px;
@@ -15,15 +19,15 @@ export const Chart = styled.View`
 	width: 90px;
 	height: 100%;
 `;
-export const Income = styled.View`
+export const Income = styled.View<ChartProps>`
 	background-color: #00eb84;
-	height: 100%;
+	height: ${props => `${props.valor}%`};
 	width: 40%;
 	border-radius: 20px;
 `;
-export const Outcome = styled.View`
+export const Outcome = styled.View<ChartProps>`
 	background-color: #e62e4d;
-	height: 35%;
+	height: ${props => `${props.valor}%`};
 	width: 40%;
 	border-radius: 20px;
 `;
