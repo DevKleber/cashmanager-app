@@ -1,13 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useNavigation} from '@react-navigation/core';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {Container, Item, Text, Menu, View, ViewBox} from './style';
+import {Container, Item, Text, View, ViewBox} from './style';
+import {StatusBar} from 'react-native';
 
-export default function More() {
+export function More() {
+	useEffect(() => {
+		StatusBar.setBarStyle('light-content');
+		StatusBar.setBackgroundColor('#407c93');
+	}, []);
+
 	const navigate = useNavigation();
 	return (
 		<Container>
-			<Menu>Menu</Menu>
 			<View>
 				<ViewBox>
 					<Item
@@ -15,34 +20,30 @@ export default function More() {
 						onPress={() => navigate.navigate('account')}>
 						<Icon
 							name="account-balance-wallet"
-							size={24}
-							color="#666666"
+							size={34}
+							color="#fff"
 						/>
-						<Text>Account</Text>
+						<Text>Contas</Text>
 					</Item>
 					<Item
 						style={style.boxShadow}
 						onPress={() => navigate.navigate('credit')}>
-						<Icon name="credit-card" size={24} color="#666666" />
-						<Text>Credit card</Text>
+						<Icon name="credit-card" size={34} color="#fff" />
+						<Text>Cartão de crédito</Text>
 					</Item>
 				</ViewBox>
 				<ViewBox>
-					<Item 
+					<Item
 						style={style.boxShadow}
 						onPress={() => navigate.navigate('category')}>
-						<Icon
-							name="category"
-							size={24}
-							color="#666666"
-						/>
+						<Icon name="category" size={34} color="#fff" />
 						<Text>Categorias</Text>
 					</Item>
 					<Item style={style.boxShadow}>
 						<Icon
 							name="supervised-user-circle"
-							size={24}
-							color="#666666"
+							size={34}
+							color="#fff"
 						/>
 						<Text>Perfil</Text>
 					</Item>

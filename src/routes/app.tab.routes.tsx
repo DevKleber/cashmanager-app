@@ -6,11 +6,11 @@ import {CustomTabBar} from '../components/customTabBar';
 
 import RoutesCreditCard from '../pages/CreditCard/routesCreditCard';
 import RoutesPlanned from '../pages/PlannedExpenses/routesPlanned';
-import More from '../pages/more';
 import RoutesAccount from '../pages/Account/routesAccount';
 import RoutesCategories from '../pages/Category/routesCategories';
 import routesTransactionsList from '../pages/Transaction/routesTransactionsList';
 import routesTransactionsInsert from '../pages/Transaction/routesTransactionsInsert';
+import RoutesMore from '../pages/more/routesMore';
 
 const Tab = createBottomTabNavigator();
 export function AppTab() {
@@ -32,7 +32,11 @@ export function AppTab() {
 				component={routesTransactionsInsert}
 			/>
 			<Tab.Screen name="planned" component={RoutesPlanned} />
-			<Tab.Screen name="more" options={{title: '...'}} component={More} />
+			<Tab.Screen
+				name="more"
+				options={{title: '...'}}
+				component={RoutesMore}
+			/>
 			<Tab.Screen name="credit" component={RoutesCreditCard} />
 			<Tab.Screen name="account" component={RoutesAccount} />
 			<Tab.Screen name="category" component={RoutesCategories} />

@@ -1,4 +1,6 @@
 import React from 'react';
+import {Text} from 'react-native';
+import NumberFormat from 'react-number-format';
 import {IconText} from '../../../components/elements/Icon';
 import {Summary, Header, Content, Card, Name, Value} from './style';
 
@@ -8,14 +10,14 @@ interface SammaryProps {
 	middleCard: any;
 	lastCard: any;
 }
-export function Sammary({isTransaction, fisrtCard, middleCard, lastCard} : SammaryProps) {
-
+export function Sammary({
+	isTransaction,
+	fisrtCard,
+	middleCard,
+	lastCard,
+}: SammaryProps) {
 	function formatValueBR(value: any) {
 		return value;
-		// return new Intl.NumberFormat('pt-BR', {
-		// 	style: 'currency',
-		// 	currency: 'BRL'
-		// }).format(value);
 	}
 
 	return (
@@ -26,7 +28,14 @@ export function Sammary({isTransaction, fisrtCard, middleCard, lastCard} : Samma
 					<IconText name="arrow-circle-up" color="#fff" size={27} />
 				</Header>
 				<Content>
-					<Value>{formatValueBR(fisrtCard.value)}</Value>
+					<NumberFormat
+						value={fisrtCard.value}
+						prefix={'R$ '}
+						displayType={'text'}
+						thousandSeparator="."
+						decimalSeparator=","
+						renderText={value => <Value>{value}</Value>}
+					/>
 				</Content>
 			</Card>
 			<Card style={style.boxShadow} background="#E62E4D">
@@ -35,16 +44,46 @@ export function Sammary({isTransaction, fisrtCard, middleCard, lastCard} : Samma
 					<IconText name="arrow-circle-down" color="#fff" size={27} />
 				</Header>
 				<Content>
-					<Value>{formatValueBR(middleCard.value)}</Value>
+					<NumberFormat
+						value={middleCard.value}
+						prefix={'R$ '}
+						displayType={'text'}
+						thousandSeparator="."
+						decimalSeparator=","
+						renderText={value => <Value>{value}</Value>}
+					/>
 				</Content>
 			</Card>
-			<Card style={style.boxShadow} background={isTransaction ? "#fff" : '#2A004F'} isTransaction={isTransaction}>
+			<Card
+				style={style.boxShadow}
+				background={isTransaction ? '#fff' : '#2C88D9'}
+				isTransaction={isTransaction}>
 				<Header>
-					<Name style={{color: isTransaction ? "#E62E4D" : '#fff'}}>{lastCard.title}</Name>
-					<IconText name="outlined-flag" color={isTransaction ? "#E62E4D" : '#fff'} size={27} />
+					<Name style={{color: isTransaction ? '#E62E4D' : '#fff'}}>
+						{lastCard.title}
+					</Name>
+					<IconText
+						name="outlined-flag"
+						color={isTransaction ? '#E62E4D' : '#fff'}
+						size={27}
+					/>
 				</Header>
 				<Content>
-					<Value style={{color: isTransaction ? "#E62E4D" : '#fff'}}>{formatValueBR(lastCard.value)}</Value>
+					<NumberFormat
+						value={lastCard.value}
+						prefix={'R$ '}
+						displayType={'text'}
+						thousandSeparator="."
+						decimalSeparator=","
+						renderText={value => (
+							<Value
+								style={{
+									color: isTransaction ? '#E62E4D' : '#fff',
+								}}>
+								{value}
+							</Value>
+						)}
+					/>
 				</Content>
 			</Card>
 		</Summary>
