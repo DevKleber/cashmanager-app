@@ -1,3 +1,4 @@
+import { Platform, StatusBar, Text } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/core';
 import { save, optionsParcel, getCategories} from '../services';
@@ -6,6 +7,8 @@ import { AccountProps, getAccounts } from '../../Account/services';
 import { Select } from '../../../components/elements/Select';
 import { CreditCard, getCreditCards } from '../../CreditCard/services';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { IconText } from '../../../components/elements/Icon';
+import { getPlannedExpenses } from '../../PlannedExpenses/services';
 import {
     Container,
     ContentScrollView,
@@ -33,9 +36,6 @@ import {
     CheckBox,
     Check
 } from './style';
-import { IconText } from '../../../components/elements/Icon';
-import { Platform, StatusBar, Text } from 'react-native';
-import { getPlannedExpenses } from '../../PlannedExpenses/services';
 
 export function TransactionInsert() {
     const navigate = useNavigation();
@@ -174,16 +174,12 @@ export function TransactionInsert() {
         })[0];
 
         setValuePercent(planned?.value_percent ?? 0)
-
-
     }
 
     function handleCategory(item: any) {
         setIdCategory(item);
         getPlannedExpensesItem(item);
     }
-
-    const optionsDate: any = { year: 'numeric', month: '2-digit', day: '2-digit' };
 
     useEffect(() => { 
         StatusBar.setBarStyle('dark-content');
@@ -331,58 +327,6 @@ export function TransactionInsert() {
                     outline={true}
 
                 />
-
-                {/* <InputText
-                    icon="event"
-                    placeholder="Data de pagamento"
-                    value={dueDate}
-                    onChangeText={setDueDate}
-                    autoCorrect={false}
-                    backgroundColor="#fff"
-                    outline={true}
-
-                />
-                <Select 
-                     icon="account-balance-wallet"
-                     onChange={setIdAccount}
-                     options={accounts}
-                     fields={{label: 'description', value: 'id'}}
-                     placeholder='Selecionar conta'
-                />
-
-                {isIncome === false ? <Select 
-                     icon="credit-card"
-                     onChange={setIdCreditCard}
-                     options={creditCard}
-                     fields={{label: 'name', value: 'id'}}
-                     placeholder='Selecionar cartão'
-                /> : null}
-
-               <Select 
-                     icon="point-of-sale"
-                     onChange={setIsPaid}
-                     options={optionsIsPaid}
-                     fields={{label: 'label', value: 'value'}}
-                     placeholder='Status do pagamento'
-                />
-
-                
-                <Select 
-                     icon="repeat"
-                     onChange={setInstallment}
-                     options={optionsParcel}
-                     fields={{label: 'label', value: 'value'}}
-                     placeholder='Repetir transação'
-                />
-
-                <Select 
-                     icon="category"
-                     onChange={setIdCategory}
-                     options={categories}
-                     fields={{label: 'name', value: 'id'}}
-                     placeholder='Selecionar categorias'
-                     isTree={true}
-                />  */}
                 
                 <BtnNewCard onPress={saveAccount}>
                     <TextBtnNewCard>Lançar</TextBtnNewCard>
