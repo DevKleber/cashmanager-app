@@ -2,21 +2,24 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
 	flex: 1;
-	background-color: #f0f2f5;
-	padding: 25px;
-`;
-export const Menu = styled.Text`
-	font-size: 25px;
-	font-family: 'Poppins-Regular';
-
-	/* align-items: flex-start; */
-`;
-export const View = styled.View`
-	flex: 1;
 	width: 100%;
 	align-items: center;
-	justify-content: center;
 	flex-direction: column;
+	background-color: #407c93;
+`;
+
+export const View = styled.View`
+	width: 100%;
+	flex: 1;
+
+	justify-content: center;
+
+	background-color: #fff;
+	border-top-left-radius: 45px;
+	border-top-right-radius: 45px;
+
+	padding: 0px 25px 0px 25px;
+	margin-top: 100px;
 `;
 export const ViewBox = styled.View`
 	width: 100%;
@@ -29,13 +32,13 @@ export const Item = styled.TouchableOpacity`
 	justify-content: center;
 	align-items: center;
 	width: 40%;
-	height: 120px;
-	background-color: #fff;
-	border-radius: 15px;
-	margin: 10px
+	height: 130px;
+	background-color: #407c93;
+	border-radius: 25px;
+	margin: 10px;
 `;
 
 export const Text = styled.Text`
-	color: #666666;
+	color: #fff;
 	font-family: 'Poppins-Regular';
 `;
