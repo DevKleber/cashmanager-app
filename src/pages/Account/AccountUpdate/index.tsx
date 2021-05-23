@@ -8,6 +8,7 @@ import {
     TextBtnNewCard,
     BtnNewCard
 } from './style';
+import { StatusBar } from 'react-native';
 
 export function AccountUpdate() {
     const navigate = useNavigation();
@@ -26,7 +27,7 @@ export function AccountUpdate() {
     async function getAccount() {
         const { id }: any = router.params;
         const dados = await getAccountById(id);
-        console.log(dados);
+        
         setDescription(dados.description)
         setBanking(dados.banking)
         setCurrentBalance(dados.current_balance)
@@ -34,6 +35,8 @@ export function AccountUpdate() {
     }
 
     useEffect(() => {
+        StatusBar.setBarStyle('dark-content');
+		StatusBar.setBackgroundColor('#F7C325');
         getAccount()
     }, []);
 
@@ -46,6 +49,7 @@ export function AccountUpdate() {
                     value={description}
                     onChangeText={setDescription}
                     autoCorrect={false}
+                    backgroundColor="#E8E9EF"
                 />
                 <InputText
                     icon="account-balance"
@@ -54,6 +58,7 @@ export function AccountUpdate() {
                     onChangeText={setBanking}
                     autoCorrect={false}
                     keyboardType="numeric"
+                    backgroundColor="#E8E9EF"
 
                 />
                 <InputText
@@ -63,33 +68,13 @@ export function AccountUpdate() {
                     onChangeText={setCurrentBalance}
                     autoCorrect={false}
                     keyboardType="numeric"
+                    backgroundColor="#E8E9EF"
 
                 />
             <BtnNewCard onPress={updateAccount}>
-                <TextBtnNewCard>Alterar</TextBtnNewCard>
+                <TextBtnNewCard>Alterar conta</TextBtnNewCard>
             </BtnNewCard>
             </ContentScrollView>
         </Container>
     )
 };
-
-const style = {
-    boxShadow: {
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 12,
-        },
-
-        elevation: 2,
-    },
-    boxShadowInvoice: {
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 12,
-        },
-
-        elevation: 1,
-    }
-}

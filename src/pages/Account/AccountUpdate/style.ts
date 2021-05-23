@@ -5,20 +5,25 @@ export const Container = styled.View`
 	width: 100%;
 	align-items: center;
 	flex-direction: column;
-	background-color: #f0f2f5;
+	background-color: #F7C325;
 `;
 
 export const ContentScrollView = styled.ScrollView`
 	width: 100%;
 	padding: 0px 25px;
-	margin: 20px 0px;
+	margin-top: 20px;
+	padding-top: 90px;
+	margin-top: 110px;
+	border-top-left-radius: 45px;
+	border-top-right-radius: 45px;
+	background-color: #fff;
 `;
 
 export const BtnNewCard = styled.TouchableOpacity`
 	width: 100%;
 	align-items: center;
 	flex-direction: column;
-	background-color: #00eb84;
+	background-color: #F7C325;
 	color: #2a004f;
 	border-radius: 10px;
 	margin-top: 10px;

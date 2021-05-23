@@ -71,8 +71,14 @@ export function PlannedExpenses() {
 		StatusBar.setBackgroundColor('#2C88D9');
 	}, []);
 
+	useEffect(() => {
+		StatusBar.setBarStyle('dark-content');
+		StatusBar.setBackgroundColor('#2C88D9');
+		listCategories();
+	}, []);
 	return (
 		<Container>
+			<StatusBar barStyle="light-content" backgroundColor="#2C88D9" />
 			<ViewContent>
 				<ContentScrollView>
 					<View>
