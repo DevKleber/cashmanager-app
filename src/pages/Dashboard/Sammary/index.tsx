@@ -1,4 +1,6 @@
 import React from 'react';
+import {Text} from 'react-native';
+import NumberFormat from 'react-number-format';
 import {IconText} from '../../../components/elements/Icon';
 import {Summary, Header, Content, Card, Name, Value} from './style';
 
@@ -26,7 +28,14 @@ export function Sammary({
 					<IconText name="arrow-circle-up" color="#fff" size={27} />
 				</Header>
 				<Content>
-					<Value>{formatValueBR(fisrtCard.value)}</Value>
+					<NumberFormat
+						value={fisrtCard.value}
+						prefix={'R$ '}
+						displayType={'text'}
+						thousandSeparator="."
+						decimalSeparator=","
+						renderText={value => <Value>{value}</Value>}
+					/>
 				</Content>
 			</Card>
 			<Card style={style.boxShadow} background="#E62E4D">
@@ -35,7 +44,14 @@ export function Sammary({
 					<IconText name="arrow-circle-down" color="#fff" size={27} />
 				</Header>
 				<Content>
-					<Value>{formatValueBR(middleCard.value)}</Value>
+					<NumberFormat
+						value={middleCard.value}
+						prefix={'R$ '}
+						displayType={'text'}
+						thousandSeparator="."
+						decimalSeparator=","
+						renderText={value => <Value>{value}</Value>}
+					/>
 				</Content>
 			</Card>
 			<Card
@@ -53,9 +69,21 @@ export function Sammary({
 					/>
 				</Header>
 				<Content>
-					<Value style={{color: isTransaction ? '#E62E4D' : '#fff'}}>
-						{formatValueBR(lastCard.value)}
-					</Value>
+					<NumberFormat
+						value={lastCard.value}
+						prefix={'R$ '}
+						displayType={'text'}
+						thousandSeparator="."
+						decimalSeparator=","
+						renderText={value => (
+							<Value
+								style={{
+									color: isTransaction ? '#E62E4D' : '#fff',
+								}}>
+								{value}
+							</Value>
+						)}
+					/>
 				</Content>
 			</Card>
 		</Summary>

@@ -30,7 +30,7 @@ export function Dashboard() {
 					</Button>
 				</Months>
 				<Sammary
-					fisrtCard={{title: 'Entradas', value: 25410}}
+					fisrtCard={{title: 'Entradas', value: 25410.35}}
 					middleCard={{title: 'Saidas', value: 25410}}
 					lastCard={{title: 'Planejamento', value: 25410}}
 				/>
