@@ -33,6 +33,7 @@
 		"react-native-svg": "^12.1.1",
 		"react-native-svg-transformer": "^0.14.3",
 		"react-native-vector-icons": "^8.1.0",
+		"react-number-format": "^4.5.5",
 		"styled-components": "^5.2.3"
 	},
 	"devDependencies": {
