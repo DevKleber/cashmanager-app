@@ -30,12 +30,15 @@ export async function deleteAccount(id: number)
     return data;
 }
 
-
-// export async function update(form: any)
-// {
-//     const {data} = await api.put(`/accounts/${form.id}`, form);
-//     return data;
-// }
+export async function getCategoriesByType(type: string = '')
+{
+    const {data} = await api.get(`/categories`, {
+                params: {
+                    type
+                }
+            });
+    return data;
+}
 
 export async function getCategories()
 {

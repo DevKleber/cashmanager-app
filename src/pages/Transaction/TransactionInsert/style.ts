@@ -30,8 +30,12 @@ export const BoxOptions = styled.View`
 
 export const ContentScrollView = styled.ScrollView`
 	width: 100%;
+`;
+
+export const ViewContainer = styled.View`
+	width: 100%;
 	padding: 0px 25px;
-	padding-top: 25px;
+	padding-top: 15px;
 	margin-top: 20px;
 	background-color: #fff;
 	border-top-left-radius: 45px;
@@ -47,7 +51,7 @@ export const BtnNewCard = styled.TouchableOpacity`
 	color: #2a004f;
 	border-radius: 10px;
 	margin-top: 10px;
-	margin-bottom: 70px;
+	margin-bottom: 100px;
 	padding: 15px;
 `;
 
