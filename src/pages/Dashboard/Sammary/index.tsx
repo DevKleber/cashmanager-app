@@ -70,8 +70,19 @@ export function Sammary({
 				</Header>
 				<Content>
 					<Value style={{color: isTransaction ? '#E62E4D' : '#fff'}}>
-						{lastCard?.value?.total.toFixed(1)}%<De> de </De>
-						{lastCard?.value?.totalPlanejado}%
+						{isTransaction ? 
+							<NumberFormat
+								value={lastCard?.value}
+								prefix={'R$ '}
+								displayType={'text'}
+								thousandSeparator="."
+								decimalSeparator=","
+								renderText={value => <Value style={{color: isTransaction ? '#E62E4D' : '#fff'}}>{value}</Value>}
+							/> : 
+							<>
+								{lastCard?.value?.totalPlanejado}%
+								{lastCard?.value?.total.toFixed(1)}%<De> de </De>
+							</>}
 					</Value>
 				</Content>
 			</Card>
