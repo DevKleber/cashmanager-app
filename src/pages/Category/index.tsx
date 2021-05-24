@@ -28,11 +28,29 @@ export function CategoryList() {
 	const [isIncome, setIsIncome] = useState<boolean>(true);
 	const [colorBG, setColorBG] = useState<string>('#207868');
 
-	const [categories, setCategories] = useState<any[]>([]);
+	const [categoriesIncome, setCategoriesIncome] = useState<any[]>([]);
+	const [categoriesOutcome, setCategoriesOutcome] = useState<any[]>([]);
+	const [categoriesActive, setCategoriesActive] = useState<any[]>([]);
 
 	async function listCategories() {
 		const dados = await getCategories();
-		setCategories(dados);
+		let dadosActive = dados.income;
+		dadosActive = isIncome ? dados.income : dados.outcome;
+
+		setCategoriesIncome(dados.income);
+		setCategoriesOutcome(dados.outcome);
+		setCategoriesActive(dadosActive);
+	}
+
+	async function handleSetIincome(status: boolean) {
+		setIsIncome(status);
+
+		if (status) {
+			setCategoriesActive(categoriesIncome);
+		} else {
+			setCategoriesActive(categoriesOutcome);
+		}
+		alterBackgroundColor(status);
 	}
 
 	useEffect(() => {
@@ -73,21 +91,17 @@ export function CategoryList() {
 		<Container selected={isIncome}>
 			<BoxOptions>
 				<BtnOptionIncome
-					onPress={() => (
-						setIsIncome(true), alterBackgroundColor(true)
-					)}
+					onPress={() => handleSetIincome(true)}
 					selected={isIncome}>
 					<IconTextIncome selected={isIncome}>Entrada</IconTextIncome>
 					<IconText
 						name="arrow-circle-up"
-						color={isIncome ? '#fff' : '##CAD8DA'}
+						color={isIncome ? '#fff' : '#CAD8DA'}
 						size={26}
 					/>
 				</BtnOptionIncome>
 				<BtnOptionExpense
-					onPress={() => (
-						setIsIncome(false), alterBackgroundColor(false)
-					)}
+					onPress={() => handleSetIincome(false)}
 					selected={isIncome}>
 					<TextBoldExpense selected={isIncome}>Saída</TextBoldExpense>
 					<IconText
@@ -100,9 +114,9 @@ export function CategoryList() {
 
 			<ContentScrollView>
 				<CardInvoice>
-					{categories?.map((item: any, index: number) => (
-						<>
-							<View key={item.id}>
+					{categoriesActive?.map((item: any, index: number) => (
+						<React.Fragment key={item.id}>
+							<View>
 								<ItemList>
 									<ItemIcon>
 										<IconText
@@ -150,14 +164,14 @@ export function CategoryList() {
 											</ItemContent>
 										</ItemList>
 										{item.children.length == subIndex + 1 &&
-										categories.length ==
+										categoriesActive.length ==
 											index + 1 ? null : (
 											<RowHr />
 										)}
 									</View>
 								),
 							)}
-						</>
+						</React.Fragment>
 					))}
 					<ContainerBtnNewItem>
 						<BtnNewCard
