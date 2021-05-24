@@ -80,8 +80,8 @@ export function Sammary({
 								renderText={value => <Value style={{color: isTransaction ? '#E62E4D' : '#fff'}}>{value}</Value>}
 							/> : 
 							<>
-								{lastCard?.value?.totalPlanejado}%
 								{lastCard?.value?.total.toFixed(1)}%<De> de </De>
+								{lastCard?.value?.totalPlanejado}%
 							</>}
 					</Value>
 				</Content>
