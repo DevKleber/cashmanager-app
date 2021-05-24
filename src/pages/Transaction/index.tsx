@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { View } from 'react-native';
 import { IconText } from '../../components/elements/Icon';
 import { format } from 'date-fns'
+import { TransactionProps, Month, getTransactions, getMonths } from './services';
+import { useRoute } from '@react-navigation/core';
+import { Sammary } from '../Dashboard/Sammary';
 import { 
     Container,
     ContentScrollView,
@@ -19,19 +23,18 @@ import {
     RowHr,
     BoxSammary
 } from './style';
-import { Image, View } from 'react-native';
-import { TransactionProps, Month, getTransactions, getMonths } from './services';
-import { useRoute } from '@react-navigation/core';
-import { Sammary } from '../Dashboard/Sammary';
 
 export function TransactionList() {
     const [months, setMonths] = useState<Month[]>(getMonths());
     const [month, setMonth] = useState<number>(0);
     const [transactions, setTransactions] = useState<TransactionProps[]>([]);
+    const [sammary, setSammary] = useState<any>({});
+    
     const router = useRoute();
 
     async function listTransactions() {
         const dados = await getTransactions(month);
+        calcSammary(dados);
         setTransactions(dados);
     }
 
@@ -48,7 +51,28 @@ export function TransactionList() {
     async function alterMonth(month: number) {
         return setMonth(month);
     }
-    
+
+    function calcSammary(dados: any[]) {
+        let totalIncome: number = 0;
+        let totalExpense: number = 0;
+
+        for (let item of dados) {
+            console.log(item);
+            if (item.is_income) {
+                totalIncome += parseFloat(item.value);
+            } else {
+                totalExpense += parseFloat(item.value);
+            }
+        }
+
+        const itemSammary = {
+            income:  String(totalIncome),
+            expense: String(totalExpense),
+            total: (totalExpense + totalIncome)
+        }
+
+        setSammary(itemSammary);
+    }
 
     useEffect(() => {
         setCurrentMonth();
@@ -62,11 +86,20 @@ export function TransactionList() {
                 <IconText name="navigate-next" size={20} onPress={() => {alterMonth(month < 11 ? month + 1 : 11).then(() => listTransactions())}}/>
             </HeaderDate>
             <BoxSammary>
-                <Sammary 
+                <Sammary
+                    fisrtCard={{
+						title: 'Entradas',
+						value: Number(sammary.income),
+					}}
+					middleCard={{
+						title: 'Saidas',
+						value: Number(sammary.expense),
+					}}
+					lastCard={{
+						title: 'Total',
+						value: sammary.total,
+					}}
                     isTransaction={true}
-                    fisrtCard={{title: 'Entrada', value: 25410}}
-                    middleCard={{title: 'Saida', value: 25410}}
-                    lastCard={{title: 'Total', value: 25410}}
                 />
             </BoxSammary>
             <ContentScrollView>
