@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {IconText} from '../../components/elements/Icon';
 import {Sammary} from './Sammary';
 
@@ -14,9 +14,31 @@ import {
 import {DashboardIncome} from './Income';
 import {DashboardOutcome} from './Outcome';
 import {DashboardCategory} from './Category';
+import {DashboardPlanned} from './Planned';
 import {DashboardIncomeOutcome} from './IncomeOutcome';
+import {getDashboardData} from './services';
+import {DashboardProps} from './Interface';
 
 export function Dashboard() {
+	const [dashboard, setDasboard] = useState<DashboardProps>(
+		{} as DashboardProps,
+	);
+
+	async function getDataToDashboard() {
+		const data: DashboardProps = await getDashboardData();
+		data.entradasDoAno.datasets[0].color = (opacity = 1) =>
+			`rgba(42, 0, 79, ${opacity})`;
+		data.saidasDoAno.datasets[0].color = (opacity = 1) =>
+			`rgba(42, 0, 79, ${opacity})`;
+		setDasboard(data);
+
+		console.log(dashboard.planejamento);
+	}
+
+	useEffect(() => {
+		getDataToDashboard();
+	}, []);
+
 	return (
 		<Wrapper>
 			<Container>
@@ -30,22 +52,37 @@ export function Dashboard() {
 					</Button>
 				</Months>
 				<Sammary
-					fisrtCard={{title: 'Entradas', value: 25410.35}}
-					middleCard={{title: 'Saidas', value: 25410}}
-					lastCard={{title: 'Planejamento', value: 25410}}
+					fisrtCard={{
+						title: 'Entradas',
+						value: Number(dashboard?.totalEntradas?.total),
+					}}
+					middleCard={{
+						title: 'Saidas',
+						value: Number(dashboard?.totalSaida?.total),
+					}}
+					lastCard={{
+						title: 'Planejamento',
+						value: dashboard?.totalPlanejamento,
+					}}
 				/>
 				<ContainerItem>
 					<Card style={style.boxShadow}>
-						<DashboardIncomeOutcome />
+						<DashboardIncomeOutcome
+							totalEntrada={Number(
+								dashboard?.totalEntradas?.total,
+							)}
+							totalSaida={Number(dashboard?.totalSaida?.total)}
+						/>
 					</Card>
 					<Card style={style.boxShadow}>
-						<DashboardIncome />
+						<DashboardIncome data={dashboard?.entradasDoAno} />
 					</Card>
 					<Card style={style.boxShadow}>
-						<DashboardOutcome />
+						<DashboardOutcome data={dashboard?.saidasDoAno} />
 					</Card>
 					<Card style={style.boxShadow}>
-						<DashboardCategory />
+						{/* <DashboardCategory data={dashboard?.categoriasDoAno} /> */}
+						<DashboardPlanned data={dashboard?.planejamento} />
 					</Card>
 				</ContainerItem>
 			</Container>

@@ -14,19 +14,24 @@ import {
 	Balance,
 } from './style';
 
-export function DashboardIncomeOutcome() {
+export function DashboardIncomeOutcome({totalEntrada, totalSaida}: any) {
+	const total = totalEntrada + totalSaida;
+
+	const porcentagemEntrada = (totalEntrada * 100) / total;
+	const porcentagemSaida = (totalSaida * 100) / total;
+
 	return (
 		<Balance>
 			<Chart>
-				<Income />
-				<Outcome />
+				<Income valor={porcentagemEntrada} />
+				<Outcome valor={porcentagemSaida == 0 ? 1 : porcentagemSaida} />
 			</Chart>
 
 			<Info>
 				<Item>
 					<Label>Entradas</Label>
 					<NumberFormat
-						value={6000.0}
+						value={totalEntrada}
 						prefix={'R$ '}
 						displayType={'text'}
 						thousandSeparator="."
@@ -37,7 +42,7 @@ export function DashboardIncomeOutcome() {
 				<Item>
 					<Label>Saídas</Label>
 					<NumberFormat
-						value={4000.0}
+						value={totalSaida}
 						prefix={'R$ '}
 						displayType={'text'}
 						thousandSeparator="."
@@ -51,7 +56,7 @@ export function DashboardIncomeOutcome() {
 				<Item>
 					<Label>Saldo mês</Label>
 					<NumberFormat
-						value={1000.0}
+						value={totalEntrada - totalSaida}
 						prefix={'R$ '}
 						displayType={'text'}
 						thousandSeparator="."

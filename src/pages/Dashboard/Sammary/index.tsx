@@ -2,7 +2,7 @@ import React from 'react';
 import {Text} from 'react-native';
 import NumberFormat from 'react-number-format';
 import {IconText} from '../../../components/elements/Icon';
-import {Summary, Header, Content, Card, Name, Value} from './style';
+import {Summary, Header, Content, Card, Name, Value, De} from './style';
 
 interface SammaryProps {
 	isTransaction?: boolean;
@@ -69,21 +69,10 @@ export function Sammary({
 					/>
 				</Header>
 				<Content>
-					<NumberFormat
-						value={lastCard.value}
-						prefix={'R$ '}
-						displayType={'text'}
-						thousandSeparator="."
-						decimalSeparator=","
-						renderText={value => (
-							<Value
-								style={{
-									color: isTransaction ? '#E62E4D' : '#fff',
-								}}>
-								{value}
-							</Value>
-						)}
-					/>
+					<Value style={{color: isTransaction ? '#E62E4D' : '#fff'}}>
+						{lastCard?.value?.total.toFixed(1)}%<De> de </De>
+						{lastCard?.value?.totalPlanejado}%
+					</Value>
 				</Content>
 			</Card>
 		</Summary>

@@ -1,37 +1,13 @@
 import React from 'react';
 import {Dimensions} from 'react-native';
-import {LineChart, PieChart} from 'react-native-chart-kit';
+import {LineChart} from 'react-native-chart-kit';
 
-export function DashboardIncome() {
+export function DashboardIncome({data}: any) {
 	const screenWidth = Dimensions.get('window').width;
-	const dataEntrada = {
-		labels: [
-			'Jan',
-			'Fev',
-			'Mar',
-			'Apr',
-			'Mai',
-			'Jun',
-			'Jul',
-			'Ago',
-			'Set',
-			'Out',
-			'Nov',
-			'Dez',
-		],
-		datasets: [
-			{
-				data: [20, 45, 28, 80, 99, 43, 20, 45, 28, 80, 99, 43],
-				color: (opacity = 1) => `rgba(42, 0, 79, ${opacity})`, // optional
-				strokeWidth: 2, // optional
-			},
-		],
-		legend: ['Despesas do ano'], // optional
-	};
 
-	return (
+	return data != undefined ? (
 		<LineChart
-			data={dataEntrada}
+			data={data}
 			width={screenWidth - 50}
 			height={220}
 			verticalLabelRotation={30}
@@ -58,5 +34,7 @@ export function DashboardIncome() {
 				borderRadius: 16,
 			}}
 		/>
+	) : (
+		<></>
 	);
 }
