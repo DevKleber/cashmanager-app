@@ -1,103 +1,81 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigation } from '@react-navigation/core';
-import { save } from '../services';
-import { InputText } from '../../../components/elements/Input';
+import React, {useEffect, useState} from 'react';
+import {useNavigation, useRoute} from '@react-navigation/core';
+import {save} from '../services';
+import {InputText} from '../../../components/elements/Input';
 import {
-    Container,
-    ContentScrollView,
-    TextBtnNewCard,
-    BtnNewCard,
-    BoxOptions,
-    BtnOptionExpense,
-    BtnOptionIncome,
-    IconTextIncome,
-    TextBoldExpense
+	Container,
+	ContentScrollView,
+	TextBtn,
+	Btn,
+	ContainerButton,
+	ContainerIcon,
+	ChosenIcon,
 } from './style';
-import { IconText } from '../../../components/elements/Icon';
+import {IconText} from '../../../components/elements/Icon';
+import {StatusBar} from 'react-native';
 
 export function CategoryInsert() {
-    const navigate = useNavigation();
-    const [name, setName] = useState<string>('');
-    const [description, setDescription] = useState<string>('');
-    const [isIncome, setIsIncome] = useState<boolean>();
-    const [value, setValue] = useState<string>('');
-    const [idAccount, setIdAccount] = useState<any>({});
-    const [idCreditCard, setIdCreditCard] = useState<string>('');
-    const [isPaid, setIsPaid] = useState<any>();
-    const [installment, setInstallment] = useState<string>('');
-    const [dueDate, setDueDate] = useState<string>('');
-    const [idCategory, setIdCategory] = useState<string>('');
-    
-    async function saveAccount() {
-        const dados = await save({ 
-            description,
-            value,
-            name,
-            installment,
-            is_income: isIncome,
-            due_date: dueDate, 
-            id_account: idAccount, 
-            id_creditcard: idCreditCard, 
-            is_paid: isPaid, 
-            id_category: idCategory 
-        }).then(() => {
-            clearForm();
-            navigate.navigate('transacoes');
-        });
-    }
+	const router = useRoute();
+	const navigate = useNavigation();
 
-    const options:any = [
-        {label: 'Entrada', value: true},
-        {label: 'Saída', value: false},
-    ]
+	const {id, isIncome}: any = router.params;
 
-    async function clearForm() {
-        setDescription('');
-        setValue('');
-        setName('');
-        setInstallment('');
-        setIsIncome(undefined);
-        setDueDate('');
-        setIdAccount('');
-        setIdCreditCard('');
-        setIsPaid('');
-        setIdCategory('');
-    }
+	const [name, setName] = useState<string>('');
 
-  
-    function clearSelecteds() {
-        setIsPaid(false);
-    }
+	async function saveAccount() {
+		return;
+		await save({}).then(() => {
+			navigate.navigate('transacoes');
+		});
+	}
+	function alterBackgroundColor(bgIsIncome: boolean) {
+		const color: string = bgIsIncome ? '#207868' : '#F44236';
 
-    useEffect(() => { 
-    }, []);
+		navigate.setOptions({
+			headerShown: true,
+			headerStyle: {
+				backgroundColor: color,
+				borderColor: color,
+				shadowColor: 'transparent',
+			},
+			headerTitleStyle: {
+				color: '#fff',
+				fontFamily: 'Poppins-Medium',
+				fontSize: 16,
+			},
+			headerTintColor: '#fff',
+		});
+		StatusBar.setBackgroundColor(color);
+	}
+	useEffect(() => {
+		alterBackgroundColor(isIncome);
+	}, []);
 
-    return (
-        <Container>
-            <ContentScrollView>
-                <BoxOptions>
-                    <BtnOptionIncome onPress={() => (setIsIncome(true), clearSelecteds())} selected={isIncome}>
-                        <IconTextIncome selected={isIncome}>Entrada</IconTextIncome>
-                        <IconText name='arrow-circle-up' color={isIncome ? '#fff' : '#00eb84'}/>
-                    </BtnOptionIncome>
-                    <BtnOptionExpense onPress={() => setIsIncome(false)} selected={isIncome}>
-                        <TextBoldExpense selected={isIncome}>Saida</TextBoldExpense>
-                        <IconText name='arrow-circle-down' color={isIncome !== false ? '#E62E4D' : '#fff'}/>
-                    </BtnOptionExpense>
-
-                </BoxOptions>
-                <InputText
-                    icon="account-balance-wallet"
-                    placeholder="Nome"
-                    value={name}
-                    onChangeText={setName}
-                    autoCorrect={false}
-                />
-                
-                <BtnNewCard onPress={saveAccount}>
-                    <TextBtnNewCard>Lançar</TextBtnNewCard>
-                </BtnNewCard>
-            </ContentScrollView>
-        </Container>
-    )
-};
+	return (
+		<Container selected={isIncome}>
+			<ContentScrollView>
+				<InputText
+					icon="account-balance-wallet"
+					placeholder="Nome"
+					value={name}
+					onChangeText={setName}
+					autoCorrect={false}
+					backgroundColor="#E8E9EF"
+				/>
+				<ContainerIcon>
+					<ChosenIcon>Icone</ChosenIcon>
+				</ContainerIcon>
+				<ContainerButton>
+					<Btn selected={isIncome} onPress={saveAccount}>
+						<IconText
+							size={30}
+							name="add-circle"
+							color={isIncome ? '#1D6C5E' : '#dc3b31'}
+						/>
+						<TextBtn>Cadastrar</TextBtn>
+					</Btn>
+				</ContainerButton>
+			</ContentScrollView>
+		</Container>
+	);
+}
