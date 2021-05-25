@@ -31,8 +31,7 @@ export function Dashboard() {
 		data.saidasDoAno.datasets[0].color = (opacity = 1) =>
 			`rgba(42, 0, 79, ${opacity})`;
 		setDasboard(data);
-
-		console.log(dashboard.planejamento);
+		
 	}
 
 	useEffect(() => {

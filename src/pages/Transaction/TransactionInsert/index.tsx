@@ -9,7 +9,8 @@ import { CreditCard, getCreditCards } from '../../CreditCard/services';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { IconText } from '../../../components/elements/Icon';
 import { getPlannedExpenses } from '../../PlannedExpenses/services';
-import { getCategoryById } from '../../Category/services';
+import { getCategories, getCategoryById } from '../../Category/services';
+import { getDashboardData } from '../../Dashboard/services';
 import {
     Container,
     ContentScrollView,
@@ -123,14 +124,20 @@ export function TransactionInsert() {
     }
 
     async function listCategories(type: string) {
-        const categoriesItems = await getCategoriesByType(type);
-        setCategories(categoriesItems)
+        const categoriesItems = await getCategories();
+
+        if (isIncome) {
+            setCategories(categoriesItems.income);
+        } else {
+            setCategories(categoriesItems.outcome);
+        }
     }
 
     async function creditCards() {
         const cards = await getCreditCards();
         setCreditCard(cards)
     }
+
     function clearSelecteds() {
         setIsPaid(false);
     }
@@ -170,18 +177,21 @@ export function TransactionInsert() {
         setPlannedExpenses(dados);
     }
 
-    function getPlannedExpensesItem(category: any) {
-        const planned = plannedExpenses.filter((elem: any) => {
-            return elem.id == category.id_category_parent;
+    function getPlannedExpensesItem(planejamento: any[], category: any) {
+        const planned = planejamento.filter((elem: any) => {
+            return elem.id_category == category.id;
         })[0];
 
-        setValuePercent(planned?.value_percent ?? 0)
+        const value = (parseFloat(planned.total) * 100) / parseFloat(planned.income);
+
+        setValuePercent(Number(value.toFixed(2)) ?? 0)
     }
 
     async function handleCategory(item: any) {
         setIdCategory(item);
+        const dashboard = await getDashboardData();
         const category = await getCategoryById(item);
-        getPlannedExpensesItem(category);
+        getPlannedExpensesItem(dashboard.planejamento, category);
     }
 
     useEffect(() => { 
@@ -195,16 +205,16 @@ export function TransactionInsert() {
 
     return (
         <Container selected={isIncome}>
-                <BoxOptions>
-                    <BtnOptionIncome onPress={() => (setIsIncome(true), clearSelecteds(), alterBackgroundColor(true), listCategories('income'))} selected={isIncome}>
-                        <IconTextIncome selected={isIncome}>Entrada</IconTextIncome>
-                        <IconText name='arrow-circle-up' color={isIncome ? '#fff' : '#a7e9d1'} size={26}/>
-                    </BtnOptionIncome>
-                    <BtnOptionExpense onPress={() => (setIsIncome(false), clearSelecteds(), alterBackgroundColor(false), listCategories('expense'))} selected={isIncome}>
-                        <TextBoldExpense selected={isIncome}>Saída</TextBoldExpense>
-                        <IconText name='arrow-circle-down' color={isIncome !== false ? '#e8d1d9' : '#fff'} size={26}/>
-                    </BtnOptionExpense>
-                </BoxOptions>
+            <BoxOptions>
+                <BtnOptionIncome onPress={() => (setIsIncome(true), clearSelecteds(), alterBackgroundColor(true), listCategories('income'))} selected={isIncome}>
+                    <IconTextIncome selected={isIncome}>Entrada</IconTextIncome>
+                    <IconText name='arrow-circle-up' color={isIncome ? '#fff' : '#a7e9d1'} size={26}/>
+                </BtnOptionIncome>
+                <BtnOptionExpense onPress={() => (setIsIncome(false), clearSelecteds(), alterBackgroundColor(false), listCategories('expense'))} selected={isIncome}>
+                    <TextBoldExpense selected={isIncome}>Saída</TextBoldExpense>
+                    <IconText name='arrow-circle-down' color={isIncome !== false ? '#e8d1d9' : '#fff'} size={26}/>
+                </BtnOptionExpense>
+            </BoxOptions>
             <ViewContainer style={{width: '100%', paddingTop: 50}}>
                 <ContentScrollView>
 
@@ -306,7 +316,7 @@ export function TransactionInsert() {
                     />
                     
                     <BoxPorcent >
-                        <Porcent selected={isIncome} style={{width: `${valuePercent}%`}}></Porcent>
+                        <Porcent selected={isIncome} style={{width: valuePercent >= 100 ? '100%' :`${valuePercent}%`}}></Porcent>
                     </BoxPorcent>
                     <BoxPorcentText>
                         <TextPorcent>Planejamento {valuePercent}%</TextPorcent>

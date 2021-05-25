@@ -14,16 +14,6 @@ export interface Month {
     month: string,
 }
 
-// export async function getAccountById(id: number, month: number = 0)
-// {
-//     const {data} = await api.get(`/accounts/${id}`, {
-//         params: {
-//             month
-//         }
-//     });
-//     return data;
-// }
-
 export async function deleteAccount(id: number)
 {
     const {data} = await api.delete(`/accounts/${id}`);
