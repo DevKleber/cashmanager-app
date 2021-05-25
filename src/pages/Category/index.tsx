@@ -134,7 +134,7 @@ export function CategoryList() {
 										onPress={() =>
 											navigate.navigate(
 												'CategoryInsert',
-												item.id,
+												{id: item.id, isIncome},
 											)
 										}>
 										<IconText name="add" color="#fff" />
