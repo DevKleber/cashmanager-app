@@ -32,6 +32,11 @@ export async function getCategories()
     const {data} = await api.get(`/categories`);
     return data;
 }
+export async function getCategoryById(id: number)
+{
+    const {data} = await api.get(`/categories/${id}`);
+    return data;
+}
 
 export async function save(form: any)
 { 
