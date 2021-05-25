@@ -58,17 +58,7 @@ export function CategoryList() {
 	}, []);
 
 	function alterBackgroundColor(bgIsIncome: boolean) {
-		let color: string = '#F44236';
-		let title: string = '#fff';
-		let colorBg: string = '#F44236';
-
-		if (bgIsIncome) {
-			title = '#fff';
-			color = '#207868';
-			colorBg = '#207868';
-		}
-
-		setColorBG(colorBg);
+		const color: string = bgIsIncome ? '#207868' : '#F44236';
 
 		navigate.setOptions({
 			headerShown: true,
@@ -78,11 +68,11 @@ export function CategoryList() {
 				shadowColor: 'transparent',
 			},
 			headerTitleStyle: {
-				color: title,
+				color: '#fff',
 				fontFamily: 'Poppins-Medium',
 				fontSize: 16,
 			},
-			headerTintColor: title,
+			headerTintColor: '#fff',
 		});
 		StatusBar.setBackgroundColor(color);
 	}

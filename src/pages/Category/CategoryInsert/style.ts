@@ -23,7 +23,7 @@ export const ContentScrollView = styled.ScrollView`
 	margin-top: 112px;
 `;
 
-export const ContainerIcon = styled.View`
+export const ButtonIcon = styled.TouchableOpacity`
 	width: 97px;
 	height: 50px;
 	background: #e8e9ef;
@@ -59,4 +59,35 @@ export const TextBtn = styled.Text`
 	margin-left: 10px;
 	color: #fff;
 	font-family: 'Poppins-Bold';
+`;
+
+export const ModalIconContainer = styled.View`
+	flex: 1;
+	width: 100%;
+	background: #fff;
+	margin-top: 30%;
+	border-top-left-radius: 45px;
+	border-top-right-radius: 45px;
+`;
+export const BodyModal = styled.View`
+	flex: 1;
+	/* margin-top: 45px; */
+`;
+
+export const ContainerModalCategory = styled.View`
+	padding: 5px;
+	width: 100%;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
+`;
+export const CardCategory = styled.View`
+	justify-content: center;
+	align-items: center;
+	width: 63px;
+	height: 63px;
+	background: #207868;
+	border-radius: 31.5px;
+	margin: 10px;
 `;
