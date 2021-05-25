@@ -30,8 +30,8 @@ export function Login() {
 	const navigate = useNavigation();
 	const {loginIn} = useAuth();
 
-	const [email, setEmail] = useState<string>('');
-	const [password, setPassword] = useState<string>('');
+	const [email, setEmail] = useState<string>('admin');
+	const [password, setPassword] = useState<string>('admin');
 
 	async function handleLogin() {
 		await loginIn({email, password});

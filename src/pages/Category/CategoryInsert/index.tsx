@@ -1,103 +1,162 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigation } from '@react-navigation/core';
-import { save } from '../services';
-import { InputText } from '../../../components/elements/Input';
+import React, {useEffect, useState} from 'react';
+import {useNavigation, useRoute} from '@react-navigation/core';
+import {save} from '../services';
+import {InputText} from '../../../components/elements/Input';
+import Icons from '../../../assets/MaterialIcons.json';
 import {
-    Container,
-    ContentScrollView,
-    TextBtnNewCard,
-    BtnNewCard,
-    BoxOptions,
-    BtnOptionExpense,
-    BtnOptionIncome,
-    IconTextIncome,
-    TextBoldExpense
+	Container,
+	ContentScrollView,
+	TextBtn,
+	Btn,
+	ContainerButton,
+	ButtonIcon,
+	ChosenIcon,
+	ModalIconContainer,
+	BodyModal,
+	ContainerModalCategory,
+	CardCategory,
 } from './style';
-import { IconText } from '../../../components/elements/Icon';
+import {IconText} from '../../../components/elements/Icon';
+import {Alert, Modal, StatusBar, Text, View} from 'react-native';
 
 export function CategoryInsert() {
-    const navigate = useNavigation();
-    const [name, setName] = useState<string>('');
-    const [description, setDescription] = useState<string>('');
-    const [isIncome, setIsIncome] = useState<boolean>();
-    const [value, setValue] = useState<string>('');
-    const [idAccount, setIdAccount] = useState<any>({});
-    const [idCreditCard, setIdCreditCard] = useState<string>('');
-    const [isPaid, setIsPaid] = useState<any>();
-    const [installment, setInstallment] = useState<string>('');
-    const [dueDate, setDueDate] = useState<string>('');
-    const [idCategory, setIdCategory] = useState<string>('');
-    
-    async function saveAccount() {
-        const dados = await save({ 
-            description,
-            value,
-            name,
-            installment,
-            is_income: isIncome,
-            due_date: dueDate, 
-            id_account: idAccount, 
-            id_creditcard: idCreditCard, 
-            is_paid: isPaid, 
-            id_category: idCategory 
-        }).then(() => {
-            clearForm();
-            navigate.navigate('transacoes');
-        });
-    }
+	const router = useRoute();
+	const navigate = useNavigation();
 
-    const options:any = [
-        {label: 'Entrada', value: true},
-        {label: 'Saída', value: false},
-    ]
+	const {id, isIncome}: any = router.params;
 
-    async function clearForm() {
-        setDescription('');
-        setValue('');
-        setName('');
-        setInstallment('');
-        setIsIncome(undefined);
-        setDueDate('');
-        setIdAccount('');
-        setIdCreditCard('');
-        setIsPaid('');
-        setIdCategory('');
-    }
+	const [name, setName] = useState<string>('');
+	const [iconSelected, setIconSelected] = useState<string>('');
+	const [searchIcon, setSearchIcon] = useState<string>('');
+	const [modalVisible, setModalVisible] = useState(false);
+	const [icons, setIcons] = useState<any>([]);
+	const [iconsFilter, setIconsfilter] = useState<any>([]);
 
-  
-    function clearSelecteds() {
-        setIsPaid(false);
-    }
+	async function saveAccount() {
+		return;
+		await save({}).then(() => {
+			navigate.navigate('transacoes');
+		});
+	}
+	function alterBackgroundColor(bgIsIncome: boolean) {
+		const color: string = bgIsIncome ? '#207868' : '#F44236';
 
-    useEffect(() => { 
-    }, []);
+		navigate.setOptions({
+			headerShown: true,
+			headerStyle: {
+				backgroundColor: color,
+				borderColor: color,
+				shadowColor: 'transparent',
+			},
+			headerTitleStyle: {
+				color: '#fff',
+				fontFamily: 'Poppins-Medium',
+				fontSize: 16,
+			},
+			headerTintColor: '#fff',
+		});
+		StatusBar.setBackgroundColor(color);
+	}
 
-    return (
-        <Container>
-            <ContentScrollView>
-                <BoxOptions>
-                    <BtnOptionIncome onPress={() => (setIsIncome(true), clearSelecteds())} selected={isIncome}>
-                        <IconTextIncome selected={isIncome}>Entrada</IconTextIncome>
-                        <IconText name='arrow-circle-up' color={isIncome ? '#fff' : '#00eb84'}/>
-                    </BtnOptionIncome>
-                    <BtnOptionExpense onPress={() => setIsIncome(false)} selected={isIncome}>
-                        <TextBoldExpense selected={isIncome}>Saida</TextBoldExpense>
-                        <IconText name='arrow-circle-down' color={isIncome !== false ? '#E62E4D' : '#fff'}/>
-                    </BtnOptionExpense>
+	function handlFilterIcon(value: any) {
+		setSearchIcon(value);
 
-                </BoxOptions>
-                <InputText
-                    icon="account-balance-wallet"
-                    placeholder="Nome"
-                    value={name}
-                    onChangeText={setName}
-                    autoCorrect={false}
-                />
-                
-                <BtnNewCard onPress={saveAccount}>
-                    <TextBtnNewCard>Lançar</TextBtnNewCard>
-                </BtnNewCard>
-            </ContentScrollView>
-        </Container>
-    )
-};
+		if (value.length < 3) {
+			return;
+		}
+
+		let ajudasFiltro = icons.filter((item: any) => {
+			if (item.name.toUpperCase().indexOf(value.toUpperCase()) > -1) {
+				return item;
+			}
+		});
+
+		setIconsfilter(ajudasFiltro);
+	}
+
+	function handleSelectIcon(iconName: any) {
+		setIconSelected(iconName.name);
+		setModalVisible(!modalVisible);
+	}
+
+	useEffect(() => {
+		setIcons(Icons);
+		alterBackgroundColor(isIncome);
+	}, []);
+
+	return (
+		<Container selected={isIncome}>
+			<ContentScrollView>
+				<InputText
+					icon="account-balance-wallet"
+					placeholder="Nome"
+					value={name}
+					onChangeText={setName}
+					autoCorrect={false}
+					backgroundColor="#E8E9EF"
+				/>
+				<ButtonIcon onPress={() => setModalVisible(true)}>
+					<ChosenIcon>
+						{iconSelected.length && (
+							<IconText size={24} name={iconSelected} />
+						)}
+						Icone
+					</ChosenIcon>
+				</ButtonIcon>
+
+				<Modal
+					animationType="slide"
+					transparent={true}
+					visible={modalVisible}
+					onRequestClose={() => {
+						Alert.alert('Modal has been closed.');
+						setModalVisible(!true);
+					}}>
+					<ModalIconContainer>
+						<BodyModal>
+							<InputText
+								style={{
+									marginTop: 0,
+									borderTopLeftRadius: 45,
+									borderTopRightRadius: 45,
+									borderBottomLeftRadius: 0,
+									borderBottomRightRadius: 0,
+								}}
+								icon="search"
+								placeholder="Nome"
+								value={searchIcon}
+								onChangeText={(value: any) =>
+									handlFilterIcon(value)
+								}
+								autoCorrect={false}
+								backgroundColor="#E8E9EF"
+							/>
+							<ContainerModalCategory>
+								{iconsFilter.map((item: any, index: number) => (
+									<CardCategory
+										onPress={() => handleSelectIcon(item)}>
+										<IconText
+											size={24}
+											name={item.name}
+											color="#fff"
+										/>
+									</CardCategory>
+								))}
+							</ContainerModalCategory>
+						</BodyModal>
+					</ModalIconContainer>
+				</Modal>
+				<ContainerButton>
+					<Btn selected={isIncome} onPress={saveAccount}>
+						<IconText
+							size={30}
+							name="add-circle"
+							color={isIncome ? '#1D6C5E' : '#dc3b31'}
+						/>
+						<TextBtn>Cadastrar</TextBtn>
+					</Btn>
+				</ContainerButton>
+			</ContentScrollView>
+		</Container>
+	);
+}

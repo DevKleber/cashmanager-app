@@ -10,6 +10,7 @@ export function InputText(props: any) {
 				backgroundColor: props.backgroundColor,
 				borderWidth: props.outline ? 1 : 0,
 				borderColor: props.outline ? '#dadada' : '#E8E9EF',
+				...props.style,
 			}}>
 			<BoxIcon>
 				{props.icon ? (
