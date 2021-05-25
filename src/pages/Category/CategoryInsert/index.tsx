@@ -26,6 +26,7 @@ export function CategoryInsert() {
 	const {id, isIncome}: any = router.params;
 
 	const [name, setName] = useState<string>('');
+	const [iconSelected, setIconSelected] = useState<string>('');
 	const [searchIcon, setSearchIcon] = useState<string>('');
 	const [modalVisible, setModalVisible] = useState(false);
 	const [icons, setIcons] = useState<any>([]);
@@ -69,10 +70,15 @@ export function CategoryInsert() {
 				return item;
 			}
 		});
-		console.log(ajudasFiltro);
 
 		setIconsfilter(ajudasFiltro);
 	}
+
+	function handleSelectIcon(iconName: any) {
+		setIconSelected(iconName.name);
+		setModalVisible(!modalVisible);
+	}
+
 	useEffect(() => {
 		setIcons(Icons);
 		alterBackgroundColor(isIncome);
@@ -90,7 +96,12 @@ export function CategoryInsert() {
 					backgroundColor="#E8E9EF"
 				/>
 				<ButtonIcon onPress={() => setModalVisible(true)}>
-					<ChosenIcon>Icone</ChosenIcon>
+					<ChosenIcon>
+						{iconSelected.length && (
+							<IconText size={24} name={iconSelected} />
+						)}
+						Icone
+					</ChosenIcon>
 				</ButtonIcon>
 
 				<Modal
@@ -122,7 +133,8 @@ export function CategoryInsert() {
 							/>
 							<ContainerModalCategory>
 								{iconsFilter.map((item: any, index: number) => (
-									<CardCategory>
+									<CardCategory
+										onPress={() => handleSelectIcon(item)}>
 										<IconText
 											size={24}
 											name={item.name}
@@ -132,12 +144,6 @@ export function CategoryInsert() {
 								))}
 							</ContainerModalCategory>
 						</BodyModal>
-						<ButtonIcon>
-							<ChosenIcon
-								onPress={() => setModalVisible(!modalVisible)}>
-								Icone
-							</ChosenIcon>
-						</ButtonIcon>
 					</ModalIconContainer>
 				</Modal>
 				<ContainerButton>
