@@ -123,10 +123,10 @@ export function TransactionInsert() {
         setIdCategory('');
     }
 
-    async function listCategories(type: string) {
+    async function listCategories(type: boolean) {
         const categoriesItems = await getCategories();
 
-        if (isIncome) {
+        if (type) {
             setCategories(categoriesItems.income);
         } else {
             setCategories(categoriesItems.outcome);
@@ -208,7 +208,7 @@ export function TransactionInsert() {
         setValuePercent(0);
         StatusBar.setBarStyle('dark-content');
 		StatusBar.setBackgroundColor('#00eb84');
-        listCategories('income');
+        listCategories(true);
         listAccounts();
         creditCards();
         getPlannedExpensesList();
@@ -217,11 +217,11 @@ export function TransactionInsert() {
     return (
         <Container selected={isIncome}>
             <BoxOptions>
-                <BtnOptionIncome onPress={() => (setIsIncome(true), clearSelecteds(), alterBackgroundColor(true), listCategories('income'))} selected={isIncome}>
+                <BtnOptionIncome onPress={() => (setIsIncome(true), clearSelecteds(), alterBackgroundColor(true), listCategories(true))} selected={isIncome}>
                     <IconTextIncome selected={isIncome}>Entrada</IconTextIncome>
                     <IconText name='arrow-circle-up' color={isIncome ? '#fff' : '#a7e9d1'} size={26}/>
                 </BtnOptionIncome>
-                <BtnOptionExpense onPress={() => (setIsIncome(false), clearSelecteds(), alterBackgroundColor(false), listCategories('expense'))} selected={isIncome}>
+                <BtnOptionExpense onPress={() => (setIsIncome(false), clearSelecteds(), alterBackgroundColor(false), listCategories(false))} selected={isIncome}>
                     <TextBoldExpense selected={isIncome}>Saída</TextBoldExpense>
                     <IconText name='arrow-circle-down' color={isIncome !== false ? '#e8d1d9' : '#fff'} size={26}/>
                 </BtnOptionExpense>
@@ -286,7 +286,6 @@ export function TransactionInsert() {
                         value={description}
                         onChangeText={setDescription}
                         autoCorrect={false}
-                        keyboardType="numeric"
                         backgroundColor="#fff"
                         outline={true}
                     />
