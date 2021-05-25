@@ -178,23 +178,34 @@ export function TransactionInsert() {
     }
 
     function getPlannedExpensesItem(planejamento: any[], category: any) {
-        const planned = planejamento.filter((elem: any) => {
-            return elem.id_category == category.id;
-        })[0];
+        if (planejamento) {
+            const planned = planejamento.filter((elem: any) => {
+                return elem.id_category == category.id;
+            })[0];
+    
+            const value = (parseFloat(planned.total) * 100) / parseFloat(planned.income);
 
-        const value = (parseFloat(planned.total) * 100) / parseFloat(planned.income);
+            setValuePercent(Number(value.toFixed(2)) ?? 0)
+            return;
+        }
 
-        setValuePercent(Number(value.toFixed(2)) ?? 0)
+        setValuePercent(0)
     }
 
     async function handleCategory(item: any) {
         setIdCategory(item);
-        const dashboard = await getDashboardData();
-        const category = await getCategoryById(item);
-        getPlannedExpensesItem(dashboard.planejamento, category);
+        if (item) {
+            const dashboard = await getDashboardData();
+            const category = await getCategoryById(item);
+            getPlannedExpensesItem(dashboard.planejamento, category);
+        } else {
+            setValuePercent(0);
+        }
     }
 
-    useEffect(() => { 
+    useEffect(() => {
+        setIdCategory('');
+        setValuePercent(0);
         StatusBar.setBarStyle('dark-content');
 		StatusBar.setBackgroundColor('#00eb84');
         listCategories('income');
