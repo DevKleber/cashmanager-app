@@ -9,10 +9,10 @@ function itemsTree({placeholder, options, fields}: any) {
 
 	options?.map((item:any) => {
 
-		element = [...element, <Picker.Item key={item.id} label={item[fields.label]} enabled={false} value={item[fields.value]} color='#8b8b8b'/>];
+		element = [...element, <Picker.Item key={item[fields.value]} label={item[fields.label]} enabled={false} value={item[fields.value]} color='#8b8b8b'/>];
 
 		item?.children?.map((child:any) => {
-			element = [...element, <Picker.Item key={child.id} label={child[fields.label]} enabled={true} value={child[fields.value]}  color='#1f1f1f' style={{marginLeft: '20px'}}/>];
+			element = [...element, <Picker.Item key={child[fields.value]} label={child[fields.label]} enabled={true} value={child[fields.value]}  color='#1f1f1f' style={{marginLeft: '20px'}}/>];
 		})
 		
 	})
@@ -25,7 +25,7 @@ function items({placeholder, options, fields}: any) {
 	let element = [<Picker.Item key={placeholder} label={placeholder} value='' color='#8b8b8b'/>];
 
 	options?.map((item:any) => {
-		element = [...element, <Picker.Item key={item.id} label={item[fields.label]} value={item[fields.value]} color='#1f1f1f'/>];
+		element = [...element, <Picker.Item key={item[fields.value]} label={item[fields.label]} value={item[fields.value]} color='#1f1f1f'/>];
 	})
 
 	return element;

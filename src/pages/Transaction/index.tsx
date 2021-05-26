@@ -23,6 +23,7 @@ import {
     RowHr,
     BoxSammary
 } from './style';
+import { Text, ViewMesage } from '../CreditCard/CreditCardDetail/style';
 
 export function TransactionList() {
     const [months, setMonths] = useState<Month[]>(getMonths());
@@ -103,7 +104,7 @@ export function TransactionList() {
                 />
             </BoxSammary>
             <ContentScrollView>
-                    <CardInvoice style={style.boxShadowInvoice}>
+                    <CardInvoice>
                         {transactions?.map((item: any, index: number) =>(
                             <View key={index} style={{paddingLeft: 20, paddingRight: 20}}>
                                 <ItemList >
@@ -123,29 +124,12 @@ export function TransactionList() {
                                 {transactions.length > index + 1 ? <RowHr/> : null}
                             </View>
                         ))}
+                         {   transactions?.length == 0 ? 
+                            <ViewMesage><Text>Não possui movimentações</Text></ViewMesage> :
+                            null
+                        }
                     </CardInvoice>
             </ContentScrollView>
         </Container>
     )
 };
-
-const style = {
-    boxShadow: {
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 12,
-        },
-
-        elevation: 2,
-    },
-    boxShadowInvoice: {
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 12,
-        },
-
-        elevation: 1,
-    }
-}

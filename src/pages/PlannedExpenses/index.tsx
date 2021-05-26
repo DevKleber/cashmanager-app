@@ -119,8 +119,7 @@ export function PlannedExpenses() {
 					</BarPorcent>
 					<ViewPorcent
 						style={{
-							left: total >= 80 ? '80%' : `${total}%`,
-							transform: [{translateX: -10}],
+							left: total >= 80 ? '80%' : (total <= 10 ? '10%' : `${total}%`),
 						}}>
 						<TextTotal>{total}%</TextTotal>
 					</ViewPorcent>

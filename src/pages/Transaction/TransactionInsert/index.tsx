@@ -272,7 +272,7 @@ export function TransactionInsert() {
 
                     <InputText
                         icon="account-balance-wallet"
-                        placeholder="Despesa"
+                        placeholder={isIncome ? "Entrada" : "Despesa"}
                         value={name}
                         onChangeText={setName}
                         autoCorrect={false}
