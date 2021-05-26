@@ -1,7 +1,7 @@
 import { Platform, StatusBar, Text } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/core';
-import { save, optionsParcel, getCategoriesByType} from '../services';
+import { save, optionsParcel} from '../services';
 import { InputText } from '../../../components/elements/Input';
 import { AccountProps, getAccounts } from '../../Account/services';
 import { Select } from '../../../components/elements/Select';

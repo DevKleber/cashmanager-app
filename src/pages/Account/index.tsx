@@ -33,6 +33,13 @@ export function AccountList() {
 	}
 
 	async function removeAccount(item: AccountProps) {
+		if (!item?.isDelete) {
+			const copyAccounts:AccountProps[] = accounts;
+			copyAccounts[accounts.indexOf(item)].isDelete = true;
+			setAccounts([...copyAccounts]);
+			return;
+		}
+
 		await deleteAccount(item.id);
 		accounts.splice(accounts.indexOf(item), 1);
 		const copyAcconts = [...accounts];
@@ -41,8 +48,10 @@ export function AccountList() {
 	}
 
 	async function calcTotal(array:AccountProps[]) {
-		const item = array.reduce((accumulator: any, currentValue: any) => (accumulator.current_balance + currentValue.current_balance));
-		setTotal(item.current_balance);
+		if (array.length) {
+			const item = array.reduce((accumulator: any, currentValue: any) => (accumulator.current_balance + currentValue.current_balance));
+			setTotal(item.current_balance);
+		}
 	}
 
 	useEffect(() => {
@@ -73,7 +82,8 @@ export function AccountList() {
 							<Title>{item.description}</Title>
 							<Actions>
 								<IconText
-									name="delete"
+									name={item?.isDelete ? "delete-forever" : "delete"}
+									color={item?.isDelete ? "orange" : "#666360"}
 									onPress={() => removeAccount(item)}
 								/>
 								<IconText
@@ -94,7 +104,7 @@ export function AccountList() {
 						</Content>
 					</Card>
 				))}
-				<BtnNewCard
+				<BtnNewCard 
 					style={style.boxShadow}
 					onPress={() => navigate.navigate('AccountInsert')}>
 					<IconText name="add-circle" />

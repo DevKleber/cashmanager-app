@@ -8,6 +8,7 @@ export const Container = styled.View`
 	background-color: #f5f6fc;
 	padding: 0 30px ${Platform.OS === 'android' ? 0 : 40}px;
 	margin-bottom: 16px;
+	/* background-color: black; */
 `;
 export const Logo = styled.Image``;
 export const Title = styled.Text`

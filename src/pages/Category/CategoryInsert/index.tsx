@@ -15,6 +15,7 @@ import {
 	BodyModal,
 	ContainerModalCategory,
 	CardCategory,
+	TextIconTitle
 } from './style';
 import {IconText} from '../../../components/elements/Icon';
 import {Alert, Modal, StatusBar, Text, View} from 'react-native';
@@ -23,7 +24,7 @@ export function CategoryInsert() {
 	const router = useRoute();
 	const navigate = useNavigation();
 
-	const {id, isIncome}: any = router.params;
+	const {id, isIncome}: any = router?.params;
 
 	const [name, setName] = useState<string>('');
 	const [iconSelected, setIconSelected] = useState<string>('');
@@ -33,9 +34,8 @@ export function CategoryInsert() {
 	const [iconsFilter, setIconsfilter] = useState<any>([]);
 
 	async function saveAccount() {
-		return;
-		await save({}).then(() => {
-			navigate.navigate('transacoes');
+		await save({name, icon: iconSelected, id_category_parent: id, is_income: isIncome}).then(() => {
+			navigate.navigate('CategoryList');
 		});
 	}
 	function alterBackgroundColor(bgIsIncome: boolean) {
@@ -97,11 +97,13 @@ export function CategoryInsert() {
 				/>
 				<ButtonIcon onPress={() => setModalVisible(true)}>
 					<ChosenIcon>
-						{iconSelected.length && (
+						{iconSelected.length ? 
 							<IconText size={24} name={iconSelected} />
-						)}
-						Icone
+						: null}
 					</ChosenIcon>
+					<TextIconTitle>
+						Icone
+					</TextIconTitle>
 				</ButtonIcon>
 
 				<Modal
@@ -133,7 +135,8 @@ export function CategoryInsert() {
 							/>
 							<ContainerModalCategory>
 								{iconsFilter.map((item: any, index: number) => (
-									<CardCategory
+									<CardCategory 
+										style={{backgroundColor: isIncome ? '#207868': '#F44236'}}
 										onPress={() => handleSelectIcon(item)}>
 										<IconText
 											size={24}

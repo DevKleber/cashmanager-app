@@ -24,17 +24,23 @@ export function CreditCardList() {
 	const navigate = useNavigation();
 
 	const [creditCard, setCreditCard] = useState<CreditCard[]>([]);
-
+	const [isDelete, setIsDelete] = useState<boolean>(false);
 	async function creditCards() {
 		const cards = await getCreditCards();
 		setCreditCard(cards);
 	}
 
 	async function deleteCreditCard(item: CreditCard) {
+		if (!item?.isDelete) {
+			const copyCreditCard:CreditCard[] = creditCard;
+			copyCreditCard[creditCard.indexOf(item)].isDelete = true;
+			setCreditCard([...copyCreditCard]);
+			return;
+		}
+
 		const cards = await deleteCard(item.id);
 		creditCard.splice(creditCard.indexOf(item), 1);
 		const copyCreditCard = [...creditCard];
-
 		setCreditCard(copyCreditCard);
 	}
 
@@ -63,13 +69,12 @@ export function CreditCardList() {
 								<Title>{item.name}</Title>
 								<Actions>
 									<IconText
-										name="delete"
-										size={15}
+										name={item?.isDelete ? "delete-forever" : "delete"}
+										color={item?.isDelete ? "orange" : "#666360"}
 										onPress={() => deleteCreditCard(item)}
 									/>
 									<IconText
 										name="edit"
-										size={15}
 										onPress={() =>
 											navigate.navigate(
 												'CreditCardUpdate',

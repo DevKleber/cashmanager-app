@@ -100,7 +100,7 @@ export function AccountDetail() {
 						</Text>
 					</Content>
 				</Card>
-				<CardInvoice style={style.boxShadowInvoice}>
+				<CardInvoice>
 					{account.items?.map((item: any, index: number) => (
 						<View
 							key={index}

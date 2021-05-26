@@ -79,8 +79,7 @@ export const ContentScrollView = styled.ScrollView`
 
 export const CardInvoice = styled.View`
 	width: 100%;
-	flex: 1;
-	min-height: 350px;
+	min-height: 400px;
 	flex-direction: column;
 	background-color: #fff;
 	border-top-left-radius: 45px;

@@ -40,7 +40,6 @@ export async function getCategoryById(id: number)
 
 export async function save(form: any)
 { 
-    console.log(form);
-    const {data} = await api.post(`/transactions`, form);
+    const {data} = await api.post(`/categories`, form);
     return data;
 }

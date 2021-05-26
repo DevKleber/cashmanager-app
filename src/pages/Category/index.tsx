@@ -167,7 +167,7 @@ export function CategoryList() {
 						<BtnNewCard
 							selected={isIncome}
 							style={style.boxShadow}
-							onPress={() => navigate.navigate('CategoryInsert')}>
+							onPress={() => navigate.navigate('CategoryInsert', {id: null, isIncome})}>
 							<IconText
 								name="add-circle"
 								color={isIncome ? '#1D6C5E' : '#dc3b31'}
