@@ -1,4 +1,4 @@
-import { Platform, StatusBar, Text } from 'react-native';
+import { Platform, RefreshControl, StatusBar, Text } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/core';
 import { save, optionsParcel} from '../services';
@@ -55,11 +55,11 @@ export function TransactionInsert() {
     const [dueDate, setDueDate] = useState<string>('');
     const [categories, setCategories] = useState<any[]>([]);
     const [idCategory, setIdCategory] = useState<string>('');
-
     const [isAccount, setIsAccount] = useState<boolean>(false);
     const [whatDate, setWhatDate] = useState<string>("today");
     const [colorBG, setColorBG] = useState<string>('#00d377');
-
+	const [refreshing, setRefreshing] = useState<boolean>(false);
+    
     const [date, setDate] = useState(new Date(new Date().getTime()));
     const [show, setShow] = useState(false);
 
@@ -205,17 +205,25 @@ export function TransactionInsert() {
         }
     }
 
+    const wait = (timeout:number) => {
+		return new Promise(resolve => setTimeout(resolve, timeout));
+	}
+
+	const onRefresh = React.useCallback(() => {
+		setRefreshing(true);
+		wait(2000).then(() => setRefreshing(false));
+	}, []);
+
     useEffect(() => {
         clearForm();
         setIdCategory('');
         setValuePercent(0);
-        StatusBar.setBarStyle('dark-content');
-		StatusBar.setBackgroundColor('#00eb84');
+        alterBackgroundColor(isIncome)
         listCategories(true);
         listAccounts();
         creditCards();
         getPlannedExpensesList();
-    }, []);
+    }, [refreshing]);
 
     return (
         <Container selected={isIncome}>
@@ -230,7 +238,14 @@ export function TransactionInsert() {
                 </BtnOptionExpense>
             </BoxOptions>
             <ViewContainer style={{width: '100%', paddingTop: 50}}>
-                <ContentScrollView>
+                <ContentScrollView
+                    refreshControl={
+						<RefreshControl
+						  refreshing={refreshing}
+						  onRefresh={onRefresh}
+						/>
+					  }
+                >
 
                     <BoxIsPaidOut>
                         <ContentIcon>
