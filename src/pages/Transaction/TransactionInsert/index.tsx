@@ -307,7 +307,7 @@ export function TransactionInsert() {
                         backgroundColor="#fff"
                         outline={true}
                     />
-                    <Text  style={{color: '#666360', marginLeft: 10, fontSize: 16, marginBottom: 10}}>Data da movimentação</Text>
+                    <Text  style={{color: '#666360', marginLeft: 10, fontSize: 15, marginBottom: 10}}>{isIncome ? 'Data do vencimento' : 'Data da despesa'}</Text>
                     <BoxDate>
                         <BtnYesterday selected={whatDate === 'yesterday'} colorBg={colorBG} onPress={() => (setWhatDate('yesterday'), setDateYesterday())}>
                             <IconText name="today" color={ whatDate === 'yesterday' ? '#fff' : '#666360'} />
@@ -358,7 +358,7 @@ export function TransactionInsert() {
                         onChange={setInstallment}
                         options={optionsParcel}
                         fields={{label: 'label', value: 'value'}}
-                        placeholder='Repetir transação'
+                        placeholder={isIncome ? 'Repetir' : 'Quantas parcelas'}
                     />
 
                     <InputText
