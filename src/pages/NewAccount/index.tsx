@@ -41,9 +41,10 @@ export function NewAccount() {
 		<>
 			<KeyboardAvoidingView
 				style={{flex: 1}}
-				keyboardVerticalOffset={200}
+				keyboardVerticalOffset={100}
 				behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-				enabled>
+				enabled
+				>
 				<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 					<Container>
 						<Logo

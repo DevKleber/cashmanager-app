@@ -26,6 +26,7 @@ export function Dashboard() {
 
 	async function getDataToDashboard() {
 		const data: DashboardProps = await getDashboardData();
+		
 		data.entradasDoAno.datasets[0].color = (opacity = 1) =>
 			`rgba(42, 0, 79, ${opacity})`;
 		data.saidasDoAno.datasets[0].color = (opacity = 1) =>

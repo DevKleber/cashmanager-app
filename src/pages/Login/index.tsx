@@ -41,7 +41,7 @@ export function Login() {
 		<>
 			<KeyboardAvoidingView
 				style={{flex: 1}}
-				keyboardVerticalOffset={200} // adjust the value here if you need more padding
+				keyboardVerticalOffset={100}
 				behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
 				enabled>
 				<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
