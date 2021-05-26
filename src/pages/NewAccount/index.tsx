@@ -4,6 +4,7 @@ import {
 	TouchableWithoutFeedback,
 	Platform,
 	Keyboard,
+	ActivityIndicator,
 } from 'react-native';
 import {IconText} from '../../components/elements/Icon';
 import {InputText} from '../../components/elements/Input';
@@ -26,6 +27,7 @@ export function NewAccount() {
 	const {createNewAccount} = useAuth();
 	const [email, setEmail] = useState<string>('');
 	const [name, setName] = useState<string>('');
+	const [loader, setLoader] = useState<boolean>(false);
 	const [password, setPassword] = useState<string>('');
 
 	function loginIn() {
@@ -33,8 +35,11 @@ export function NewAccount() {
 	}
 
 	async function createAccount() {
-		console.log({email, password, name});
-		await createNewAccount({email, password, name});
+		setLoader(true);
+		const status = await createNewAccount({email, password, name});
+		if (!status) {
+			setLoader(false);
+		}
 	}
 
 	return (
@@ -86,6 +91,7 @@ export function NewAccount() {
 							/>
 							<BtnLogar onPress={createAccount}>
 								<TextBtnLogar>Entrar</TextBtnLogar>
+								{loader && <ActivityIndicator size="small" color="#fff" />}
 							</BtnLogar>
 						</Content>
 					</Container>
