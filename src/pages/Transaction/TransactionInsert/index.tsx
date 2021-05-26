@@ -307,6 +307,7 @@ export function TransactionInsert() {
                         backgroundColor="#fff"
                         outline={true}
                     />
+                    <Text  style={{color: '#666360', marginLeft: 10, fontSize: 16, marginBottom: 10}}>Data da movimentação</Text>
                     <BoxDate>
                         <BtnYesterday selected={whatDate === 'yesterday'} colorBg={colorBG} onPress={() => (setWhatDate('yesterday'), setDateYesterday())}>
                             <IconText name="today" color={ whatDate === 'yesterday' ? '#fff' : '#666360'} />
