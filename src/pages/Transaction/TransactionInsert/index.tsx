@@ -362,7 +362,7 @@ export function TransactionInsert() {
 
                     <InputText
                         icon="attach-money"
-                        placeholder="Valor"
+                        placeholder="Valor ex: 10.00"
                         value={value}
                         onChangeText={setValue}
                         autoCorrect={false}

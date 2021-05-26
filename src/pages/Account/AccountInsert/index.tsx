@@ -45,7 +45,7 @@ export function AccountInsert() {
                 />
                 <InputText
                     icon="payments"
-                    placeholder="Saldo"
+                    placeholder="Saldo ex: 10.00"
                     value={currentBalance}
                     onChangeText={setCurrentBalance}
                     autoCorrect={false}
