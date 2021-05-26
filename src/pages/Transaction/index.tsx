@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { RefreshControl, View } from 'react-native';
 import { IconText } from '../../components/elements/Icon';
 import { format } from 'date-fns'
 import { TransactionProps, Month, getTransactions, getMonths } from './services';
@@ -23,12 +23,14 @@ import {
     RowHr,
     BoxSammary
 } from './style';
+import { Text, ViewMesage } from '../CreditCard/CreditCardDetail/style';
 
 export function TransactionList() {
     const [months, setMonths] = useState<Month[]>(getMonths());
     const [month, setMonth] = useState<number>(0);
     const [transactions, setTransactions] = useState<TransactionProps[]>([]);
     const [sammary, setSammary] = useState<any>({});
+    const [refreshing, setRefreshing] = useState<boolean>(false);
     
     const router = useRoute();
 
@@ -74,10 +76,19 @@ export function TransactionList() {
         setSammary(itemSammary);
     }
 
+    const wait = (timeout:number) => {
+		return new Promise(resolve => setTimeout(resolve, timeout));
+	}
+
+	const onRefresh = React.useCallback(() => {
+		setRefreshing(true);
+		wait(2000).then(() => setRefreshing(false));
+	}, []);
+
     useEffect(() => {
         setCurrentMonth();
         listTransactions();
-    }, []);
+    }, [refreshing]);
     return (
         <Container>
              <HeaderDate>
@@ -102,8 +113,15 @@ export function TransactionList() {
                     isTransaction={true}
                 />
             </BoxSammary>
-            <ContentScrollView>
-                    <CardInvoice style={style.boxShadowInvoice}>
+            <ContentScrollView
+                refreshControl={
+                    <RefreshControl
+                      refreshing={refreshing}
+                      onRefresh={onRefresh}
+                    />
+                  }    
+            >
+                    <CardInvoice>
                         {transactions?.map((item: any, index: number) =>(
                             <View key={index} style={{paddingLeft: 20, paddingRight: 20}}>
                                 <ItemList >
@@ -123,29 +141,12 @@ export function TransactionList() {
                                 {transactions.length > index + 1 ? <RowHr/> : null}
                             </View>
                         ))}
+                         {   transactions?.length == 0 ? 
+                            <ViewMesage><Text>Não possui movimentações</Text></ViewMesage> :
+                            null
+                        }
                     </CardInvoice>
             </ContentScrollView>
         </Container>
     )
 };
-
-const style = {
-    boxShadow: {
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 12,
-        },
-
-        elevation: 2,
-    },
-    boxShadowInvoice: {
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 12,
-        },
-
-        elevation: 1,
-    }
-}

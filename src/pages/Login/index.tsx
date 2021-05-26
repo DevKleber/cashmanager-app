@@ -7,6 +7,7 @@ import {
 	StyleSheet,
 	TouchableWithoutFeedback,
 	Keyboard,
+	ActivityIndicator,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
@@ -29,19 +30,23 @@ import {useAuth} from './../../hooks/Auth';
 export function Login() {
 	const navigate = useNavigation();
 	const {loginIn} = useAuth();
-
+	const [loader, setLoader] = useState<boolean>(false);
 	const [email, setEmail] = useState<string>('admin');
 	const [password, setPassword] = useState<string>('admin');
 
 	async function handleLogin() {
-		await loginIn({email, password});
+		setLoader(true);
+		const status = await loginIn({email, password});
+		if (!status) {
+			setLoader(false);
+		}
 	}
 
 	return (
 		<>
 			<KeyboardAvoidingView
 				style={{flex: 1}}
-				keyboardVerticalOffset={200} // adjust the value here if you need more padding
+				keyboardVerticalOffset={100}
 				behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
 				enabled>
 				<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -76,6 +81,7 @@ export function Login() {
 							/>
 							<BtnLogar onPress={handleLogin}>
 								<TextBtnLogar>Entrar</TextBtnLogar>
+								{loader && <ActivityIndicator size="small" color="#fff" />}
 							</BtnLogar>
 							<ForgotPass>
 								<TextForgotPass>

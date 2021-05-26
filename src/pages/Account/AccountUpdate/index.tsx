@@ -16,7 +16,7 @@ export function AccountUpdate() {
 
     const [id, setId] = useState<number>(0);
     const [description, setDescription] = useState<string>('');
-    const [banking, setBanking] = useState<number>(0);
+    const [banking, setBanking] = useState<string>('');
     const [currentBalance, setCurrentBalance] = useState<string>('');
 
     async function updateAccount() {
@@ -57,7 +57,6 @@ export function AccountUpdate() {
                     value={banking}
                     onChangeText={setBanking}
                     autoCorrect={false}
-                    keyboardType="numeric"
                     backgroundColor="#E8E9EF"
 
                 />

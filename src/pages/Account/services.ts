@@ -9,6 +9,7 @@ export interface AccountProps {
     created_at: string,
     items: any[],
     is_active: boolean
+    isDelete?: boolean
 }
 export interface Month {
     month: string,

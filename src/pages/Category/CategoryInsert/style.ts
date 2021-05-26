@@ -27,13 +27,22 @@ export const ButtonIcon = styled.TouchableOpacity`
 	width: 97px;
 	height: 50px;
 	background: #e8e9ef;
-	flex-direction: column;
+	flex-direction: row;
 	border-radius: 10px;
 	margin-top: 15px;
 	justify-content: center;
 	align-items: center;
 `;
 export const ChosenIcon = styled.Text`
+	color: #666666;
+	font-size: 14px;
+	font-family: 'Poppins-Regular';
+	justify-content: center;
+	align-items: center;
+	margin-right: 5px;
+`;
+
+export const TextIconTitle = styled.Text`
 	color: #666666;
 	font-size: 14px;
 	font-family: 'Poppins-Regular';

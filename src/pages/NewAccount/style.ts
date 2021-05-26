@@ -8,6 +8,7 @@ export const Container = styled.View`
 	background-color: #f5f6fc;
 	padding: 0 30px ${Platform.OS === 'android' ? 0 : 40}px;
 	margin-bottom: 16px;
+	/* background-color: black; */
 `;
 export const Logo = styled.Image``;
 export const Title = styled.Text`
@@ -26,9 +27,9 @@ export const Content = styled.View`
 
 export const BtnLogar = styled.TouchableOpacity`
 	width: 100%;
-
 	align-items: center;
-	flex-direction: column;
+	justify-content: center;
+	flex-direction: row;
 	background-color: #00eb84;
 	color: #2a004f;
 	border-radius: 10px;
@@ -39,6 +40,7 @@ export const BtnLogar = styled.TouchableOpacity`
 
 export const TextBtnLogar = styled.Text`
 	font-size: 14px;
+	margin-right: 10px;
 	font-family: 'Poppins-Bold';
 `;
 

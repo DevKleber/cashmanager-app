@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/core';
 import {CreditCard} from './services';
-import {Image, StatusBar} from 'react-native';
+import {Image, RefreshControl, StatusBar} from 'react-native';
 import {IconText} from '../../components/elements/Icon';
 
 import {getCreditCards, deleteCard} from './services';
@@ -22,33 +22,54 @@ import {
 
 export function CreditCardList() {
 	const navigate = useNavigation();
-
+	const [refreshing, setRefreshing] = useState<boolean>(false);
 	const [creditCard, setCreditCard] = useState<CreditCard[]>([]);
-
 	async function creditCards() {
 		const cards = await getCreditCards();
 		setCreditCard(cards);
 	}
 
 	async function deleteCreditCard(item: CreditCard) {
+		if (!item?.isDelete) {
+			const copyCreditCard:CreditCard[] = creditCard;
+			copyCreditCard[creditCard.indexOf(item)].isDelete = true;
+			setCreditCard([...copyCreditCard]);
+			return;
+		}
+
 		const cards = await deleteCard(item.id);
 		creditCard.splice(creditCard.indexOf(item), 1);
 		const copyCreditCard = [...creditCard];
-
 		setCreditCard(copyCreditCard);
 	}
+
+	const wait = (timeout:number) => {
+		return new Promise(resolve => setTimeout(resolve, timeout));
+	}
+
+	const onRefresh = React.useCallback(() => {
+		setRefreshing(true);
+		wait(2000).then(() => setRefreshing(false));
+	}, []);
 
 	useEffect(() => {
 		StatusBar.setBarStyle('light-content');
 		StatusBar.setBackgroundColor('#009788');
 		creditCards();
-	}, []);
+	}, [refreshing]);
 
 	return (
 		<>
 			<StatusBar barStyle="light-content" backgroundColor="#009788" />
 			<Container>
-				<ContentScrollView>
+				<ContentScrollView
+					refreshControl={
+						<RefreshControl
+						  refreshing={refreshing}
+						  onRefresh={onRefresh}
+						/>
+					  }
+				>
 					{creditCard.map((item: any, index: number) => (
 						<Card
 							style={style.boxShadow}
@@ -63,13 +84,12 @@ export function CreditCardList() {
 								<Title>{item.name}</Title>
 								<Actions>
 									<IconText
-										name="delete"
-										size={15}
+										name={item?.isDelete ? "delete-forever" : "delete"}
+										color={item?.isDelete ? "orange" : "#666360"}
 										onPress={() => deleteCreditCard(item)}
 									/>
 									<IconText
 										name="edit"
-										size={15}
 										onPress={() =>
 											navigate.navigate(
 												'CreditCardUpdate',

@@ -9,6 +9,7 @@ export interface CreditCard {
     created_at: string,
     items: any[],
     total: number
+    isDelete?: boolean
 }
 
 export interface Month {
@@ -47,7 +48,6 @@ export async function save(form: any)
 export async function getCreditCards()
 {
     const {data} = await api.get(`/credit-card`);
-    console.log(data);
     return data;
 }
 

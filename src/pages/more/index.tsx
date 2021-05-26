@@ -3,8 +3,11 @@ import {useNavigation} from '@react-navigation/core';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {Container, Item, Text, View, ViewBox} from './style';
 import {StatusBar} from 'react-native';
+import {useAuth} from './../../hooks/Auth';
 
 export function More() {
+	const {signOut} = useAuth();
+
 	useEffect(() => {
 		StatusBar.setBarStyle('light-content');
 		StatusBar.setBackgroundColor('#407c93');
@@ -39,13 +42,13 @@ export function More() {
 						<Icon name="category" size={34} color="#fff" />
 						<Text>Categorias</Text>
 					</Item>
-					<Item style={style.boxShadow}>
+					<Item style={style.boxShadow} onPress={() => signOut()}>
 						<Icon
-							name="supervised-user-circle"
+							name="logout"
 							size={34}
 							color="#fff"
 						/>
-						<Text>Perfil</Text>
+						<Text>Sair</Text>
 					</Item>
 				</ViewBox>
 			</View>

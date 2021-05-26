@@ -34,6 +34,7 @@ export function CreditCardInsert() {
                     value={name}
                     onChangeText={setName}
                     autoCorrect={false}
+                    backgroundColor="#E8E9EF"
                 />
                 <InputText
                     icon="event"
@@ -42,7 +43,7 @@ export function CreditCardInsert() {
                     onChangeText={setDueDay}
                     autoCorrect={false}
                     keyboardType="numeric"
-
+                    backgroundColor="#E8E9EF"
                 />
                 <InputText
                     icon="event"
@@ -51,6 +52,7 @@ export function CreditCardInsert() {
                     onChangeText={setClosingDay}
                     autoCorrect={false}
                     keyboardType="numeric"
+                    backgroundColor="#E8E9EF"
 
                 />
                 <BtnNewCard onPress={saveCreditCard}>

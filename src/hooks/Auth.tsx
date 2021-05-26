@@ -20,9 +20,9 @@ interface AuthProviderProps {
 
 interface AuthContextData {
 	user: boolean;
-	loginIn: (data: LoginProps) => Promise<void>;
+	loginIn: (data: LoginProps) => Promise<void | boolean>;
 	signOut(): void;
-	createNewAccount: (form: any) => Promise<void>;
+	createNewAccount: (form: any) => Promise<void | boolean>;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -51,28 +51,22 @@ export function AuthProvider({children}: AuthProviderProps) {
 	async function createNewAccount(form: any) {
 		try {
 			const {data} = await api.post('/auth/newaccount', form);
-			console.log(data);
 			api.defaults.headers.authorization = `Bearer ${data.access_token}`;
 			saveUser(data);
 		} catch (e) {
-			console.log(e);
 			Alert.alert('Não foi possível criar conta!');
+			return false;
 		}
 	}
 
 	async function loginIn(form: LoginProps) {
 		try {
-			console.log(form);
-
 			const {data} = await api.post('/auth/login', form);
 			api.defaults.headers.authorization = `Bearer ${data.access_token}`;
 			saveUser(data);
-			console.log(data);
 		} catch (e) {
-			console.log(form);
-
-			console.log(e);
 			Alert.alert(`${e}`);
+			return false;
 		}
 	}
 

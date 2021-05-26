@@ -21,12 +21,14 @@ import {
 	CategoriesView,
 } from './style';
 import {getPlannedExpenses} from './services';
-import {Alert, StatusBar, View} from 'react-native';
+import {Alert, RefreshControl, StatusBar, View} from 'react-native';
 
 export function PlannedExpenses() {
 	const navigate = useNavigation();
 	const [total, setTotal] = useState<number>(0);
 	let [categories, setCategories] = useState<any[]>([]);
+	const [refreshing, setRefreshing] = useState<boolean>(false);
+
 
 	async function savePlannedExpenses(value: any, item: any) {
 		categories[categories.indexOf(item)].value_percent = value;
@@ -65,22 +67,33 @@ export function PlannedExpenses() {
 		return true;
 	}
 
-	useEffect(() => {
-		listCategories();
-		StatusBar.setBarStyle('light-content');
-		StatusBar.setBackgroundColor('#2C88D9');
+	const wait = (timeout:number) => {
+		return new Promise(resolve => setTimeout(resolve, timeout));
+	}
+
+	const onRefresh = React.useCallback(() => {
+		setRefreshing(true);
+		wait(2000).then(() => setRefreshing(false));
 	}, []);
 
 	useEffect(() => {
 		StatusBar.setBarStyle('dark-content');
 		StatusBar.setBackgroundColor('#2C88D9');
 		listCategories();
-	}, []);
+	}, [refreshing]);
+
 	return (
 		<Container>
 			<StatusBar barStyle="light-content" backgroundColor="#2C88D9" />
 			<ViewContent>
-				<ContentScrollView>
+				<ContentScrollView
+					refreshControl={
+						<RefreshControl
+						  refreshing={refreshing}
+						  onRefresh={onRefresh}
+						/>
+					  }
+				>
 					<View>
 						{categories?.map((item: any, index: number) => (
 							<CategoriesView key={index}>
@@ -119,8 +132,7 @@ export function PlannedExpenses() {
 					</BarPorcent>
 					<ViewPorcent
 						style={{
-							left: total >= 80 ? '80%' : `${total}%`,
-							transform: [{translateX: -10}],
+							left: total >= 80 ? '80%' : (total <= 10 ? '10%' : `${total}%`),
 						}}>
 						<TextTotal>{total}%</TextTotal>
 					</ViewPorcent>

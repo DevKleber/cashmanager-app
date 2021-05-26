@@ -46,6 +46,7 @@ export const BoxSammary = styled.View`
 
 export const CardInvoice = styled.View`
     width: 100%;
+    min-height: 400px;
     flex-direction: column;
     background-color: #fff;
     border-top-left-radius: 45px;

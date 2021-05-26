@@ -1,7 +1,7 @@
-import { Platform, StatusBar, Text } from 'react-native';
+import { Platform, RefreshControl, StatusBar, Text } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/core';
-import { save, optionsParcel, getCategoriesByType} from '../services';
+import { save, optionsParcel} from '../services';
 import { InputText } from '../../../components/elements/Input';
 import { AccountProps, getAccounts } from '../../Account/services';
 import { Select } from '../../../components/elements/Select';
@@ -55,11 +55,11 @@ export function TransactionInsert() {
     const [dueDate, setDueDate] = useState<string>('');
     const [categories, setCategories] = useState<any[]>([]);
     const [idCategory, setIdCategory] = useState<string>('');
-
     const [isAccount, setIsAccount] = useState<boolean>(false);
     const [whatDate, setWhatDate] = useState<string>("today");
     const [colorBG, setColorBG] = useState<string>('#00d377');
-
+	const [refreshing, setRefreshing] = useState<boolean>(false);
+    
     const [date, setDate] = useState(new Date(new Date().getTime()));
     const [show, setShow] = useState(false);
 
@@ -102,7 +102,9 @@ export function TransactionInsert() {
             is_paid: isPaid, 
             id_category: idCategory 
         }).then(() => {
-            clearForm();
+            clearForm().then(() => 
+                navigate.navigate('transacoes')
+            );
         });
     }
 
@@ -194,7 +196,7 @@ export function TransactionInsert() {
 
     async function handleCategory(item: any) {
         setIdCategory(item);
-        if (item) {
+        if (item && !isIncome) {
             const dashboard = await getDashboardData();
             const category = await getCategoryById(item);
             getPlannedExpensesItem(dashboard.planejamento, category);
@@ -203,16 +205,25 @@ export function TransactionInsert() {
         }
     }
 
+    const wait = (timeout:number) => {
+		return new Promise(resolve => setTimeout(resolve, timeout));
+	}
+
+	const onRefresh = React.useCallback(() => {
+		setRefreshing(true);
+		wait(2000).then(() => setRefreshing(false));
+	}, []);
+
     useEffect(() => {
+        clearForm();
         setIdCategory('');
         setValuePercent(0);
-        StatusBar.setBarStyle('dark-content');
-		StatusBar.setBackgroundColor('#00eb84');
+        alterBackgroundColor(isIncome)
         listCategories(true);
         listAccounts();
         creditCards();
         getPlannedExpensesList();
-    }, []);
+    }, [refreshing]);
 
     return (
         <Container selected={isIncome}>
@@ -227,7 +238,14 @@ export function TransactionInsert() {
                 </BtnOptionExpense>
             </BoxOptions>
             <ViewContainer style={{width: '100%', paddingTop: 50}}>
-                <ContentScrollView>
+                <ContentScrollView
+                    refreshControl={
+						<RefreshControl
+						  refreshing={refreshing}
+						  onRefresh={onRefresh}
+						/>
+					  }
+                >
 
                     <BoxIsPaidOut>
                         <ContentIcon>
@@ -272,7 +290,7 @@ export function TransactionInsert() {
 
                     <InputText
                         icon="account-balance-wallet"
-                        placeholder="Despesa"
+                        placeholder={isIncome ? "Entrada" : "Despesa"}
                         value={name}
                         onChangeText={setName}
                         autoCorrect={false}
@@ -289,6 +307,7 @@ export function TransactionInsert() {
                         backgroundColor="#fff"
                         outline={true}
                     />
+                    <Text  style={{color: '#666360', marginLeft: 10, fontSize: 15, marginBottom: 10}}>{isIncome ? 'Data do vencimento' : 'Data da despesa'}</Text>
                     <BoxDate>
                         <BtnYesterday selected={whatDate === 'yesterday'} colorBg={colorBG} onPress={() => (setWhatDate('yesterday'), setDateYesterday())}>
                             <IconText name="today" color={ whatDate === 'yesterday' ? '#fff' : '#666360'} />
@@ -324,25 +343,27 @@ export function TransactionInsert() {
                         placeholder='Selecionar categorias'
                         isTree={true}
                     />
-                    
-                    <BoxPorcent >
-                        <Porcent selected={isIncome} style={{width: valuePercent >= 100 ? '100%' :`${valuePercent}%`}}></Porcent>
-                    </BoxPorcent>
-                    <BoxPorcentText>
-                        <TextPorcent>Planejamento {valuePercent}%</TextPorcent>
-                    </BoxPorcentText>
-
+                    {!isIncome && ( 
+                        <>
+                            <BoxPorcent >
+                                <Porcent selected={isIncome} style={{width: valuePercent >= 100 ? '100%' :`${valuePercent}%`}}></Porcent>
+                            </BoxPorcent>
+                            <BoxPorcentText>
+                                <TextPorcent>Planejamento {valuePercent}%</TextPorcent>
+                            </BoxPorcentText>
+                        </>
+                    )}
                     <Select 
                         icon="repeat"
                         onChange={setInstallment}
                         options={optionsParcel}
                         fields={{label: 'label', value: 'value'}}
-                        placeholder='Repetir transação'
+                        placeholder={isIncome ? 'Repetir' : 'Quantas parcelas'}
                     />
 
                     <InputText
                         icon="attach-money"
-                        placeholder="Valor"
+                        placeholder="Valor ex: 10.00"
                         value={value}
                         onChangeText={setValue}
                         autoCorrect={false}

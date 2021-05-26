@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/core';
-import {Image, StatusBar} from 'react-native';
+import {Image, RefreshControl, StatusBar} from 'react-native';
 import {IconText} from '../../components/elements/Icon';
 import {getAccounts, deleteAccount, AccountProps} from './services';
 import {
@@ -22,7 +22,7 @@ import {
 
 export function AccountList() {
 	const navigate = useNavigation();
-
+	const [refreshing, setRefreshing] = useState<boolean>(false);
 	const [accounts, setAccounts] = useState<AccountProps[]>([]);
 	const [total, setTotal] = useState<number>(0);
 
@@ -33,6 +33,13 @@ export function AccountList() {
 	}
 
 	async function removeAccount(item: AccountProps) {
+		if (!item?.isDelete) {
+			const copyAccounts:AccountProps[] = accounts;
+			copyAccounts[accounts.indexOf(item)].isDelete = true;
+			setAccounts([...copyAccounts]);
+			return;
+		}
+
 		await deleteAccount(item.id);
 		accounts.splice(accounts.indexOf(item), 1);
 		const copyAcconts = [...accounts];
@@ -41,15 +48,26 @@ export function AccountList() {
 	}
 
 	async function calcTotal(array:AccountProps[]) {
-		const item = array.reduce((accumulator: any, currentValue: any) => (accumulator.current_balance + currentValue.current_balance));
-		setTotal(item.current_balance);
+		if (array.length) {
+			const item = array.reduce((accumulator: any, currentValue: any) => (accumulator.current_balance + currentValue.current_balance));
+			setTotal(item.current_balance);
+		}
 	}
+
+	const wait = (timeout:number) => {
+		return new Promise(resolve => setTimeout(resolve, timeout));
+	}
+
+	const onRefresh = React.useCallback(() => {
+		setRefreshing(true);
+		wait(2000).then(() => setRefreshing(false));
+	}, []);
 
 	useEffect(() => {
 		StatusBar.setBarStyle('dark-content');
 		StatusBar.setBackgroundColor('#F7C325');
 		listAccounts();
-	}, []);
+	}, [refreshing]);
 
 	return (
 		<Container>
@@ -57,7 +75,14 @@ export function AccountList() {
 				<TitleTotal>Saldo em conta</TitleTotal>
 				<ValueTotal>R$ {total}</ValueTotal>
 			</ContentTotal>
-			<ContentScrollView>
+			<ContentScrollView
+				refreshControl={
+					<RefreshControl
+					refreshing={refreshing}
+					onRefresh={onRefresh}
+					/>
+				}
+			>
 				{accounts.map((item: any, index: number) => (
 					<Card
 						style={style.boxShadow}
@@ -73,7 +98,8 @@ export function AccountList() {
 							<Title>{item.description}</Title>
 							<Actions>
 								<IconText
-									name="delete"
+									name={item?.isDelete ? "delete-forever" : "delete"}
+									color={item?.isDelete ? "orange" : "#666360"}
 									onPress={() => removeAccount(item)}
 								/>
 								<IconText
@@ -94,7 +120,7 @@ export function AccountList() {
 						</Content>
 					</Card>
 				))}
-				<BtnNewCard
+				<BtnNewCard 
 					style={style.boxShadow}
 					onPress={() => navigate.navigate('AccountInsert')}>
 					<IconText name="add-circle" />

@@ -24,13 +24,14 @@ import {
 	ItemTextDescription,
 	RowHr,
 } from './style';
-import {Image, View} from 'react-native';
+import {Image, RefreshControl, View} from 'react-native';
 import {getAccountById, AccountProps, Month, getMonths} from '../services';
 import {useRoute} from '@react-navigation/core';
 import { ViewMesage } from '../../CreditCard/CreditCardDetail/style';
 
 export function AccountDetail() {
 	const [months, setMonths] = useState<Month[]>(getMonths());
+	const [refreshing, setRefreshing] = useState<boolean>(false);
 	const [month, setMonth] = useState<number>(0);
 	const [account, setAccount] = useState<AccountProps>({} as AccountProps);
 	const router = useRoute();
@@ -55,10 +56,19 @@ export function AccountDetail() {
 		return setMonth(month);
 	}
 
+	const wait = (timeout:number) => {
+		return new Promise(resolve => setTimeout(resolve, timeout));
+	}
+
+	const onRefresh = React.useCallback(() => {
+		setRefreshing(true);
+		wait(2000).then(() => setRefreshing(false));
+	}, []);
+
 	useEffect(() => {
 		setCurrentMonth();
 		getCreditCard();
-	}, []);
+	}, [refreshing]);
 	return (
 		<Container>
 			<HeaderDate>
@@ -84,7 +94,14 @@ export function AccountDetail() {
 					}}
 				/>
 			</HeaderDate>
-			<ContentScrollView>
+			<ContentScrollView
+				refreshControl={
+					<RefreshControl
+					refreshing={refreshing}
+					onRefresh={onRefresh}
+					/>
+				}
+			>
 				<Card style={style.boxShadow}>
 					<Header>
 						<Image
@@ -100,7 +117,7 @@ export function AccountDetail() {
 						</Text>
 					</Content>
 				</Card>
-				<CardInvoice style={style.boxShadowInvoice}>
+				<CardInvoice>
 					{account.items?.map((item: any, index: number) => (
 						<View
 							key={index}

@@ -66,15 +66,18 @@ export const Title = styled.Text`
 export const ContentScrollView = styled.ScrollView`
 	width: 100%;
 	flex: 1;
+
 `;
 
 export const CardInvoice = styled.View`
 	width: 100%;
-	min-height: 380px;
-	flex-direction: column;
+	min-height: 400px;
+	flex: 1;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
 	background-color: #fff;
 	padding: 0px 20px;
-	border-radius: 15px;
 	border-top-left-radius: 45px;
 	border-top-right-radius: 45px;
 `;
