@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/core';
-import {Image, StatusBar} from 'react-native';
+import {Image, RefreshControl, StatusBar} from 'react-native';
 import {IconText} from '../../components/elements/Icon';
 import {getAccounts, deleteAccount, AccountProps} from './services';
 import {
@@ -22,7 +22,7 @@ import {
 
 export function AccountList() {
 	const navigate = useNavigation();
-
+	const [refreshing, setRefreshing] = useState<boolean>(false);
 	const [accounts, setAccounts] = useState<AccountProps[]>([]);
 	const [total, setTotal] = useState<number>(0);
 
@@ -54,11 +54,20 @@ export function AccountList() {
 		}
 	}
 
+	const wait = (timeout:number) => {
+		return new Promise(resolve => setTimeout(resolve, timeout));
+	}
+
+	const onRefresh = React.useCallback(() => {
+		setRefreshing(true);
+		wait(2000).then(() => setRefreshing(false));
+	}, []);
+
 	useEffect(() => {
 		StatusBar.setBarStyle('dark-content');
 		StatusBar.setBackgroundColor('#F7C325');
 		listAccounts();
-	}, []);
+	}, [refreshing]);
 
 	return (
 		<Container>
@@ -66,7 +75,14 @@ export function AccountList() {
 				<TitleTotal>Saldo em conta</TitleTotal>
 				<ValueTotal>R$ {total}</ValueTotal>
 			</ContentTotal>
-			<ContentScrollView>
+			<ContentScrollView
+				refreshControl={
+					<RefreshControl
+					refreshing={refreshing}
+					onRefresh={onRefresh}
+					/>
+				}
+			>
 				{accounts.map((item: any, index: number) => (
 					<Card
 						style={style.boxShadow}

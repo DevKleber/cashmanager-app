@@ -19,15 +19,14 @@ import {
 	TextAdd,
 	ContainerBtnNewItem,
 } from './style';
-import {StatusBar, View} from 'react-native';
+import {RefreshControl, StatusBar, View} from 'react-native';
 import {getCategories} from './services';
 import {useNavigation, useRoute} from '@react-navigation/core';
 
 export function CategoryList() {
 	const navigate = useNavigation();
 	const [isIncome, setIsIncome] = useState<boolean>(true);
-	const [colorBG, setColorBG] = useState<string>('#207868');
-
+	const [refreshing, setRefreshing] = useState<boolean>(false);
 	const [categoriesIncome, setCategoriesIncome] = useState<any[]>([]);
 	const [categoriesOutcome, setCategoriesOutcome] = useState<any[]>([]);
 	const [categoriesActive, setCategoriesActive] = useState<any[]>([]);
@@ -53,9 +52,19 @@ export function CategoryList() {
 		alterBackgroundColor(status);
 	}
 
-	useEffect(() => {
-		listCategories();
+	const wait = (timeout:number) => {
+		return new Promise(resolve => setTimeout(resolve, timeout));
+	}
+
+	const onRefresh = React.useCallback(() => {
+		setRefreshing(true);
+		wait(2000).then(() => setRefreshing(false));
 	}, []);
+
+	useEffect(() => {
+		alterBackgroundColor(isIncome);
+		listCategories();
+	}, [refreshing]);
 
 	function alterBackgroundColor(bgIsIncome: boolean) {
 		const color: string = bgIsIncome ? '#207868' : '#F44236';
@@ -102,7 +111,14 @@ export function CategoryList() {
 				</BtnOptionExpense>
 			</BoxOptions>
 
-			<ContentScrollView>
+			<ContentScrollView
+				refreshControl={
+					<RefreshControl
+					refreshing={refreshing}
+					onRefresh={onRefresh}
+					/>
+				}
+			>
 				<CardInvoice>
 					{categoriesActive?.map((item: any, index: number) => (
 						<React.Fragment key={item.id}>

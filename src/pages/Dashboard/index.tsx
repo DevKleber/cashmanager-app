@@ -18,30 +18,49 @@ import {DashboardPlanned} from './Planned';
 import {DashboardIncomeOutcome} from './IncomeOutcome';
 import {getDashboardData} from './services';
 import {DashboardProps} from './Interface';
+import { RefreshControl, StatusBar } from 'react-native';
 
 export function Dashboard() {
 	const [dashboard, setDasboard] = useState<DashboardProps>(
 		{} as DashboardProps,
 	);
+    const [refreshing, setRefreshing] = useState<boolean>(false);
 
 	async function getDataToDashboard() {
 		const data: DashboardProps = await getDashboardData();
-		
+
 		data.entradasDoAno.datasets[0].color = (opacity = 1) =>
 			`rgba(42, 0, 79, ${opacity})`;
 		data.saidasDoAno.datasets[0].color = (opacity = 1) =>
 			`rgba(42, 0, 79, ${opacity})`;
 		setDasboard(data);
-		
 	}
 
-	useEffect(() => {
-		getDataToDashboard();
+	const wait = (timeout:number) => {
+		return new Promise(resolve => setTimeout(resolve, timeout));
+	}
+
+	const onRefresh = React.useCallback(() => {
+		setRefreshing(true);
+		wait(2000).then(() => setRefreshing(false));
 	}, []);
+
+	useEffect(() => {
+		StatusBar.setBarStyle('light-content');
+		StatusBar.setBackgroundColor('#009788');
+		getDataToDashboard();
+	}, [refreshing]);
 
 	return (
 		<Wrapper>
-			<Container>
+			<Container 
+				refreshControl={
+					<RefreshControl
+					  refreshing={refreshing}
+					  onRefresh={onRefresh}
+					/>
+				  }
+			>
 				<Months>
 					<Button>
 						<IconText name="navigate-before" size={20} />

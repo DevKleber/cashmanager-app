@@ -26,7 +26,7 @@ import {
     RowHr,
     ViewMesage
 } from './style';
-import { Image, View } from 'react-native';
+import { Image, RefreshControl, StatusBar, View } from 'react-native';
 import { getCreditCardById, CreditCard, Month, getMonths } from '../services';
 import { useNavigation, useRoute } from '@react-navigation/core';
 import { BtnNewCard, TextAdd } from '../style';
@@ -36,6 +36,7 @@ export function CreditCardDetail() {
     const [month, setMonth] = useState<number>(0);
     const [creditCard, setCreditCard] = useState<CreditCard>({} as CreditCard);
     const router = useRoute();
+    const [refreshing, setRefreshing] = useState<boolean>(false);
     const navigate = useNavigation();
 
     async function getCreditCard() {
@@ -57,12 +58,22 @@ export function CreditCardDetail() {
     async function alterMonth(month: number) {
         return setMonth(month);
     }
-    
+
+    const wait = (timeout:number) => {
+		return new Promise(resolve => setTimeout(resolve, timeout));
+	}
+
+	const onRefresh = React.useCallback(() => {
+		setRefreshing(true);
+		wait(2000).then(() => setRefreshing(false));
+	}, []);
 
     useEffect(() => {
+        StatusBar.setBarStyle('light-content');
+		StatusBar.setBackgroundColor('#009788');
         setCurrentMonth();
         getCreditCard();
-    }, []);
+    }, [refreshing]);
     return (
         <Container>
              <HeaderDate>
@@ -70,7 +81,14 @@ export function CreditCardDetail() {
                 <TextHeaderDate>{months[month].month}</TextHeaderDate>
                 <IconText name="navigate-next" size={25} color="#fff" onPress={() => {alterMonth(month < 11 ? month + 1 : 11).then(() => getCreditCard())}}/>
             </HeaderDate>
-            <ContentScrollView>
+            <ContentScrollView
+                refreshControl={
+                    <RefreshControl
+                      refreshing={refreshing}
+                      onRefresh={onRefresh}
+                    />
+                  }
+            >
                     <Card style={style.boxShadow} >
                         <Header>
                         <Image

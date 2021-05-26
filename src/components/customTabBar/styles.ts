@@ -6,6 +6,9 @@ export const Container = styled.View`
 	flex-direction: row;
 	border-top-color: #dadada;
 	border-top-width: 1px;
+	/* position: absolute;
+	bottom: 0px;
+	width: 100%; */
 `;
 
 export const TabItem = styled.TouchableOpacity`

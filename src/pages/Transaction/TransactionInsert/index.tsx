@@ -102,7 +102,9 @@ export function TransactionInsert() {
             is_paid: isPaid, 
             id_category: idCategory 
         }).then(() => {
-            clearForm();
+            clearForm().then(() => 
+                navigate.navigate('transacoes')
+            );
         });
     }
 
@@ -194,7 +196,7 @@ export function TransactionInsert() {
 
     async function handleCategory(item: any) {
         setIdCategory(item);
-        if (item) {
+        if (item && !isIncome) {
             const dashboard = await getDashboardData();
             const category = await getCategoryById(item);
             getPlannedExpensesItem(dashboard.planejamento, category);
@@ -204,6 +206,7 @@ export function TransactionInsert() {
     }
 
     useEffect(() => {
+        clearForm();
         setIdCategory('');
         setValuePercent(0);
         StatusBar.setBarStyle('dark-content');
@@ -324,14 +327,16 @@ export function TransactionInsert() {
                         placeholder='Selecionar categorias'
                         isTree={true}
                     />
-                    
-                    <BoxPorcent >
-                        <Porcent selected={isIncome} style={{width: valuePercent >= 100 ? '100%' :`${valuePercent}%`}}></Porcent>
-                    </BoxPorcent>
-                    <BoxPorcentText>
-                        <TextPorcent>Planejamento {valuePercent}%</TextPorcent>
-                    </BoxPorcentText>
-
+                    {!isIncome && ( 
+                        <>
+                            <BoxPorcent >
+                                <Porcent selected={isIncome} style={{width: valuePercent >= 100 ? '100%' :`${valuePercent}%`}}></Porcent>
+                            </BoxPorcent>
+                            <BoxPorcentText>
+                                <TextPorcent>Planejamento {valuePercent}%</TextPorcent>
+                            </BoxPorcentText>
+                        </>
+                    )}
                     <Select 
                         icon="repeat"
                         onChange={setInstallment}
