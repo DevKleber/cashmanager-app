@@ -38,7 +38,6 @@ export async function getCategories()
 
 export async function save(form: any)
 { 
-    console.log(form);
     const {data} = await api.post(`/transactions`, form);
     return data;
 }

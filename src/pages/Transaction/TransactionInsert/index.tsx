@@ -70,7 +70,6 @@ export function TransactionInsert() {
     
 
     const onChange = (event:any, selectedDate:any) => {
-        console.log(selectedDate);
         const currentDate = selectedDate || date;
         setShow(Platform.OS === 'ios');
         setDate(currentDate);
@@ -87,7 +86,6 @@ export function TransactionInsert() {
         const today = new Date();
         const yesterday = new Date(today.getTime());
         yesterday.setDate(today.getDate() - 1);
-
         setDate(yesterday);
     }
 
@@ -98,7 +96,7 @@ export function TransactionInsert() {
             name,
             installment,
             is_income: isIncome,
-            due_date: dueDate, 
+            due_date: date, 
             id_account: idAccount, 
             id_creditcard: idCreditCard, 
             is_paid: isPaid, 
@@ -309,7 +307,7 @@ export function TransactionInsert() {
                         backgroundColor="#fff"
                         outline={true}
                     />
-                    <Text  style={{color: '#666360', marginLeft: 10, fontSize: 15, marginBottom: 10}}>{isIncome ? 'Data do vencimento' : 'Data da despesa'}</Text>
+                    <Text  style={{color: '#666360', marginLeft: 10, fontSize: 15, marginBottom: 10}}>{isIncome ? 'Data do recebimento' : 'Data da despesa'}</Text>
                     <BoxDate>
                         <BtnYesterday selected={whatDate === 'yesterday'} colorBg={colorBG} onPress={() => (setWhatDate('yesterday'), setDateYesterday())}>
                             <IconText name="today" color={ whatDate === 'yesterday' ? '#fff' : '#666360'} />
