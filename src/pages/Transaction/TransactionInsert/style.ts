@@ -55,6 +55,12 @@ export const BtnNewCard = styled.TouchableOpacity`
 	padding: 15px;
 `;
 
+export const BoxInstallment = styled.View`
+	width: 100%;
+	align-items: center;
+	justify-content: center;
+`;
+
 export const BtnOptionExpense = styled.TouchableOpacity<IsIncomeProps>`
 	width: 165px;
 	align-items: center;
