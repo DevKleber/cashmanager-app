@@ -10,6 +10,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { IconText } from '../../../components/elements/Icon';
 import { getPlannedExpenses } from '../../PlannedExpenses/services';
 import { getCategories, getCategoryById } from '../../Category/services';
+import NumberFormat from 'react-number-format';
 import { getDashboardData } from '../../Dashboard/services';
 import {
     Container,
@@ -37,7 +38,8 @@ import {
     BoxPorcentText,
     CheckBox,
     Check,
-    ViewContainer
+    ViewContainer,
+    BoxInstallment
 } from './style';
 
 export function TransactionInsert() {
@@ -372,6 +374,19 @@ export function TransactionInsert() {
                         outline={true}
 
                     />
+                    <BoxInstallment>
+                        {(!isIncome && installment && value) ? 
+                        <Text>{`${installment}x de `}
+                            <NumberFormat
+                                value={(Number(value) / Number(installment))}
+                                prefix={'R$ '}
+                                displayType={'text'}
+                                thousandSeparator="."
+                                decimalSeparator=","
+                                renderText={value => <Text>{value}</Text>}
+                            />
+                        </Text> : null}
+                    </BoxInstallment>
                     
                     <BtnNewCard onPress={saveAccount}>
                         <TextBtnNewCard>Lançar</TextBtnNewCard>
