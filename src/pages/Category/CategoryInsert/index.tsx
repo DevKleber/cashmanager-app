@@ -136,6 +136,7 @@ export function CategoryInsert() {
 							<ContainerModalCategory>
 								{iconsFilter.map((item: any, index: number) => (
 									<CardCategory 
+										key={index}
 										style={{backgroundColor: isIncome ? '#207868': '#F44236'}}
 										onPress={() => handleSelectIcon(item)}>
 										<IconText

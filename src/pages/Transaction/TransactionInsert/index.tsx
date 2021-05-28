@@ -179,13 +179,20 @@ export function TransactionInsert() {
         setPlannedExpenses(dados);
     }
 
-    function getPlannedExpensesItem(planejamento: any[], category: any) {
-        if (planejamento) {
+    async function getPlannedExpensesItem(planejamento: any[], category: any) {
+        console.log("category", category);
+        if (planejamento.length > 0) {
             const planned = planejamento.filter((elem: any) => {
-                return elem.id_category == category.id;
+                // console.log(elem);
+                return elem.id_category == category.id_category_parent;
             })[0];
+
+            const total = planned?.total;
+            const income = planned?.income;
     
-            const value = (parseFloat(planned.total) * 100) / parseFloat(planned.income);
+            let value = (parseFloat(total ?? 0) * 100) / parseFloat(income ?? 0);
+
+            value = isNaN(value) ? 0 : value;
 
             setValuePercent(Number(value.toFixed(2)) ?? 0)
             return;
@@ -199,7 +206,8 @@ export function TransactionInsert() {
         if (item && !isIncome) {
             const dashboard = await getDashboardData();
             const category = await getCategoryById(item);
-            getPlannedExpensesItem(dashboard.planejamento, category);
+            
+            await getPlannedExpensesItem(dashboard?.planejamento, category);
         } else {
             setValuePercent(0);
         }
