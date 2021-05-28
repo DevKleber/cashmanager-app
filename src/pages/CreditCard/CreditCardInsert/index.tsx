@@ -1,3 +1,4 @@
+import { ActivityIndicator, StatusBar } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/core';
 import { save } from '../services';
@@ -8,17 +9,21 @@ import {
     TextBtnNewCard,
     BtnNewCard
 } from './style';
-import { StatusBar } from 'react-native';
 
 export function CreditCardInsert() {
     const navigate = useNavigation();
-
+	const [loader, setLoader] = useState<boolean>(false);
     const [name, setName] = useState<string>('');
     const [dueDay, setDueDay] = useState<string>('');
     const [closingDay, setClosingDay] = useState<string>('');
 
     async function saveCreditCard() {
+        setLoader(true);
         const dados = await save({name, due_day: dueDay, closing_day: closingDay});
+        if (!dados) {
+			setLoader(false);
+            return;
+        }
         navigate.navigate('CreditCardList')
     }
 
@@ -57,6 +62,7 @@ export function CreditCardInsert() {
                 />
                 <BtnNewCard onPress={saveCreditCard}>
                     <TextBtnNewCard>Criar</TextBtnNewCard>
+                    {loader && <ActivityIndicator size="small" color="#fff" />}
                 </BtnNewCard>
             </ContentScrollView>
         </Container>

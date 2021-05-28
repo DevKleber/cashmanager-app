@@ -1,4 +1,4 @@
-import { Platform, RefreshControl, StatusBar, Text } from 'react-native';
+import { ActivityIndicator, Platform, RefreshControl, StatusBar, Text } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/core';
 import { save, optionsParcel} from '../services';
@@ -64,7 +64,7 @@ export function TransactionInsert() {
     
     const [date, setDate] = useState(new Date(new Date().getTime()));
     const [show, setShow] = useState(false);
-
+	const [loader, setLoader] = useState<boolean>(false);
     const [plannedExpenses, setPlannedExpenses] = useState<any[]>([]);
     const [valuePercent, setValuePercent] = useState<number>(0);
     
@@ -90,6 +90,7 @@ export function TransactionInsert() {
     }
 
     async function saveAccount() {
+        setLoader(true);
         const dados = await save({ 
             description,
             value,
@@ -101,11 +102,14 @@ export function TransactionInsert() {
             id_creditcard: idCreditCard, 
             is_paid: isPaid, 
             id_category: idCategory 
-        }).then(() => {
-            clearForm().then(() => 
-                navigate.navigate('transacoes')
-            );
         });
+        if (!dados) {
+			setLoader(false);
+            return;
+        }
+        clearForm().then(() => 
+            navigate.navigate('transacoes')
+        );
     }
 
     async function listAccounts() {
@@ -114,6 +118,7 @@ export function TransactionInsert() {
     }
 
     async function clearForm() {
+        setLoader(false);
         setDescription('');
         setValue('');
         setName('');
@@ -206,7 +211,7 @@ export function TransactionInsert() {
         if (item && !isIncome) {
             const dashboard = await getDashboardData();
             const category = await getCategoryById(item);
-            
+
             await getPlannedExpensesItem(dashboard?.planejamento, category);
         } else {
             setValuePercent(0);
@@ -396,6 +401,8 @@ export function TransactionInsert() {
                     
                     <BtnNewCard onPress={saveAccount}>
                         <TextBtnNewCard>Lançar</TextBtnNewCard>
+                        {loader && <ActivityIndicator size="small" color="#fff" />}
+
                     </BtnNewCard>
                 </ContentScrollView>
             </ViewContainer>

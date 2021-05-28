@@ -8,6 +8,7 @@ import {
     TextBtnNewCard,
     BtnNewCard
 } from './style';
+import { ActivityIndicator } from 'react-native';
 
 export function AccountInsert() {
     const navigate = useNavigation();
@@ -15,11 +16,16 @@ export function AccountInsert() {
     const [description, setDescription] = useState<string>('');
     const [banking, setBanking] = useState<string>('');
     const [currentBalance, setCurrentBalance] = useState<string>('');
+    const [loader, setLoader] = useState<boolean>(false);
 
     async function saveAccount() {
-        const dados = await save({description, banking, current_balance: currentBalance}).then(() => {
-            navigate.navigate('AccountList')
-        });
+        setLoader(true);
+        const dados = await save({description, banking, current_balance: currentBalance});
+        if (!dados) {
+            setLoader(false);
+            return;
+        }
+        navigate.navigate('AccountList')
     }
 
     return (
@@ -55,6 +61,7 @@ export function AccountInsert() {
                 />
             <BtnNewCard onPress={saveAccount}>
                 <TextBtnNewCard>Salvar conta</TextBtnNewCard>
+                {loader && <ActivityIndicator size="small" color="#fff" />}
             </BtnNewCard>
             </ContentScrollView>
         </Container>

@@ -11,7 +11,6 @@ export const Container = styled.View`
 export const ContentScrollView = styled.View`
 	width: 100%;
 	padding: 0px 25px;
-	/* padding-top: 40px; */
 	flex: 1;
 	justify-content: center;
 	margin-top: 112px;
@@ -24,6 +23,8 @@ export const ContentScrollView = styled.View`
 export const BtnNewCard = styled.TouchableOpacity`
 	width: 100%;
 	align-items: center;
+	justify-content: center;
+	flex-direction: row;
 	background-color: #009788;
 	border-radius: 15px;
 	margin-top: 10px;

@@ -46,7 +46,8 @@ export const ViewContainer = styled.View`
 export const BtnNewCard = styled.TouchableOpacity`
 	width: 100%;
 	align-items: center;
-	flex-direction: column;
+	justify-content: center;
+	flex-direction: row;
 	background-color: #00eb84;
 	color: #2a004f;
 	border-radius: 10px;
