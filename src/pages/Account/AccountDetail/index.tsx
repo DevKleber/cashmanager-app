@@ -112,7 +112,7 @@ export function AccountDetail() {
 					</Header>
 					<Content>
 						<Text>
-							Valor da fatura: 
+							Saldo: 
 							<TextValue> R$ {account.current_balance}</TextValue>
 						</Text>
 					</Content>

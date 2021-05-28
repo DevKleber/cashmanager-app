@@ -54,7 +54,7 @@ export function DashboardIncomeOutcome({totalEntrada, totalSaida}: any) {
 				</Item>
 				<Line />
 				<Item>
-					<Label>Saldo mês</Label>
+					<Label>Saldo mês atual</Label>
 					<NumberFormat
 						value={totalEntrada - totalSaida}
 						prefix={'R$ '}

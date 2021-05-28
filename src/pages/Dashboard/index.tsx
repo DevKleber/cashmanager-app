@@ -61,7 +61,7 @@ export function Dashboard() {
 					/>
 				  }
 			>
-				<Months>
+				{/* <Months>
 					<Button>
 						<IconText name="navigate-before" size={20} />
 					</Button>
@@ -69,7 +69,7 @@ export function Dashboard() {
 					<Button>
 						<IconText name="navigate-next" size={20} />
 					</Button>
-				</Months>
+				</Months> */}
 				<Sammary
 					fisrtCard={{
 						title: 'Entradas',
