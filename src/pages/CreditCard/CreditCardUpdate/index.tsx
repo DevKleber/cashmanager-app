@@ -46,6 +46,7 @@ export function CreditCardUpdate() {
                 value={name}
                 onChangeText={setName}
                 autoCorrect={false}
+                backgroundColor="#E8E9EF"
             />
             <InputText
                 icon="event"
@@ -54,6 +55,7 @@ export function CreditCardUpdate() {
                 onChangeText={setDueDay}
                 autoCorrect={false}
                 keyboardType="numeric"
+                backgroundColor="#E8E9EF"
 
             />
             <InputText
@@ -63,7 +65,7 @@ export function CreditCardUpdate() {
                 onChangeText={setClosingDay}
                 autoCorrect={false}
                 keyboardType="numeric"
-
+                backgroundColor="#E8E9EF"
             />
             <BtnNewCard onPress={updateCreditCard}>
                 <TextBtnNewCard>Alterar</TextBtnNewCard>

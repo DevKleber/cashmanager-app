@@ -66,8 +66,7 @@ export const Title = styled.Text`
 export const ContentScrollView = styled.ScrollView`
 	width: 100%;
 	flex: 1;
-	padding: 0px 25px;
-	padding-top: 70px;
+	padding: 70px 25px;
 	margin-top: 20px;
 	background-color: #fff;
 	border-top-left-radius: 45px;

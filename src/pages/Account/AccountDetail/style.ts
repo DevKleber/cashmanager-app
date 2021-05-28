@@ -73,9 +73,9 @@ export const CardInvoice = styled.View`
 	width: 100%;
 	min-height: 400px;
 	flex: 1;
-	flex-direction: row;
+	/* flex-direction: row; */
 	align-items: center;
-	justify-content: center;
+	/* justify-content: center; */
 	background-color: #fff;
 	padding: 0px 20px;
 	border-top-left-radius: 45px;
@@ -83,6 +83,7 @@ export const CardInvoice = styled.View`
 `;
 
 export const ItemList = styled.View`
+	width: 100%;
 	flex-direction: row;
 	min-height: 85px;
 `;

@@ -18,7 +18,7 @@ import {
 	TextIconTitle
 } from './style';
 import {IconText} from '../../../components/elements/Icon';
-import {Alert, Modal, StatusBar, Text, View} from 'react-native';
+import {ActivityIndicator, Alert, Modal, StatusBar} from 'react-native';
 
 export function CategoryInsert() {
 	const router = useRoute();
@@ -32,11 +32,16 @@ export function CategoryInsert() {
 	const [modalVisible, setModalVisible] = useState(false);
 	const [icons, setIcons] = useState<any>([]);
 	const [iconsFilter, setIconsfilter] = useState<any>([]);
+	const [loader, setLoader] = useState<boolean>(false);
 
 	async function saveAccount() {
-		await save({name, icon: iconSelected, id_category_parent: id, is_income: isIncome}).then(() => {
-			navigate.navigate('CategoryList');
-		});
+		setLoader(true);
+		const dados = await save({name, icon: iconSelected, id_category_parent: id, is_income: isIncome})
+		if (!dados) {
+			setLoader(false);
+            return;
+        }
+		navigate.navigate('CategoryList');
 	}
 	function alterBackgroundColor(bgIsIncome: boolean) {
 		const color: string = bgIsIncome ? '#207868' : '#F44236';
@@ -136,6 +141,7 @@ export function CategoryInsert() {
 							<ContainerModalCategory>
 								{iconsFilter.map((item: any, index: number) => (
 									<CardCategory 
+										key={index}
 										style={{backgroundColor: isIncome ? '#207868': '#F44236'}}
 										onPress={() => handleSelectIcon(item)}>
 										<IconText
@@ -157,6 +163,7 @@ export function CategoryInsert() {
 							color={isIncome ? '#1D6C5E' : '#dc3b31'}
 						/>
 						<TextBtn>Cadastrar</TextBtn>
+						{loader && <ActivityIndicator size="small" color="#fff" />}
 					</Btn>
 				</ContainerButton>
 			</ContentScrollView>
