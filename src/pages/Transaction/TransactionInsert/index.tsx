@@ -399,7 +399,7 @@ export function TransactionInsert() {
                         </Text> : null}
                     </BoxInstallment>
                     
-                    <BtnNewCard onPress={saveAccount}>
+                    <BtnNewCard onPress={saveAccount} style={{backgroundColor: isIncome ? '#00d377' : '#cf2945'}}>
                         <TextBtnNewCard>Lançar</TextBtnNewCard>
                         {loader && <ActivityIndicator size="small" color="#fff" />}
 
