@@ -16,8 +16,15 @@ export function Sammary({
 	middleCard,
 	lastCard,
 }: SammaryProps) {
-	function formatValueBR(value: any) {
-		return value;
+	function getColorTotal(isTransaction: any, value: number):string {
+		if (isTransaction && value >= 0) {
+			return "#00d377";
+		}
+		if (isTransaction && value < 0) {
+			return "#E62E4D";
+		}
+
+		return "#fff";
 	}
 
 	return (
@@ -57,19 +64,22 @@ export function Sammary({
 			<Card
 				style={style.boxShadow}
 				background={isTransaction ? '#fff' : '#2C88D9'}
-				isTransaction={isTransaction}>
+				isTransaction={isTransaction}
+				total={lastCard?.value}
+			>
 				<Header>
-					<Name style={{color: isTransaction ? '#E62E4D' : '#fff'}}>
+					<Name style={{color: getColorTotal(isTransaction, lastCard?.value)}}>
 						{lastCard.title}
 					</Name>
 					<IconText
 						name="outlined-flag"
-						color={isTransaction ? '#E62E4D' : '#fff'}
+						color={getColorTotal(isTransaction, lastCard?.value)}
 						size={27}
 					/>
 				</Header>
 				<Content>
-					<Value style={{color: isTransaction ? '#E62E4D' : '#fff'}}>
+					{/* <Value style={{color: isTransaction ? '#E62E4D' : '#fff'}}> */}
+					<Value style={{color: getColorTotal(isTransaction, lastCard?.value)}}>	
 						{isTransaction ? 
 							<NumberFormat
 								value={lastCard?.value}
@@ -77,7 +87,7 @@ export function Sammary({
 								displayType={'text'}
 								thousandSeparator="."
 								decimalSeparator=","
-								renderText={value => <Value style={{color: isTransaction ? '#E62E4D' : '#fff'}}>{value}</Value>}
+								renderText={value => <Value style={{color: getColorTotal(isTransaction, lastCard?.value)}}>{value}</Value>}
 							/> : 
 							<>
 								{lastCard?.value?.total.toFixed(1)}%<De> de </De>

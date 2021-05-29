@@ -47,7 +47,7 @@ export const Content = styled.View`
 
 export const TextValue = styled.Text`
 	font-weight: 200;
-	color: #f55e53;
+	/* color: #f55e53; */
 	font-family: 'Poppins-Regular';
 `;
 

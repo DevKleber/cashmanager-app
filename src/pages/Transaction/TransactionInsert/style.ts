@@ -100,6 +100,7 @@ export const BtnOptionIncome = styled.TouchableOpacity<IsIncomeProps>`
 export const TextBtnNewCard = styled.Text`
 	font-size: 14px;
 	font-family: 'Poppins-Bold';
+	color: #fff;
 `;
 
 

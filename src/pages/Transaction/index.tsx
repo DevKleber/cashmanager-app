@@ -108,7 +108,7 @@ export function TransactionList() {
 					}}
 					lastCard={{
 						title: 'Total',
-						value: sammary.total,
+						value: (sammary.income - sammary.expense),
 					}}
                     isTransaction={true}
                 />
