@@ -47,10 +47,13 @@ export function AccountList() {
 		setAccounts(copyAcconts);
 	}
 
-	async function calcTotal(array:AccountProps[]) {
+	async function calcTotal(array: AccountProps[]) {
 		if (array.length) {
-			const item = array.reduce((accumulator: any, currentValue: any) => (accumulator.current_balance + currentValue.current_balance));
-			setTotal(item.current_balance);
+			let total = 0;
+			for (let item of array) {
+				total += Number(item.current_balance);
+			}
+			setTotal(total);
 		}
 	}
 

@@ -117,3 +117,5 @@ export const RowHr = styled.View`
     border-color: #D7D7D7;
     width: 100%;
 `;
+
+export const BtnMonth = styled.TouchableOpacity``;

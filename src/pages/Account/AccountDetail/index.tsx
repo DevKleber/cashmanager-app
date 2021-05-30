@@ -24,10 +24,11 @@ import {
 	ItemTextDescription,
 	RowHr,
 } from './style';
-import {Image, RefreshControl, View} from 'react-native';
+import {Image, RefreshControl, StatusBar, View} from 'react-native';
 import {getAccountById, AccountProps, Month, getMonths} from '../services';
 import {useRoute} from '@react-navigation/core';
 import { ViewMesage } from '../../CreditCard/CreditCardDetail/style';
+import { BtnMonth } from '../../Transaction/style';
 
 export function AccountDetail() {
 	const [months, setMonths] = useState<Month[]>(getMonths());
@@ -36,7 +37,7 @@ export function AccountDetail() {
 	const [account, setAccount] = useState<AccountProps>({} as AccountProps);
 	const router = useRoute();
 
-	async function getCreditCard() {
+	async function getAccounts() {
 		const {id}: any = router.params;
 		const dados = await getAccountById(id, month);
 		setAccount(dados);
@@ -47,9 +48,10 @@ export function AccountDetail() {
 	}
 
 	async function setCurrentMonth() {
-		const date = new Date();
-
-		setMonth(date.getMonth());
+		if (month === 0) {
+			const date = new Date();
+			setMonth(date.getMonth());
+		}
 	}
 
 	async function alterMonth(month: number) {
@@ -66,33 +68,29 @@ export function AccountDetail() {
 	}, []);
 
 	useEffect(() => {
+		StatusBar.setBarStyle('light-content');
+		StatusBar.setBackgroundColor('#F7C325');
 		setCurrentMonth();
-		getCreditCard();
-	}, [refreshing]);
+		getAccounts();
+	}, [refreshing, month]);
 	return (
 		<Container>
 			<HeaderDate>
-				<IconText
-					name="navigate-before"
-					size={25}
-					color="#666666"
-					onPress={() => {
-						alterMonth(month > 0 ? month - 1 : 0).then(() =>
-							getCreditCard(),
-						);
-					}}
-				/>
+				<BtnMonth onPress={() => {alterMonth(month > 0 ? month - 1 : 0)}}>
+					<IconText
+						name="navigate-before"
+						size={25}
+						color="#666666"
+					/>
+				</BtnMonth>
 				<TextHeaderDate>{months[month].month}</TextHeaderDate>
-				<IconText
-					name="navigate-next"
-					size={25}
-					color="#666666"
-					onPress={() => {
-						alterMonth(month < 11 ? month + 1 : 11).then(() =>
-							getCreditCard(),
-						);
-					}}
-				/>
+				<BtnMonth onPress={() => {alterMonth(month < 11 ? month + 1 : 11)}}>
+					<IconText
+						name="navigate-next"
+						size={25}
+						color="#666666"
+					/>
+				</BtnMonth>
 			</HeaderDate>
 			<ContentScrollView
 				refreshControl={

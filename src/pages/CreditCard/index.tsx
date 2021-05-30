@@ -60,7 +60,6 @@ export function CreditCardList() {
 
 	return (
 		<>
-			<StatusBar barStyle="light-content" backgroundColor="#009788" />
 			<Container>
 				<ContentScrollView
 					refreshControl={
@@ -102,7 +101,7 @@ export function CreditCardList() {
 							<Content>
 								<Text>
 									Valor da fatura:{' '}
-									<TextValue>R$ {item.total}</TextValue>
+									<TextValue>R$ {item.total ? item.total : 0}</TextValue>
 								</Text>
 								<Text>
 									Fecha:{' '}
