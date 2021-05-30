@@ -62,9 +62,9 @@ export function TransactionList() {
 
         for (let item of dados) {
             if (item.is_income) {
-                totalIncome += parseFloat(item.value);
+                totalIncome += parseFloat(item?.value);
             } else {
-                totalExpense += parseFloat(item.value);
+                totalExpense += parseFloat(item?.value);
             }
         }
 
