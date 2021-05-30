@@ -21,7 +21,8 @@ import {
     DatePrice,
     ItemTextDescription,
     RowHr,
-    BoxSammary
+    BoxSammary,
+    BtnMonth
 } from './style';
 import { Text, ViewMesage } from '../CreditCard/CreditCardDetail/style';
 
@@ -45,9 +46,10 @@ export function TransactionList() {
     }
 
     async function setCurrentMonth() {
-        const date = new Date();
-
-        setMonth(date.getMonth());
+        if (month == 0) {
+            const date = new Date();
+            setMonth(date.getMonth());
+        }
     }
 
     async function alterMonth(month: number) {
@@ -59,7 +61,6 @@ export function TransactionList() {
         let totalExpense: number = 0;
 
         for (let item of dados) {
-            console.log(item);
             if (item.is_income) {
                 totalIncome += parseFloat(item.value);
             } else {
@@ -88,13 +89,17 @@ export function TransactionList() {
     useEffect(() => {
         setCurrentMonth();
         listTransactions();
-    }, [refreshing]);
+    }, [refreshing, month]);
     return (
         <Container>
              <HeaderDate>
-                <IconText name="navigate-before" size={20} onPress={() => {alterMonth(month > 0 ? month - 1 : 0).then(() => listTransactions())}} />
+                <BtnMonth onPress={() => {alterMonth(month > 0 ? month - 1 : 0)}}>
+                    <IconText name="navigate-before" size={20}  />
+                </BtnMonth>
                 <TextHeaderDate>{months[month].month}</TextHeaderDate>
-                <IconText name="navigate-next" size={20} onPress={() => {alterMonth(month < 11 ? month + 1 : 11).then(() => listTransactions())}}/>
+                <BtnMonth onPress={() => {alterMonth(month < 11 ? month + 1 : 11)}}>
+                    <IconText name="navigate-next" size={20} />
+                </BtnMonth>
             </HeaderDate>
             <BoxSammary>
                 <Sammary
@@ -129,7 +134,7 @@ export function TransactionList() {
                                         <IconText name={item.icon}/>
                                     </ItemIcon>
                                     <ItemContent>
-                                        <ItemTextTitle>{item.name}</ItemTextTitle>
+                                        <ItemTextTitle>{item.name_category}</ItemTextTitle>
                                         <ItemTextDescription>{item.description}</ItemTextDescription>
                                     </ItemContent>
                                     <ItemPrice>

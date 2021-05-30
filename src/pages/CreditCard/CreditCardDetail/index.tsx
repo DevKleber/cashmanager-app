@@ -30,6 +30,7 @@ import { Image, RefreshControl, StatusBar, View } from 'react-native';
 import { getCreditCardById, CreditCard, Month, getMonths } from '../services';
 import { useNavigation, useRoute } from '@react-navigation/core';
 import { BtnNewCard, TextAdd } from '../style';
+import { BtnMonth } from '../../Transaction/style';
 
 export function CreditCardDetail() {
     const [months, setMonths] = useState<Month[]>(getMonths());
@@ -50,9 +51,10 @@ export function CreditCardDetail() {
     }
 
     async function setCurrentMonth() {
-        const date = new Date();
-
-        setMonth(date.getMonth());
+        if (month == 0) {
+            const date = new Date();
+            setMonth(date.getMonth());
+        }
     }
 
     async function alterMonth(month: number) {
@@ -73,13 +75,17 @@ export function CreditCardDetail() {
 		StatusBar.setBackgroundColor('#009788');
         setCurrentMonth();
         getCreditCard();
-    }, [refreshing]);
+    }, [refreshing, month]);
     return (
         <Container>
              <HeaderDate>
-                <IconText name="navigate-before" size={25} color='#fff'onPress={() => {alterMonth(month > 0 ? month - 1 : 0).then(() => getCreditCard())}} />
+                <BtnMonth onPress={() => {alterMonth(month > 0 ? month - 1 : 0)}} >
+                    <IconText name="navigate-before" size={25} color='#fff' />
+                </BtnMonth>
                 <TextHeaderDate>{months[month].month}</TextHeaderDate>
-                <IconText name="navigate-next" size={25} color="#fff" onPress={() => {alterMonth(month < 11 ? month + 1 : 11).then(() => getCreditCard())}}/>
+                <BtnMonth onPress={() => {alterMonth(month < 11 ? month + 1 : 11)}}>
+                    <IconText name="navigate-next" size={25} color="#fff" />
+                </BtnMonth>
             </HeaderDate>
             <ContentScrollView
                 refreshControl={
