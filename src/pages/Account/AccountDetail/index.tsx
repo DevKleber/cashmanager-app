@@ -34,7 +34,7 @@ export function AccountDetail() {
 	const navigate = useNavigation();
 	const [months, setMonths] = useState<Month[]>(getMonths());
 	const [refreshing, setRefreshing] = useState<boolean>(false);
-	const [month, setMonth] = useState<number>(0);
+	const [month, setMonth] = useState<number>(new Date().getMonth());
 	const [account, setAccount] = useState<AccountProps>({} as AccountProps);
 	const router = useRoute();
 
