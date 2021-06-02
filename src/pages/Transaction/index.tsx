@@ -6,7 +6,7 @@ import {TransactionProps, Month, getTransactions} from './services';
 import {useNavigation} from '@react-navigation/core';
 import {Sammary} from '../Dashboard/Sammary';
 import {Text, ViewMesage} from '../CreditCard/CreditCardDetail/style';
-import { getMonths } from '../Account/services';
+import {getMonths} from '../Account/services';
 import {
 	Container,
 	ContentScrollView,
@@ -69,8 +69,8 @@ export function TransactionList() {
 		}
 
 		const itemSammary = {
-			income: String(totalIncome),
-			expense: String(totalExpense),
+			income: String(totalIncome.toFixed(2)),
+			expense: String(totalExpense.toFixed(2)),
 			total: totalExpense + totalIncome,
 		};
 
@@ -92,6 +92,8 @@ export function TransactionList() {
 	}
 
 	useEffect(() => {
+		loadData();
+
 		return navigate.addListener('focus', () => loadData());
 	}, [refreshing, month]);
 	return (
@@ -146,6 +148,8 @@ export function TransactionList() {
 								</ItemIcon>
 								<ItemContent>
 									<ItemTextTitle>
+										{item.name_parent}
+										{' -> '}
 										{item.name_category}
 									</ItemTextTitle>
 									<ItemTextDescription>
