@@ -52,18 +52,22 @@ export function CategoryList() {
 		alterBackgroundColor(status);
 	}
 
-	const wait = (timeout:number) => {
+	const wait = (timeout: number) => {
 		return new Promise(resolve => setTimeout(resolve, timeout));
-	}
+	};
 
 	const onRefresh = React.useCallback(() => {
 		setRefreshing(true);
 		wait(2000).then(() => setRefreshing(false));
 	}, []);
 
-	useEffect(() => {
+	function loadData() {
 		alterBackgroundColor(isIncome);
 		listCategories();
+	}
+
+	useEffect(() => {
+		return navigate.addListener('focus', () => loadData());
 	}, [refreshing]);
 
 	function alterBackgroundColor(bgIsIncome: boolean) {
@@ -114,11 +118,10 @@ export function CategoryList() {
 			<ContentScrollView
 				refreshControl={
 					<RefreshControl
-					refreshing={refreshing}
-					onRefresh={onRefresh}
+						refreshing={refreshing}
+						onRefresh={onRefresh}
 					/>
-				}
-			>
+				}>
 				<CardInvoice>
 					{categoriesActive?.map((item: any, index: number) => (
 						<React.Fragment key={item.id}>
@@ -183,7 +186,12 @@ export function CategoryList() {
 						<BtnNewCard
 							selected={isIncome}
 							style={style.boxShadow}
-							onPress={() => navigate.navigate('CategoryInsert', {id: null, isIncome})}>
+							onPress={() =>
+								navigate.navigate('CategoryInsert', {
+									id: null,
+									isIncome,
+								})
+							}>
 							<IconText
 								name="add-circle"
 								color={isIncome ? '#1D6C5E' : '#dc3b31'}

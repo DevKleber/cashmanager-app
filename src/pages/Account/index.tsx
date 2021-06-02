@@ -66,10 +66,14 @@ export function AccountList() {
 		wait(2000).then(() => setRefreshing(false));
 	}, []);
 
-	useEffect(() => {
+	function loadData() {
 		StatusBar.setBarStyle('dark-content');
 		StatusBar.setBackgroundColor('#F7C325');
 		listAccounts();
+	}
+
+	useEffect(() => {
+		return navigate.addListener('focus', () => loadData())
 	}, [refreshing]);
 
 	return (

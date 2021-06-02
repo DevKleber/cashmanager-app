@@ -13,16 +13,16 @@ export default function RoutesAccount() {
 			screenOptions={{
 				headerShown: true,
 				headerStyle: {
-					backgroundColor: '#F7C325', 
-					borderColor: '#F7C325', 
-					shadowColor: 'transparent'
+					backgroundColor: '#F7C325',
+					borderColor: '#F7C325',
+					shadowColor: 'transparent',
 				},
 				headerTitleStyle: {
 					color: '#000',
 					fontFamily: 'Poppins-Regular',
 					fontSize: 16,
 				},
-				headerTintColor: '#000'
+				headerTintColor: '#000',
 			}}>
 			<Stack.Screen
 				name="AccountList"

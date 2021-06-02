@@ -31,7 +31,7 @@ export function CreditCardList() {
 
 	async function deleteCreditCard(item: CreditCard) {
 		if (!item?.isDelete) {
-			const copyCreditCard:CreditCard[] = creditCard;
+			const copyCreditCard: CreditCard[] = creditCard;
 			copyCreditCard[creditCard.indexOf(item)].isDelete = true;
 			setCreditCard([...copyCreditCard]);
 			return;
@@ -43,19 +43,22 @@ export function CreditCardList() {
 		setCreditCard(copyCreditCard);
 	}
 
-	const wait = (timeout:number) => {
+	const wait = (timeout: number) => {
 		return new Promise(resolve => setTimeout(resolve, timeout));
-	}
+	};
 
 	const onRefresh = React.useCallback(() => {
 		setRefreshing(true);
 		wait(2000).then(() => setRefreshing(false));
 	}, []);
-
-	useEffect(() => {
+	function loadData() {
 		StatusBar.setBarStyle('light-content');
 		StatusBar.setBackgroundColor('#009788');
 		creditCards();
+	}
+
+	useEffect(() => {
+		return navigate.addListener('focus', () => loadData());
 	}, [refreshing]);
 
 	return (
@@ -64,11 +67,10 @@ export function CreditCardList() {
 				<ContentScrollView
 					refreshControl={
 						<RefreshControl
-						  refreshing={refreshing}
-						  onRefresh={onRefresh}
+							refreshing={refreshing}
+							onRefresh={onRefresh}
 						/>
-					  }
-				>
+					}>
 					{creditCard.map((item: any, index: number) => (
 						<Card
 							style={style.boxShadow}
@@ -83,8 +85,16 @@ export function CreditCardList() {
 								<Title>{item.name}</Title>
 								<Actions>
 									<IconText
-										name={item?.isDelete ? "delete-forever" : "delete"}
-										color={item?.isDelete ? "orange" : "#666360"}
+										name={
+											item?.isDelete
+												? 'delete-forever'
+												: 'delete'
+										}
+										color={
+											item?.isDelete
+												? 'orange'
+												: '#666360'
+										}
 										onPress={() => deleteCreditCard(item)}
 									/>
 									<IconText
@@ -101,11 +111,15 @@ export function CreditCardList() {
 							<Content>
 								<Text>
 									Valor da fatura:{' '}
-									<TextValue>R$ {item.total ? item.total : 0}</TextValue>
+									<TextValue>
+										R$ {item.total ? item.total : 0}
+									</TextValue>
 								</Text>
 								<Text>
 									Fecha:{' '}
-									<TextLighter>{item.closing_day}</TextLighter>
+									<TextLighter>
+										{item.closing_day}
+									</TextLighter>
 								</Text>
 								<Text>
 									Vencimento:{' '}
@@ -116,7 +130,7 @@ export function CreditCardList() {
 					))}
 					<BtnNewCard
 						style={style.boxShadow}
-						onPress={() => (navigate.navigate('CreditCardInsert'))}>
+						onPress={() => navigate.navigate('CreditCardInsert')}>
 						{/* onPress={() => (navigate.navigate('CreditCardInsert'))}> */}
 						<IconText name="add-circle" color="#666666" />
 						<TextAdd>Adicionar novo cartão</TextAdd>

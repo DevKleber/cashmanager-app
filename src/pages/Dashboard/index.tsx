@@ -1,30 +1,21 @@
 import React, {useEffect, useState} from 'react';
-import {IconText} from '../../components/elements/Icon';
 import {Sammary} from './Sammary';
-
-import {
-	Wrapper,
-	Container,
-	Button,
-	Months,
-	MonthLabel,
-	ContainerItem,
-	Card,
-} from './style';
+import {useNavigation} from '@react-navigation/core';
 import {DashboardIncome} from './Income';
 import {DashboardOutcome} from './Outcome';
-import {DashboardCategory} from './Category';
 import {DashboardPlanned} from './Planned';
 import {DashboardIncomeOutcome} from './IncomeOutcome';
 import {getDashboardData} from './services';
 import {DashboardProps} from './Interface';
-import { RefreshControl, StatusBar } from 'react-native';
+import {RefreshControl, StatusBar} from 'react-native';
+import {Wrapper, Container, ContainerItem, Card} from './style';
 
 export function Dashboard() {
+	const navigate = useNavigation();
 	const [dashboard, setDasboard] = useState<DashboardProps>(
 		{} as DashboardProps,
 	);
-    const [refreshing, setRefreshing] = useState<boolean>(false);
+	const [refreshing, setRefreshing] = useState<boolean>(false);
 
 	async function getDataToDashboard() {
 		const data: DashboardProps = await getDashboardData();
@@ -36,40 +27,34 @@ export function Dashboard() {
 		setDasboard(data);
 	}
 
-	const wait = (timeout:number) => {
+	const wait = (timeout: number) => {
 		return new Promise(resolve => setTimeout(resolve, timeout));
-	}
+	};
 
 	const onRefresh = React.useCallback(() => {
 		setRefreshing(true);
 		wait(2000).then(() => setRefreshing(false));
 	}, []);
 
-	useEffect(() => {
+	function loadData() {
 		StatusBar.setBarStyle('light-content');
 		StatusBar.setBackgroundColor('#009788');
 		getDataToDashboard();
+	}
+
+	useEffect(() => {
+		return navigate.addListener('focus', () => loadData());
 	}, [refreshing]);
 
 	return (
 		<Wrapper>
-			<Container 
+			<Container
 				refreshControl={
 					<RefreshControl
-					  refreshing={refreshing}
-					  onRefresh={onRefresh}
+						refreshing={refreshing}
+						onRefresh={onRefresh}
 					/>
-				  }
-			>
-				{/* <Months>
-					<Button>
-						<IconText name="navigate-before" size={20} />
-					</Button>
-					<MonthLabel>Abril</MonthLabel>
-					<Button>
-						<IconText name="navigate-next" size={20} />
-					</Button>
-				</Months> */}
+				}>
 				<Sammary
 					fisrtCard={{
 						title: 'Entradas',
