@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 interface CardProps {
 	background: string;
 	isTransaction?: boolean;
-	total?: number | undefined
+	total?: number | undefined;
 }
 
 export const Summary = styled.ScrollView.attrs(() => ({
@@ -26,10 +26,10 @@ export const Card = styled.View<CardProps>`
 	margin-right: 25px;
 	${({isTransaction, total = 0}) => {
 		if (isTransaction && total >= 0) {
-			return "border: 5px solid #00d377";
+			return 'border: 5px solid #00EB84';
 		}
 		if (isTransaction && total < 0) {
-			return "border: 5px solid #E62E4D";
+			return 'border: 5px solid #E62E4D';
 		}
 
 		// isTransaction === true ? 'border: 5px solid #E62E4D' : ''};

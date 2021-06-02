@@ -16,15 +16,15 @@ export function Sammary({
 	middleCard,
 	lastCard,
 }: SammaryProps) {
-	function getColorTotal(isTransaction: any, value: number):string {
+	function getColorTotal(isTransaction: any, value: number): string {
 		if (isTransaction && value >= 0) {
-			return "#00d377";
+			return '#00EB84';
 		}
 		if (isTransaction && value < 0) {
-			return "#E62E4D";
+			return '#E62E4D';
 		}
 
-		return "#fff";
+		return '#fff';
 	}
 
 	return (
@@ -65,10 +65,15 @@ export function Sammary({
 				style={style.boxShadow}
 				background={isTransaction ? '#fff' : '#2C88D9'}
 				isTransaction={isTransaction}
-				total={lastCard?.value}
-			>
+				total={lastCard?.value}>
 				<Header>
-					<Name style={{color: getColorTotal(isTransaction, lastCard?.value)}}>
+					<Name
+						style={{
+							color: getColorTotal(
+								isTransaction,
+								lastCard?.value,
+							),
+						}}>
 						{lastCard.title}
 					</Name>
 					<IconText
@@ -79,20 +84,39 @@ export function Sammary({
 				</Header>
 				<Content>
 					{/* <Value style={{color: isTransaction ? '#E62E4D' : '#fff'}}> */}
-					<Value style={{color: getColorTotal(isTransaction, lastCard?.value)}}>	
-						{isTransaction ? 
+					<Value
+						style={{
+							color: getColorTotal(
+								isTransaction,
+								lastCard?.value,
+							),
+						}}>
+						{isTransaction ? (
 							<NumberFormat
 								value={lastCard?.value}
 								prefix={'R$ '}
 								displayType={'text'}
 								thousandSeparator="."
 								decimalSeparator=","
-								renderText={value => <Value style={{color: getColorTotal(isTransaction, lastCard?.value)}}>{value}</Value>}
-							/> : 
+								renderText={value => (
+									<Value
+										style={{
+											color: getColorTotal(
+												isTransaction,
+												lastCard?.value,
+											),
+										}}>
+										{value}
+									</Value>
+								)}
+							/>
+						) : (
 							<>
-								{lastCard?.value?.total.toFixed(1)}%<De> de </De>
+								{lastCard?.value?.total.toFixed(1)}%
+								<De> de </De>
 								{lastCard?.value?.totalPlanejado}%
-							</>}
+							</>
+						)}
 					</Value>
 				</Content>
 			</Card>
