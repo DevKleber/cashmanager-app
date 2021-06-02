@@ -6,14 +6,12 @@ export const Container = styled.SafeAreaView`
 	align-items: center;
 	flex-direction: column;
 	background-color: #2C88D9;
-	/* padding: 0px 25px; */
 `;
 
 export const ContentTotal = styled.View`
 	padding: 20px;
 	background-color: #fff;
 	border-radius: 15px;
-	/* border: 1px solid black; */
 `;
 
 export const CategoriesView = styled.View``;
@@ -87,11 +85,6 @@ export const ViewPorcent = styled.View`
 	position: absolute;
 	width: 100px;
 	bottom: 5px;
-	/* margin: 0px 2%; */
-	/* flex-direction: row; */
-	/* border: 1px solid black; */
-	/* align-items: center; */
-	/* transform: translateX(-50%); */
 	justify-content: center;
 `;
 

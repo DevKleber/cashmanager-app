@@ -4,27 +4,23 @@ import {CreditCardList} from './index';
 import {CreditCardDetail} from './CreditCardDetail';
 import {CreditCardInsert} from './CreditCardInsert';
 import {CreditCardUpdate} from './CreditCardUpdate';
-import { StatusBar } from 'react-native';
 
 const Stack = createStackNavigator();
 
 export default function RoutesCreditCard() {
-
 	return (
 		<Stack.Navigator
-
 			screenOptions={{
 				headerShown: true,
 				headerStyle: {
-					backgroundColor: '#009788', 
-					borderColor: '#009788', 
-					shadowColor: 'transparent'
+					backgroundColor: '#009788',
+					borderColor: '#009788',
+					shadowColor: 'transparent',
 				},
 				headerTitleStyle: {
-					color: '#fff'
+					color: '#fff',
 				},
-				headerTintColor: '#fff'
-				
+				headerTintColor: '#fff',
 			}}>
 			<Stack.Screen
 				name="CreditCardList"

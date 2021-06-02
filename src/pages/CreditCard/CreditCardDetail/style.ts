@@ -74,7 +74,6 @@ export const ContentScrollView = styled.ScrollView`
 	flex: 1;
 	/* padding: 0px 25px; */
 	margin-top: 20px;
-	
 `;
 
 export const CardInvoice = styled.View`

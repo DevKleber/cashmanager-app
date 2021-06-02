@@ -26,11 +26,12 @@ import {
 } from './style';
 import {Image, RefreshControl, StatusBar, View} from 'react-native';
 import {getAccountById, AccountProps, Month, getMonths} from '../services';
-import {useRoute} from '@react-navigation/core';
-import { ViewMesage } from '../../CreditCard/CreditCardDetail/style';
-import { BtnMonth } from '../../Transaction/style';
+import {useNavigation, useRoute} from '@react-navigation/core';
+import {ViewMesage} from '../../CreditCard/CreditCardDetail/style';
+import {BtnMonth} from '../../Transaction/style';
 
 export function AccountDetail() {
+	const navigate = useNavigation();
 	const [months, setMonths] = useState<Month[]>(getMonths());
 	const [refreshing, setRefreshing] = useState<boolean>(false);
 	const [month, setMonth] = useState<number>(0);
@@ -58,25 +59,32 @@ export function AccountDetail() {
 		return setMonth(month);
 	}
 
-	const wait = (timeout:number) => {
+	const wait = (timeout: number) => {
 		return new Promise(resolve => setTimeout(resolve, timeout));
-	}
+	};
 
 	const onRefresh = React.useCallback(() => {
 		setRefreshing(true);
 		wait(2000).then(() => setRefreshing(false));
 	}, []);
 
-	useEffect(() => {
+	function loadData() {
 		StatusBar.setBarStyle('light-content');
 		StatusBar.setBackgroundColor('#F7C325');
 		setCurrentMonth();
 		getAccounts();
+	}
+
+	useEffect(() => {
+		return navigate.addListener('focus', () => loadData());
 	}, [refreshing, month]);
 	return (
 		<Container>
 			<HeaderDate>
-				<BtnMonth onPress={() => {alterMonth(month > 0 ? month - 1 : 0)}}>
+				<BtnMonth
+					onPress={() => {
+						alterMonth(month > 0 ? month - 1 : 0);
+					}}>
 					<IconText
 						name="navigate-before"
 						size={25}
@@ -84,22 +92,20 @@ export function AccountDetail() {
 					/>
 				</BtnMonth>
 				<TextHeaderDate>{months[month].month}</TextHeaderDate>
-				<BtnMonth onPress={() => {alterMonth(month < 11 ? month + 1 : 11)}}>
-					<IconText
-						name="navigate-next"
-						size={25}
-						color="#666666"
-					/>
+				<BtnMonth
+					onPress={() => {
+						alterMonth(month < 11 ? month + 1 : 11);
+					}}>
+					<IconText name="navigate-next" size={25} color="#666666" />
 				</BtnMonth>
 			</HeaderDate>
 			<ContentScrollView
 				refreshControl={
 					<RefreshControl
-					refreshing={refreshing}
-					onRefresh={onRefresh}
+						refreshing={refreshing}
+						onRefresh={onRefresh}
 					/>
-				}
-			>
+				}>
 				<Card style={style.boxShadow}>
 					<Header>
 						<Image
@@ -110,7 +116,7 @@ export function AccountDetail() {
 					</Header>
 					<Content>
 						<Text>
-							Saldo: 
+							Saldo:
 							<TextValue> R$ {account.current_balance}</TextValue>
 						</Text>
 					</Content>
@@ -155,10 +161,11 @@ export function AccountDetail() {
 						</View>
 					))}
 
-					{account.items?.length == 0 ? 
-						<ViewMesage><Text>Essa conta não possui movimentações</Text></ViewMesage> :
-						null
-					}
+					{account.items?.length == 0 ? (
+						<ViewMesage>
+							<Text>Essa conta não possui movimentações</Text>
+						</ViewMesage>
+					) : null}
 				</CardInvoice>
 			</ContentScrollView>
 		</Container>

@@ -159,7 +159,6 @@ export const ContentIcon = styled.View`
 `;
 
 export const ContentCheckBox = styled.View`
-	/* width: 80%; */
 	flex-direction: row;
 	align-items: center;
 

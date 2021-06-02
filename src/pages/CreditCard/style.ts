@@ -6,7 +6,6 @@ export const Container = styled.SafeAreaView`
 	align-items: center;
 	flex-direction: column;
 	background-color: #009788;
-	/* border-top-left-radius: 45px; */
 `;
 
 export const Card = styled.TouchableOpacity`

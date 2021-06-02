@@ -65,7 +65,6 @@ export function TransactionInsert() {
     const [date, setDate] = useState(new Date(new Date().getTime()));
     const [show, setShow] = useState(false);
 	const [loader, setLoader] = useState<boolean>(false);
-    const [plannedExpenses, setPlannedExpenses] = useState<any[]>([]);
     const [valuePercent, setValuePercent] = useState<number>(0);
     
 
@@ -179,16 +178,11 @@ export function TransactionInsert() {
         StatusBar.setBackgroundColor(color); 
     }
 
-    async function getPlannedExpensesList() {
-        const dados = await getPlannedExpenses();
-        setPlannedExpenses(dados);
-    }
 
     async function getPlannedExpensesItem(planejamento: any[], category: any) {
         console.log("category", category);
         if (planejamento.length > 0) {
             const planned = planejamento.filter((elem: any) => {
-                // console.log(elem);
                 return elem.id_category == category.id_category_parent;
             })[0];
 
@@ -227,7 +221,7 @@ export function TransactionInsert() {
 		wait(2000).then(() => setRefreshing(false));
 	}, []);
 
-    useEffect(() => {
+    function loadData() {
         clearForm();
         setIdCategory('');
         setValuePercent(0);
@@ -235,7 +229,10 @@ export function TransactionInsert() {
         listCategories(true);
         listAccounts();
         creditCards();
-        getPlannedExpensesList();
+    }
+
+    useEffect(() => {
+        return navigate.addListener('focus', () => loadData());
     }, [refreshing]);
 
     return (

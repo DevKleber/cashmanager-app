@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/core';
 import {update} from './services';
 import {IconText} from '../../components/elements/Icon';
+import {getPlannedExpenses} from './services';
+import {Alert, RefreshControl, StatusBar, View} from 'react-native';
 import {
 	Container,
 	ContentScrollView,
@@ -20,15 +22,12 @@ import {
 	ViewContent,
 	CategoriesView,
 } from './style';
-import {getPlannedExpenses} from './services';
-import {Alert, RefreshControl, StatusBar, View} from 'react-native';
 
 export function PlannedExpenses() {
 	const navigate = useNavigation();
 	const [total, setTotal] = useState<number>(0);
 	let [categories, setCategories] = useState<any[]>([]);
 	const [refreshing, setRefreshing] = useState<boolean>(false);
-
 
 	async function savePlannedExpenses(value: any, item: any) {
 		categories[categories.indexOf(item)].value_percent = value;
@@ -67,8 +66,14 @@ export function PlannedExpenses() {
 		return true;
 	}
 
-	const wait = (timeout:number) => {
+	const wait = (timeout: number) => {
 		return new Promise(resolve => setTimeout(resolve, timeout));
+	};
+
+	function loadData() {
+		StatusBar.setBarStyle('dark-content');
+		StatusBar.setBackgroundColor('#2C88D9');
+		listCategories();
 	}
 
 	const onRefresh = React.useCallback(() => {
@@ -77,9 +82,7 @@ export function PlannedExpenses() {
 	}, []);
 
 	useEffect(() => {
-		StatusBar.setBarStyle('dark-content');
-		StatusBar.setBackgroundColor('#2C88D9');
-		listCategories();
+		return navigate.addListener('focus', () => loadData());
 	}, [refreshing]);
 
 	return (
@@ -89,11 +92,10 @@ export function PlannedExpenses() {
 				<ContentScrollView
 					refreshControl={
 						<RefreshControl
-						  refreshing={refreshing}
-						  onRefresh={onRefresh}
+							refreshing={refreshing}
+							onRefresh={onRefresh}
 						/>
-					  }
-				>
+					}>
 					<View>
 						{categories?.map((item: any, index: number) => (
 							<CategoriesView key={index}>
@@ -132,7 +134,12 @@ export function PlannedExpenses() {
 					</BarPorcent>
 					<ViewPorcent
 						style={{
-							left: total >= 80 ? '80%' : (total <= 10 ? '10%' : `${total}%`),
+							left:
+								total >= 80
+									? '80%'
+									: total <= 10
+									? '10%'
+									: `${total}%`,
 						}}>
 						<TextTotal>{total}%</TextTotal>
 					</ViewPorcent>

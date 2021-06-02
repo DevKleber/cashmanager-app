@@ -1,6 +1,6 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import { TransactionList } from '.';
+import {TransactionList} from '.';
 
 const Stack = createStackNavigator();
 
@@ -15,7 +15,7 @@ export default function routesTransactionsList() {
 					fontFamily: 'Poppins-Regular',
 					fontSize: 16,
 				},
-				headerTintColor: '#000'
+				headerTintColor: '#000',
 			}}>
 			<Stack.Screen
 				name="transacoes"

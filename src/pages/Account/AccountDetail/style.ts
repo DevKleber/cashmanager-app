@@ -47,7 +47,6 @@ export const Content = styled.View`
 
 export const TextValue = styled.Text`
 	font-weight: 200;
-	/* color: #f55e53; */
 	font-family: 'Poppins-Regular';
 `;
 
@@ -73,9 +72,7 @@ export const CardInvoice = styled.View`
 	width: 100%;
 	min-height: 400px;
 	flex: 1;
-	/* flex-direction: row; */
 	align-items: center;
-	/* justify-content: center; */
 	background-color: #fff;
 	padding: 0px 20px;
 	border-top-left-radius: 45px;

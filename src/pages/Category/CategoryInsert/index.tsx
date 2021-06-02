@@ -15,7 +15,7 @@ import {
 	BodyModal,
 	ContainerModalCategory,
 	CardCategory,
-	TextIconTitle
+	TextIconTitle,
 } from './style';
 import {IconText} from '../../../components/elements/Icon';
 import {ActivityIndicator, Alert, Modal, StatusBar} from 'react-native';
@@ -36,11 +36,16 @@ export function CategoryInsert() {
 
 	async function saveAccount() {
 		setLoader(true);
-		const dados = await save({name, icon: iconSelected, id_category_parent: id, is_income: isIncome})
+		const dados = await save({
+			name,
+			icon: iconSelected,
+			id_category_parent: id,
+			is_income: isIncome,
+		});
 		if (!dados) {
 			setLoader(false);
-            return;
-        }
+			return;
+		}
 		navigate.navigate('CategoryList');
 	}
 	function alterBackgroundColor(bgIsIncome: boolean) {
@@ -102,13 +107,11 @@ export function CategoryInsert() {
 				/>
 				<ButtonIcon onPress={() => setModalVisible(true)}>
 					<ChosenIcon>
-						{iconSelected.length ? 
+						{iconSelected.length ? (
 							<IconText size={24} name={iconSelected} />
-						: null}
+						) : null}
 					</ChosenIcon>
-					<TextIconTitle>
-						Icone
-					</TextIconTitle>
+					<TextIconTitle>Icone</TextIconTitle>
 				</ButtonIcon>
 
 				<Modal
@@ -140,9 +143,13 @@ export function CategoryInsert() {
 							/>
 							<ContainerModalCategory>
 								{iconsFilter.map((item: any, index: number) => (
-									<CardCategory 
+									<CardCategory
 										key={index}
-										style={{backgroundColor: isIncome ? '#207868': '#F44236'}}
+										style={{
+											backgroundColor: isIncome
+												? '#207868'
+												: '#F44236',
+										}}
 										onPress={() => handleSelectIcon(item)}>
 										<IconText
 											size={24}
@@ -163,7 +170,9 @@ export function CategoryInsert() {
 							color={isIncome ? '#1D6C5E' : '#dc3b31'}
 						/>
 						<TextBtn>Cadastrar</TextBtn>
-						{loader && <ActivityIndicator size="small" color="#fff" />}
+						{loader && (
+							<ActivityIndicator size="small" color="#fff" />
+						)}
 					</Btn>
 				</ContainerButton>
 			</ContentScrollView>
