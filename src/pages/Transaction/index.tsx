@@ -6,7 +6,7 @@ import {TransactionProps, Month, getTransactions} from './services';
 import {useNavigation} from '@react-navigation/core';
 import {Sammary} from '../Dashboard/Sammary';
 import {Text, ViewMesage} from '../CreditCard/CreditCardDetail/style';
-import { getMonths } from '../Account/services';
+import {getMonths} from '../Account/services';
 import {
 	Container,
 	ContentScrollView,
@@ -30,7 +30,7 @@ import {
 export function TransactionList() {
 	const navigate = useNavigation();
 	const [months, setMonths] = useState<Month[]>(getMonths());
-	const [month, setMonth] = useState<number>(0);
+	const [month, setMonth] = useState<number>(new Date().getMonth());
 	const [transactions, setTransactions] = useState<TransactionProps[]>([]);
 	const [sammary, setSammary] = useState<any>({});
 	const [refreshing, setRefreshing] = useState<boolean>(false);
