@@ -218,15 +218,18 @@ export function TransactionInsert() {
 
 	const onRefresh = React.useCallback(() => {
 		setRefreshing(true);
+        loadData(false);
 		wait(2000).then(() => setRefreshing(false));
 	}, []);
 
-    function loadData() {
+    function loadData(alterBackGround = true) {
         clearForm();
         setIdCategory('');
         setValuePercent(0);
-        alterBackgroundColor(isIncome)
-        listCategories(true);
+        if (alterBackGround) {
+            alterBackgroundColor(isIncome)
+        }
+        listCategories(isIncome);
         listAccounts();
         creditCards();
     }
