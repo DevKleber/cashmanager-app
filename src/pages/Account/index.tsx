@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/core';
-import {Image, RefreshControl, StatusBar} from 'react-native';
+import {Alert, Image, RefreshControl, StatusBar} from 'react-native';
 import {IconText} from '../../components/elements/Icon';
 import {getAccounts, deleteAccount, AccountProps} from './services';
 import {
@@ -17,7 +17,7 @@ import {
 	TextAdd,
 	Actions,
 	TitleTotal,
-	ValueTotal
+	ValueTotal,
 } from './style';
 
 export function AccountList() {
@@ -33,18 +33,22 @@ export function AccountList() {
 	}
 
 	async function removeAccount(item: AccountProps) {
-		if (!item?.isDelete) {
-			const copyAccounts:AccountProps[] = accounts;
-			copyAccounts[accounts.indexOf(item)].isDelete = true;
-			setAccounts([...copyAccounts]);
-			return;
-		}
+		Alert.alert(`Deseja remover?`, `${item.description}`, [
+			{
+				text: 'Cancelar',
+				style: 'cancel',
+			},
+			{
+				text: 'Sim, remover',
+				onPress: async () => {
+					await deleteAccount(item.id);
+					accounts.splice(accounts.indexOf(item), 1);
+					const copyAcconts = [...accounts];
 
-		await deleteAccount(item.id);
-		accounts.splice(accounts.indexOf(item), 1);
-		const copyAcconts = [...accounts];
-
-		setAccounts(copyAcconts);
+					setAccounts(copyAcconts);
+				},
+			},
+		]);
 	}
 
 	async function calcTotal(array: AccountProps[]) {
@@ -57,9 +61,9 @@ export function AccountList() {
 		}
 	}
 
-	const wait = (timeout:number) => {
+	const wait = (timeout: number) => {
 		return new Promise(resolve => setTimeout(resolve, timeout));
-	}
+	};
 
 	const onRefresh = React.useCallback(() => {
 		setRefreshing(true);
@@ -73,7 +77,7 @@ export function AccountList() {
 	}
 
 	useEffect(() => {
-		return navigate.addListener('focus', () => loadData())
+		return navigate.addListener('focus', () => loadData());
 	}, [refreshing]);
 
 	return (
@@ -85,11 +89,10 @@ export function AccountList() {
 			<ContentScrollView
 				refreshControl={
 					<RefreshControl
-					refreshing={refreshing}
-					onRefresh={onRefresh}
+						refreshing={refreshing}
+						onRefresh={onRefresh}
 					/>
-				}
-			>
+				}>
 				{accounts.map((item: any, index: number) => (
 					<Card
 						style={style.boxShadow}
@@ -105,8 +108,8 @@ export function AccountList() {
 							<Title>{item.description}</Title>
 							<Actions>
 								<IconText
-									name={item?.isDelete ? "delete-forever" : "delete"}
-									color={item?.isDelete ? "orange" : "#666360"}
+									name="delete"
+									color="#666360"
 									onPress={() => removeAccount(item)}
 								/>
 								<IconText
@@ -127,7 +130,7 @@ export function AccountList() {
 						</Content>
 					</Card>
 				))}
-				<BtnNewCard 
+				<BtnNewCard
 					style={style.boxShadow}
 					onPress={() => navigate.navigate('AccountInsert')}>
 					<IconText name="add-circle" />
