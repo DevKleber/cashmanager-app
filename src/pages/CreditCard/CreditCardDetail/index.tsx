@@ -34,7 +34,7 @@ import {
 
 export function CreditCardDetail() {
 	const [months, setMonths] = useState<Month[]>(getMonths());
-	const [month, setMonth] = useState<number>(0);
+	const [month, setMonth] = useState<number>(new Date().getMonth());
 	const [creditCard, setCreditCard] = useState<CreditCard>({} as CreditCard);
 	const router = useRoute();
 	const [refreshing, setRefreshing] = useState<boolean>(false);
