@@ -238,7 +238,8 @@ export function TransactionInsert() {
 	}
 
 	useEffect(() => {
-		return navigate.addListener('focus', () => loadData());
+		loadData();
+		return navigate.addListener('focus', () => loadData(false));
 	}, [refreshing]);
 
 	return (
