@@ -66,7 +66,6 @@ export function TransactionInsert() {
 	const [isAccount, setIsAccount] = useState<boolean>(false);
 	const [whatDate, setWhatDate] = useState<string>('today');
 	const [colorBG, setColorBG] = useState<string>('#00d377');
-	const [refreshing, setRefreshing] = useState<boolean>(false);
 
 	const [date, setDate] = useState(new Date(new Date().getTime()));
 	const [show, setShow] = useState(false);
@@ -215,16 +214,6 @@ export function TransactionInsert() {
 		}
 	}
 
-	const wait = (timeout: number) => {
-		return new Promise(resolve => setTimeout(resolve, timeout));
-	};
-
-	const onRefresh = React.useCallback(() => {
-		setRefreshing(true);
-		loadData(false);
-		wait(2000).then(() => setRefreshing(false));
-	}, []);
-
 	function loadData(alterBackGround = true) {
 		clearForm();
 		setIdCategory('');
@@ -238,8 +227,9 @@ export function TransactionInsert() {
 	}
 
 	useEffect(() => {
-		return navigate.addListener('focus', () => loadData());
-	}, [refreshing]);
+		alterBackgroundColor(true);
+		return navigate.addListener('focus', () => loadData(false));
+	}, []);
 
 	return (
 		<Container selected={isIncome}>
@@ -276,13 +266,7 @@ export function TransactionInsert() {
 				</BtnOptionExpense>
 			</BoxOptions>
 			<ViewContainer style={{width: '100%', paddingTop: 50}}>
-				<ContentScrollView
-					refreshControl={
-						<RefreshControl
-							refreshing={refreshing}
-							onRefresh={onRefresh}
-						/>
-					}>
+				<ContentScrollView>
 					<BoxIsPaidOut>
 						<ContentIcon>
 							<IconText name="add-task" />

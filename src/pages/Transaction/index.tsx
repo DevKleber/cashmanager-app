@@ -93,7 +93,6 @@ export function TransactionList() {
 
 	useEffect(() => {
 		loadData();
-
 		return navigate.addListener('focus', () => loadData());
 	}, [refreshing, month]);
 	return (
