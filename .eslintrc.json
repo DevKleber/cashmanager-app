@@ -1,14 +1,15 @@
 {
+	"root": true,
 	"env": {
 		"es2021": true,
 		"node": true
 	},
 	"extends": [
-		"plugin:react/recommended",
+		"plugin:react/recommended", // Uses the recommended rules from @eslint-plugin-react
 		"airbnb",
-		"plugin:@typescript-eslint/recommended",
-		"plugin:prettier/recommended",
-		"prettier/@typescript-eslint"
+		"plugin:@typescript-eslint/recommended", // Uses the recommended rules from the @typescript-eslint/eslint-plugin
+		"plugin:prettier/recommended" // Enables eslint-plugin-prettier and eslint-config-prettier. This will display prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
+		// "prettier/@typescript-eslint" // Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
 	],
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
@@ -18,16 +19,44 @@
 		"ecmaVersion": 12,
 		"sourceType": "module"
 	},
-	"plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
-
+	"plugins": ["react", "react-hooks", "@typescript-eslint", "eslint-plugin-import-helpers", "prettier"],
 	"rules": {
 		"prettier/prettier": "error",
-		"react/jsx-filename-extension": [
-			"warn",
-			{"extensions": [".jsx", ".js"]}
-		],
 		"import/prefer-default-export": "off",
-		"no-param-reassign": "off",
-		"no-console": ["error", {"allow": ["tron"]}]
+		"react/prop-types": "off",
+		"no-unused-expressions": "off",
+		"space-before-function-paren": "off",
+		"react-hooks/rules-of-hooks": "error",
+		"react-hooks/exhaustive-deps": "warn",
+		"import/no-unresolved": "off",
+		"global-require": "off",
+		"no-use-before-define": "off",
+		"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", "ts", "tsx"] }],
+		"import/extensions": "off",
+		"@typescript-eslint/no-floating-promises": "off",
+		"@typescript-eslint/no-unsafe-assignment": "off",
+		// "import/no-extraneous-dependencies":"off",
+		"import-helpers/order-imports": [
+			"warn",
+			{
+				"newlinesBetween": "always",
+				"groups": ["/^react/", "module", ["parent", "sibling", "index"]],
+				"alphabetize": {
+					"order": "asc",
+					"ignoreCase": true
+				}
+			}
+		]
+	},
+	"settings": {
+		"import/resolver": {
+			"node": {
+				"extensions": [".js", ".jsx", ".ts", ".tsx"]
+			},
+			"typescript": {}
+		},
+		"react": {
+			"version": "detect"
+		}
 	}
 }
