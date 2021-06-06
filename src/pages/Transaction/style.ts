@@ -51,7 +51,7 @@ export const CardInvoice = styled.View`
 	border-top-right-radius: 45px;
 `;
 
-export const ItemList = styled.View`
+export const ItemList = styled.TouchableOpacity`
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
