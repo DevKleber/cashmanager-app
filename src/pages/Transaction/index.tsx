@@ -1,12 +1,14 @@
-import React, {useEffect, useState} from 'react';
-import {RefreshControl, View} from 'react-native';
-import {IconText} from '../../components/elements/Icon';
-import {format} from 'date-fns';
-import {TransactionProps, Month, getTransactions} from './services';
-import {useNavigation} from '@react-navigation/core';
-import {Sammary} from '../Dashboard/Sammary';
-import {Text, ViewMesage} from '../CreditCard/CreditCardDetail/style';
-import {getMonths} from '../Account/services';
+import React, { useEffect, useState } from 'react';
+import { View } from 'react-native';
+
+import { useNavigation } from '@react-navigation/core';
+import { format } from 'date-fns';
+
+import { IconText } from '../../components/elements/Icon';
+import { getMonths } from '../Account/services';
+import { Text, ViewMesage } from '../CreditCard/CreditCardDetail/style';
+import { Sammary } from '../Dashboard/Sammary';
+import { Month, getTransactions } from './services';
 import {
 	Container,
 	ContentScrollView,
@@ -26,75 +28,69 @@ import {
 	BoxSammary,
 	BtnMonth,
 } from './style';
+import { TransactionProps } from './types';
 
-export function TransactionList() {
+export function TransactionList(): JSX.Element {
 	const navigate = useNavigation();
+
 	const [months, setMonths] = useState<Month[]>(getMonths());
 	const [month, setMonth] = useState<number>(new Date().getMonth());
 	const [transactions, setTransactions] = useState<TransactionProps[]>([]);
 	const [sammary, setSammary] = useState<any>({});
-	const [refreshing, setRefreshing] = useState<boolean>(false);
-
-	async function listTransactions() {
-		const dados = await getTransactions(month);
-		calcSammary(dados);
-		setTransactions(dados);
-	}
 
 	function formatDate(date: any) {
 		return format(new Date(date), 'dd/MM');
 	}
 
-	async function setCurrentMonth() {
-		if (month == 0) {
-			const date = new Date();
-			setMonth(date.getMonth());
-		}
-	}
-
-	async function alterMonth(month: number) {
-		return setMonth(month);
-	}
-
-	function calcSammary(dados: any[]) {
-		let totalIncome: number = 0;
-		let totalExpense: number = 0;
-
-		for (let item of dados) {
-			if (item.is_income) {
-				totalIncome += parseFloat(item?.value);
-			} else {
-				totalExpense += parseFloat(item?.value);
-			}
-		}
-
-		const itemSammary = {
-			income: String(totalIncome.toFixed(2)),
-			expense: String(totalExpense.toFixed(2)),
-			total: totalExpense + totalIncome,
-		};
-
-		setSammary(itemSammary);
-	}
-
-	const wait = (timeout: number) => {
-		return new Promise(resolve => setTimeout(resolve, timeout));
-	};
-
-	const onRefresh = React.useCallback(() => {
-		setRefreshing(true);
-		wait(2000).then(() => setRefreshing(false));
-	}, []);
-
-	function loadData() {
-		setCurrentMonth();
-		listTransactions();
+	async function alterMonth(monthToChange: number) {
+		return setMonth(monthToChange);
 	}
 
 	useEffect(() => {
+		// Como usar useEffect => https://reactjs.org/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies
+
+		function calcSammary(dados: TransactionProps[]) {
+			let totalIncome = 0;
+			let totalExpense = 0;
+
+			dados.forEach(item => {
+				if (item.is_income) {
+					totalIncome += Number(item?.value);
+				} else {
+					totalExpense += Number(item?.value);
+				}
+			});
+
+			const itemSammary = {
+				income: String(totalIncome.toFixed(2)),
+				expense: String(totalExpense.toFixed(2)),
+				total: totalExpense + totalIncome,
+			};
+
+			setSammary(itemSammary);
+		}
+
+		async function setCurrentMonth() {
+			if (month === 0) {
+				const date = new Date();
+				setMonth(date.getMonth());
+			}
+		}
+		async function listTransactions() {
+			const dados = await getTransactions(month);
+			calcSammary(dados);
+			setTransactions(dados);
+		}
+
+		async function loadData() {
+			setCurrentMonth();
+			listTransactions();
+		}
+
 		loadData();
+
 		return navigate.addListener('focus', () => loadData());
-	}, [refreshing, month]);
+	}, [month, navigate]);
 	return (
 		<Container>
 			<HeaderDate>
@@ -126,21 +122,13 @@ export function TransactionList() {
 						title: 'Total',
 						value: sammary.income - sammary.expense,
 					}}
-					isTransaction={true}
+					isTransaction
 				/>
 			</BoxSammary>
-			<ContentScrollView
-				refreshControl={
-					<RefreshControl
-						refreshing={refreshing}
-						onRefresh={onRefresh}
-					/>
-				}>
+			<ContentScrollView>
 				<CardInvoice>
-					{transactions?.map((item: any, index: number) => (
-						<View
-							key={index}
-							style={{paddingLeft: 20, paddingRight: 20}}>
+					{transactions?.map((item: TransactionProps, index: number) => (
+						<View key={item.id} style={{ paddingLeft: 20, paddingRight: 20 }}>
 							<ItemList>
 								<ItemIcon>
 									<IconText name={item.icon} />
@@ -151,26 +139,18 @@ export function TransactionList() {
 										{' -> '}
 										{item.name_category}
 									</ItemTextTitle>
-									<ItemTextDescription>
-										{item.name}
-									</ItemTextDescription>
+									<ItemTextDescription>{item.name}</ItemTextDescription>
 								</ItemContent>
 								<ItemPrice>
-									<TextPrePrice isIncome={item.is_income}>
-										R$
-									</TextPrePrice>
-									<TextItemPrice isIncome={item.is_income}>
-										{item.value}
-									</TextItemPrice>
-									<DatePrice>
-										{formatDate(item.due_date)}
-									</DatePrice>
+									<TextPrePrice isIncome={item.is_income}>R$</TextPrePrice>
+									<TextItemPrice isIncome={item.is_income}>{item.value}</TextItemPrice>
+									<DatePrice>{formatDate(item.due_date)}</DatePrice>
 								</ItemPrice>
 							</ItemList>
 							{transactions.length > index + 1 ? <RowHr /> : null}
 						</View>
 					))}
-					{transactions?.length == 0 ? (
+					{transactions?.length === 0 ? (
 						<ViewMesage>
 							<Text>Não possui movimentações</Text>
 						</ViewMesage>
