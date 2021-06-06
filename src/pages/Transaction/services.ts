@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 
 import { api } from '../../services/api';
+import { transactionModalProps } from './types';
 
 export interface TransactionProps {
 	id: number;
@@ -67,5 +68,16 @@ export async function getTransactions(month = 0) {
 		},
 	});
 
+	return data;
+}
+
+export async function getTransaction(idTransaction: number): Promise<transactionModalProps> {
+	const { data } = await api.get(`/transactions/${idTransaction}`);
+
+	return data;
+}
+
+export async function deleteTransaction(id: number): Promise<any> {
+	const { data } = await api.delete(`/transactions/${id}`);
 	return data;
 }
