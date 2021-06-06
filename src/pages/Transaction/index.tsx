@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { Alert, Button, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { useNavigation } from '@react-navigation/core';
 import { format } from 'date-fns';
 
 import { IconText } from '../../components/elements/Icon';
 import { getMonths } from '../Account/services';
-import { Text, ViewMesage } from '../CreditCard/CreditCardDetail/style';
 import { Sammary } from '../Dashboard/Sammary';
+import { ModalTransaction } from './ModalTransaction';
 import { Month, getTransactions } from './services';
+import { TransactionProps } from './types';
+
+import { Text, ViewMesage } from '../CreditCard/CreditCardDetail/style';
 import {
 	Container,
 	ContentScrollView,
@@ -28,22 +32,29 @@ import {
 	BoxSammary,
 	BtnMonth,
 } from './style';
-import { TransactionProps } from './types';
 
 export function TransactionList(): JSX.Element {
 	const navigate = useNavigation();
 
-	const [months, setMonths] = useState<Month[]>(getMonths());
+	const [modalVisible, setModalVisible] = useState(false);
+
+	const [months] = useState<Month[]>(getMonths());
 	const [month, setMonth] = useState<number>(new Date().getMonth());
 	const [transactions, setTransactions] = useState<TransactionProps[]>([]);
+	const [transactionChosen, setTransactionChosen] = useState<TransactionProps>({} as TransactionProps);
 	const [sammary, setSammary] = useState<any>({});
 
 	function formatDate(date: any) {
-		return format(new Date(date), 'dd/MM');
+		const dateSplit = date.split('-');
+		return `${dateSplit[2]}/${dateSplit[1]}`;
 	}
 
 	async function alterMonth(monthToChange: number) {
 		return setMonth(monthToChange);
+	}
+	function handleTransactionChosen(item: TransactionProps) {
+		setModalVisible(true);
+		setTransactionChosen(item);
 	}
 
 	useEffect(() => {
@@ -129,7 +140,7 @@ export function TransactionList(): JSX.Element {
 				<CardInvoice>
 					{transactions?.map((item: TransactionProps, index: number) => (
 						<View key={item.id} style={{ paddingLeft: 20, paddingRight: 20 }}>
-							<ItemList>
+							<ItemList onPress={() => handleTransactionChosen(item)}>
 								<ItemIcon>
 									<IconText name={item.icon} />
 								</ItemIcon>
@@ -157,6 +168,11 @@ export function TransactionList(): JSX.Element {
 					) : null}
 				</CardInvoice>
 			</ContentScrollView>
+			<ModalTransaction
+				modalVisible={modalVisible}
+				setModalVisible={setModalVisible}
+				transactionChossen={transactionChosen}
+			/>
 		</Container>
 	);
 }
