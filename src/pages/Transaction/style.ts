@@ -84,14 +84,14 @@ export const TextItemPrice = styled.Text<TextPriceProps>`
 	align-items: center;
 	justify-content: center;
 	font-family: 'Poppins-Bold';
-	color: ${({isIncome}) => (isIncome ? '#00EB84' : '#989898')};
+	color: ${({ isIncome }) => (isIncome ? '#00EB84' : '#989898')};
 `;
 
 export const TextPrePrice = styled.Text<TextPriceProps>`
 	font-family: 'Poppins-Bold';
 	align-items: center;
 	justify-content: center;
-	color: ${({isIncome}) => (isIncome ? '#00EB84' : '#989898')};
+	color: ${({ isIncome }) => (isIncome ? '#00EB84' : '#989898')};
 `;
 
 export const ItemTextTitle = styled.Text`
