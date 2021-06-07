@@ -40,7 +40,7 @@
 			"warn",
 			{
 				"newlinesBetween": "always",
-				"groups": ["/^react/", "module", ["parent", "sibling", "index"]],
+				"groups": ["/^react/", "module", ["parent", "sibling", "index"], "/.*style/" ],
 				"alphabetize": {
 					"order": "asc",
 					"ignoreCase": true
