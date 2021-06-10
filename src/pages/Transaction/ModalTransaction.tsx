@@ -66,9 +66,11 @@ export function ModalTransaction({
 
 	useEffect(() => {
 		async function getTransactionEffect() {
-			const data = await getTransaction(transactionChossen.id_transaction);
-
-			setTransaction(data);
+			if (transactionChossen?.id_transaction) {
+				const data = await getTransaction(transactionChossen.id_transaction);
+	
+				setTransaction(data);
+			}
 		}
 		getTransactionEffect();
 	}, [transactionChossen.id_transaction]);
