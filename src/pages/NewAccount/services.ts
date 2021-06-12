@@ -1,4 +1,4 @@
-import {api} from './../../services/api';
+import { api } from '../../services/api';
 
 interface propsLogin {
 	senha: string;
@@ -6,6 +6,6 @@ interface propsLogin {
 	name: string;
 }
 
-export function CreateAccount(form: propsLogin) {
+export function CreateAccount(form: propsLogin): Promise<any> {
 	return api.post('/account', form).then(resp => resp.data);
 }
