@@ -1,29 +1,28 @@
-import React, {useEffect, useState} from 'react';
-import {Sammary} from './Sammary';
-import {useNavigation} from '@react-navigation/core';
-import {DashboardIncome} from './Income';
-import {DashboardOutcome} from './Outcome';
-import {DashboardPlanned} from './Planned';
-import {DashboardIncomeOutcome} from './IncomeOutcome';
-import {getDashboardData} from './services';
-import {DashboardProps} from './Interface';
-import {RefreshControl, StatusBar} from 'react-native';
-import {Wrapper, Container, ContainerItem, Card} from './style';
+import React, { useEffect, useState } from 'react';
+import { RefreshControl, StatusBar } from 'react-native';
+
+import { useNavigation } from '@react-navigation/core';
+
+import { DashboardIncome } from './Income';
+import { DashboardIncomeOutcome } from './IncomeOutcome';
+import { DashboardProps } from './Interface';
+import { DashboardOutcome } from './Outcome';
+import { DashboardPlanned } from './Planned';
+import { Sammary } from './Sammary';
+import { getDashboardData } from './services';
+
+import { Wrapper, Container, ContainerItem, Card } from './style';
 
 export function Dashboard() {
 	const navigate = useNavigation();
-	const [dashboard, setDasboard] = useState<DashboardProps>(
-		{} as DashboardProps,
-	);
+	const [dashboard, setDasboard] = useState<DashboardProps>({} as DashboardProps);
 	const [refreshing, setRefreshing] = useState<boolean>(false);
 
 	async function getDataToDashboard() {
 		const data: DashboardProps = await getDashboardData();
 
-		data.entradasDoAno.datasets[0].color = (opacity = 1) =>
-			`rgba(42, 0, 79, ${opacity})`;
-		data.saidasDoAno.datasets[0].color = (opacity = 1) =>
-			`rgba(42, 0, 79, ${opacity})`;
+		data.entradasDoAno.datasets[0].color = (opacity = 1) => `rgba(42, 0, 79, ${opacity})`;
+		data.saidasDoAno.datasets[0].color = (opacity = 1) => `rgba(42, 0, 79, ${opacity})`;
 		setDasboard(data);
 	}
 
@@ -48,13 +47,7 @@ export function Dashboard() {
 
 	return (
 		<Wrapper>
-			<Container
-				refreshControl={
-					<RefreshControl
-						refreshing={refreshing}
-						onRefresh={onRefresh}
-					/>
-				}>
+			<Container refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
 				<Sammary
 					fisrtCard={{
 						title: 'Entradas',
@@ -72,9 +65,7 @@ export function Dashboard() {
 				<ContainerItem>
 					<Card style={style.boxShadow}>
 						<DashboardIncomeOutcome
-							totalEntrada={Number(
-								dashboard?.totalEntradas?.total,
-							)}
+							totalEntrada={Number(dashboard?.totalEntradas?.total)}
 							totalSaida={Number(dashboard?.totalSaida?.total)}
 						/>
 					</Card>
@@ -97,7 +88,7 @@ export function Dashboard() {
 const style = {
 	boxShadow: {
 		shadowColor: '#000',
-		shadowOffset: {width: 0, height: 4},
+		shadowOffset: { width: 0, height: 4 },
 		shadowRadius: 4,
 		shadowOpacity: 0.25,
 		elevation: 2,
