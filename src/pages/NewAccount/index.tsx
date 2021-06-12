@@ -1,34 +1,21 @@
-import React, {useState} from 'react';
-import {
-	KeyboardAvoidingView,
-	TouchableWithoutFeedback,
-	Platform,
-	Keyboard,
-	ActivityIndicator,
-} from 'react-native';
-import {IconText} from '../../components/elements/Icon';
-import {InputText} from '../../components/elements/Input';
-import {useNavigation} from '@react-navigation/native';
+import React, { useState } from 'react';
+import { KeyboardAvoidingView, TouchableWithoutFeedback, Platform, Keyboard, ActivityIndicator } from 'react-native';
 
-import {
-	BtnLogar,
-	Container,
-	Content,
-	Title,
-	TextBtnLogar,
-	BtnBackToLogin,
-	TextBtnNewAcount,
-	Logo,
-} from './style';
-import {useAuth} from '../../hooks/Auth';
+import { useNavigation } from '@react-navigation/native';
 
-export function NewAccount() {
+import { IconText } from '../../components/elements/Icon';
+import { InputText } from '../../components/elements/Input';
+import { useAuth } from '../../hooks/Auth';
+
+import { BtnLogar, Container, Content, Title, TextBtnLogar, BtnBackToLogin, TextBtnNewAcount, Logo } from './style';
+
+export function NewAccount(): JSX.Element {
 	const navigate = useNavigation();
-	const {createNewAccount} = useAuth();
+	const { createNewAccount } = useAuth();
 	const [email, setEmail] = useState<string>('');
 	const [name, setName] = useState<string>('');
-	const [loader, setLoader] = useState<boolean>(false);
 	const [password, setPassword] = useState<string>('');
+	const [loader, setLoader] = useState<boolean>(false);
 
 	function loginIn() {
 		navigate.navigate('SignIn');
@@ -36,7 +23,7 @@ export function NewAccount() {
 
 	async function createAccount() {
 		setLoader(true);
-		const status = await createNewAccount({email, password, name});
+		const status = await createNewAccount({ email, password, name });
 		if (!status) {
 			setLoader(false);
 		}
@@ -45,16 +32,13 @@ export function NewAccount() {
 	return (
 		<>
 			<KeyboardAvoidingView
-				style={{flex: 1}}
+				style={{ flex: 1 }}
 				keyboardVerticalOffset={100}
 				behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-				enabled
-				>
+				enabled>
 				<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 					<Container>
-						<Logo
-							source={require('./../../assets/img/logotype.png')}
-						/>
+						<Logo source={require('../../assets/img/logotype.png')} />
 						<Title>Crie sua conta</Title>
 						<Content>
 							<InputText
@@ -63,7 +47,7 @@ export function NewAccount() {
 								placeholder="Nome"
 								value={name}
 								backgroundColor="#fff"
-								outline={true}
+								outline
 								onChangeText={setName}
 							/>
 							<InputText
@@ -74,7 +58,7 @@ export function NewAccount() {
 								onChangeText={setEmail}
 								autoCorrect={false}
 								backgroundColor="#fff"
-								outline={true}
+								outline
 								keyboardType="email-address"
 							/>
 							<InputText
@@ -84,7 +68,7 @@ export function NewAccount() {
 								onChangeText={setPassword}
 								secureTextEntry
 								backgroundColor="#fff"
-								outline={true}
+								outline
 								onSubmitEditing={() => {
 									createAccount();
 								}}
@@ -98,7 +82,7 @@ export function NewAccount() {
 				</TouchableWithoutFeedback>
 			</KeyboardAvoidingView>
 			<BtnBackToLogin onPress={loginIn}>
-				<IconText name={'arrow-left'} color={'#00EB84'} size={18} />
+				<IconText name="arrow-left" color="#00EB84" size={18} />
 				<TextBtnNewAcount>Voltar para o login</TextBtnNewAcount>
 			</BtnBackToLogin>
 		</>
