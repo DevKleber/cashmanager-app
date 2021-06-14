@@ -25,7 +25,7 @@ export const MonthLabel = styled.Text`
 	color: #666666;
 `;
 
-//Summary
+// Summary
 
 export const Summary = styled.ScrollView.attrs(() => ({
 	horizontal: true,

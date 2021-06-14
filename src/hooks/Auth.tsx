@@ -1,8 +1,9 @@
+import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { Alert } from 'react-native';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {createContext, useContext, useState, ReactNode} from 'react';
-import {Alert} from 'react-native';
-import {api} from '../services/api';
-import React from 'react';
+
+import { api } from '../services/api';
 
 interface LoginProps {
 	password: string;
@@ -27,7 +28,7 @@ interface AuthContextData {
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
-export function AuthProvider({children}: AuthProviderProps) {
+export function AuthProvider({ children }: AuthProviderProps) {
 	const [data, setData] = useState<AuthProps>({} as AuthProps);
 
 	function signOut() {
@@ -40,39 +41,37 @@ export function AuthProvider({children}: AuthProviderProps) {
 		await AsyncStorage.multiRemove(keys);
 	}
 
-	async function saveUser({access_token, me}: AuthProps) {
+	async function saveUser({ access_token, me }: AuthProps) {
 		await AsyncStorage.multiSet([
 			['@CashManager:token', access_token],
 			['@CashManager:user', JSON.stringify(me)],
 		]);
 
-		setData({access_token, me});
+		setData({ access_token, me });
 	}
-	async function createNewAccount(form: any) {
+	async function createNewAccount(form: any): Promise<any> {
 		try {
-			const {data} = await api.post('/auth/newaccount', form);
-			api.defaults.headers.authorization = `Bearer ${data.access_token}`;
-			saveUser(data);
-		} catch (e) {
-			Alert.alert('Não foi possível criar conta!');
+			const account = await api.post('/auth/newaccount', form);
+			api.defaults.headers.authorization = `Bearer ${account.data.access_token}`;
+			saveUser(account.data);
+			return account.data;
+		} catch (error) {
 			return false;
 		}
 	}
 
 	async function loginIn(form: LoginProps) {
 		try {
-			const {data} = await api.post('/auth/login', form);
+			const { data } = await api.post('/auth/login', form);
 			api.defaults.headers.authorization = `Bearer ${data.access_token}`;
 			saveUser(data);
 		} catch (e) {
-			Alert.alert(`${e}`);
 			return false;
 		}
 	}
 
 	return (
-		<AuthContext.Provider
-			value={{user: data.me, loginIn, signOut, createNewAccount}}>
+		<AuthContext.Provider value={{ user: data.me, loginIn, signOut, createNewAccount }}>
 			{children}
 		</AuthContext.Provider>
 	);
