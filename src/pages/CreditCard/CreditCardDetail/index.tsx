@@ -78,6 +78,7 @@ export function CreditCardDetail() {
 	}
 
 	useEffect(() => {
+		loadData();
 		return navigate.addListener('focus', () => loadData());
 	}, [refreshing, month]);
 	return (
