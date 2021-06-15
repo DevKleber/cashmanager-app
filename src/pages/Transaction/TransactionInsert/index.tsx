@@ -237,6 +237,8 @@ export function TransactionInsert() {
 				<BtnOptionIncome
 					onPress={() => (
 						setIsIncome(true),
+						setIdAccount(''),
+						setIdCreditCard(''),
 						clearSelecteds(),
 						alterBackgroundColor(true),
 						listCategories(true)
@@ -252,6 +254,8 @@ export function TransactionInsert() {
 				<BtnOptionExpense
 					onPress={() => (
 						setIsIncome(false),
+						setIdAccount(''),
+						setIdCreditCard(''),
 						clearSelecteds(),
 						alterBackgroundColor(false),
 						listCategories(false)

@@ -76,6 +76,7 @@ export function AccountDetail() {
 	}
 
 	useEffect(() => {
+		loadData();
 		return navigate.addListener('focus', () => loadData());
 	}, [refreshing, month]);
 	return (
