@@ -1,14 +1,12 @@
-import {ActivityIndicator, StatusBar} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {useNavigation} from '@react-navigation/core';
-import {save} from '../services';
-import {InputText} from '../../../components/elements/Input';
-import {
-	Container,
-	ContentScrollView,
-	TextBtnNewCard,
-	BtnNewCard,
-} from './style';
+import React, { useState } from 'react';
+import { ActivityIndicator, StatusBar } from 'react-native';
+
+import { useNavigation } from '@react-navigation/core';
+
+import { InputText } from '../../../components/elements/Input';
+import { save } from '../services';
+
+import { Container, ContentScrollView, TextBtnNewCard, BtnNewCard } from './style';
 
 export function CreditCardInsert() {
 	const navigate = useNavigation();
@@ -30,8 +28,6 @@ export function CreditCardInsert() {
 		}
 		navigate.navigate('CreditCardList');
 	}
-
-	useEffect(() => {}, []);
 
 	return (
 		<Container>
