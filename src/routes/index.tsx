@@ -1,14 +1,13 @@
-import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, View} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, View } from 'react-native';
 
-import AuthRoutes from './auth.routes';
-
+import { useAuth } from '../hooks/Auth';
 import AppRoutes from './app.routes';
-import {useAuth} from './../hooks/Auth';
+import AuthRoutes from './auth.routes';
 
 export function Routes() {
 	const loading = false;
-	const {user} = useAuth();
+	const { user } = useAuth();
 	// const user = true;
 
 	if (loading) {
