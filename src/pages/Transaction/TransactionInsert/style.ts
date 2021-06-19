@@ -11,10 +11,6 @@ export const Container = styled.View<IsIncomeProps>`
 	align-items: center;
 	flex-direction: column;
 	background-color: ${props => (props.selected ? '#00eb84' : '#E62E4D')};
-
-	.btnSelected {
-		background-color: black;
-	}
 `;
 
 export const BoxOptions = styled.View`
