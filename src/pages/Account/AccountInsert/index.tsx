@@ -1,14 +1,12 @@
-import React, {useState} from 'react';
-import {useNavigation} from '@react-navigation/core';
-import {save} from '../services';
-import {InputText} from '../../../components/elements/Input';
-import {
-	Container,
-	ContentScrollView,
-	TextBtnNewCard,
-	BtnNewCard,
-} from './style';
-import {ActivityIndicator} from 'react-native';
+import React, { useState } from 'react';
+import { ActivityIndicator, Platform } from 'react-native';
+
+import { useNavigation } from '@react-navigation/core';
+
+import { InputText } from '../../../components/elements/Input';
+import { save } from '../services';
+
+import { Container, ContentScrollView, TextBtnNewCard, BtnNewCard } from './style';
 
 export function AccountInsert() {
 	const navigate = useNavigation();
@@ -33,7 +31,11 @@ export function AccountInsert() {
 	}
 
 	return (
-		<Container>
+		<Container
+			style={{ flex: 1 }}
+			keyboardVerticalOffset={100}
+			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+			enabled>
 			<ContentScrollView>
 				<InputText
 					icon="account-balance-wallet"
@@ -62,7 +64,7 @@ export function AccountInsert() {
 					backgroundColor="#E8E9EF"
 				/>
 				<BtnNewCard onPress={saveAccount}>
-					<TextBtnNewCard>Salvar conta</TextBtnNewCard>
+					<TextBtnNewCard>Salvar conta </TextBtnNewCard>
 					{loader && <ActivityIndicator size="small" color="#fff" />}
 				</BtnNewCard>
 			</ContentScrollView>
