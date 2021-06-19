@@ -34,6 +34,7 @@ export const ViewContainer = styled.View`
 	background-color: #fff;
 	border-top-left-radius: 45px;
 	border-top-right-radius: 45px;
+	/* margin-bottom: 26px; */
 `;
 
 export const BtnNewCard = styled.TouchableOpacity`
