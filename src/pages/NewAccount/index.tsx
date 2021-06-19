@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { KeyboardAvoidingView, TouchableWithoutFeedback, Platform, Keyboard, ActivityIndicator } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
@@ -39,7 +39,7 @@ export function NewAccount(): JSX.Element {
 				<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 					<Container>
 						<Logo source={require('../../assets/img/logotype.png')} />
-						<Title>Crie sua conta</Title>
+						<Title>Crie sua conta </Title>
 						<Content>
 							<InputText
 								icon="person"
