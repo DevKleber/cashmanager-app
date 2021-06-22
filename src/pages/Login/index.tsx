@@ -83,7 +83,7 @@ export function Login() {
 								<TextBtnLogar>Entrar</TextBtnLogar>
 								{loader && <ActivityIndicator size="small" color="#fff" />}
 							</BtnLogar>
-							<ForgotPass>
+							<ForgotPass onPress={() => navigate.navigate('ForgotPassword')}>
 								<TextForgotPass>
 									Esqueci minha senha
 								</TextForgotPass>

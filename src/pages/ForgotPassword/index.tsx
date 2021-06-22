@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/core';
 import React, {useState} from 'react';
 import {Image} from 'react-native';
 import {IconText} from './../../components/elements/Icon';
@@ -14,6 +15,7 @@ import {
 } from './style';
 
 export function ForgotPassword() {
+	const navigate = useNavigation();
 	const [email, setEmail] = useState<string>('');
 
 	function forgotPassword() {
@@ -37,7 +39,7 @@ export function ForgotPassword() {
 					<TextBtnEnviar>Enviar</TextBtnEnviar>
 				</BtnEnviar>
 			</Content>
-			<BtnNewAcount>
+			<BtnNewAcount onPress={() => navigate.navigate('SignIn')}>
 				<IconText name={'arrow-left'} color={'#00EB84'} size={18} />
 				<TextBtnBackToLogin onPress={forgotPassword}>
 					Voltar para o login

@@ -23,6 +23,7 @@ export const BtnNewCard = styled.TouchableOpacity`
 	width: 100%;
 	align-items: center;
 	flex-direction: row;
+	justify-content: center;
 	background-color: #F7C325;
 	color: #2a004f;
 	border-radius: 10px;
