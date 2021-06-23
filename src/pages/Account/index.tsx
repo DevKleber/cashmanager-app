@@ -77,6 +77,7 @@ export function AccountList() {
 	}
 
 	useEffect(() => {
+		loadData();
 		return navigate.addListener('focus', () => loadData());
 	}, [refreshing]);
 

@@ -60,10 +60,10 @@ export const TextBtnBackToLogin = styled.Text`
 
 export const BtnNewAcount = styled.TouchableOpacity`
 	width: 100%;
-	height: 50px;
 	background-color: #2a004f;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-direction: row;
+	padding: 16px 0px;
 `;
