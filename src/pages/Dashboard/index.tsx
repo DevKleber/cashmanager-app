@@ -77,7 +77,10 @@ export function Dashboard() {
 					</Card>
 					<Card style={style.boxShadow}>
 						{/* <DashboardCategory data={dashboard?.categoriasDoAno} /> */}
-						<DashboardPlanned data={dashboard?.planejamento} />
+						<DashboardPlanned
+							data={dashboard?.planejamento}
+							planejamentoSemMovimentacao={dashboard?.planejamentoSemMovimentacao}
+						/>
 					</Card>
 				</ContainerItem>
 			</Container>

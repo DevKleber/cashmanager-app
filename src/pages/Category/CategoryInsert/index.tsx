@@ -1,8 +1,13 @@
-import React, {useEffect, useState} from 'react';
-import {useNavigation, useRoute} from '@react-navigation/core';
-import {save} from '../services';
-import {InputText} from '../../../components/elements/Input';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, Alert, Modal, StatusBar } from 'react-native';
+
+import { useNavigation, useRoute } from '@react-navigation/core';
+
 import Icons from '../../../assets/MaterialIcons.json';
+import { IconText } from '../../../components/elements/Icon';
+import { InputText } from '../../../components/elements/Input';
+import { save } from '../services';
+
 import {
 	Container,
 	ContentScrollView,
@@ -17,14 +22,12 @@ import {
 	CardCategory,
 	TextIconTitle,
 } from './style';
-import {IconText} from '../../../components/elements/Icon';
-import {ActivityIndicator, Alert, Modal, StatusBar} from 'react-native';
 
 export function CategoryInsert() {
 	const router = useRoute();
 	const navigate = useNavigation();
 
-	const {id, isIncome}: any = router?.params;
+	const { id, isIncome }: any = router?.params;
 
 	const [name, setName] = useState<string>('');
 	const [iconSelected, setIconSelected] = useState<string>('');
@@ -75,7 +78,7 @@ export function CategoryInsert() {
 			return;
 		}
 
-		let ajudasFiltro = icons.filter((item: any) => {
+		const ajudasFiltro = icons.filter((item: any) => {
 			if (item.name.toUpperCase().indexOf(value.toUpperCase()) > -1) {
 				return item;
 			}
@@ -106,20 +109,15 @@ export function CategoryInsert() {
 					backgroundColor="#E8E9EF"
 				/>
 				<ButtonIcon onPress={() => setModalVisible(true)}>
-					<ChosenIcon>
-						{iconSelected.length ? (
-							<IconText size={24} name={iconSelected} />
-						) : null}
-					</ChosenIcon>
+					<ChosenIcon>{iconSelected.length ? <IconText size={24} name={iconSelected} /> : null}</ChosenIcon>
 					<TextIconTitle>Icone</TextIconTitle>
 				</ButtonIcon>
 
 				<Modal
 					animationType="slide"
-					transparent={true}
+					transparent
 					visible={modalVisible}
 					onRequestClose={() => {
-						Alert.alert('Modal has been closed.');
 						setModalVisible(!true);
 					}}>
 					<ModalIconContainer>
@@ -135,9 +133,7 @@ export function CategoryInsert() {
 								icon="search"
 								placeholder="Nome"
 								value={searchIcon}
-								onChangeText={(value: any) =>
-									handlFilterIcon(value)
-								}
+								onChangeText={(value: any) => handlFilterIcon(value)}
 								autoCorrect={false}
 								backgroundColor="#E8E9EF"
 							/>
@@ -146,16 +142,10 @@ export function CategoryInsert() {
 									<CardCategory
 										key={index}
 										style={{
-											backgroundColor: isIncome
-												? '#207868'
-												: '#F44236',
+											backgroundColor: isIncome ? '#207868' : '#F44236',
 										}}
 										onPress={() => handleSelectIcon(item)}>
-										<IconText
-											size={24}
-											name={item.name}
-											color="#fff"
-										/>
+										<IconText size={24} name={item.name} color="#fff" />
 									</CardCategory>
 								))}
 							</ContainerModalCategory>
@@ -164,15 +154,9 @@ export function CategoryInsert() {
 				</Modal>
 				<ContainerButton>
 					<Btn selected={isIncome} onPress={saveAccount}>
-						<IconText
-							size={30}
-							name="add-circle"
-							color={isIncome ? '#1D6C5E' : '#dc3b31'}
-						/>
+						<IconText size={30} name="add-circle" color={isIncome ? '#1D6C5E' : '#dc3b31'} />
 						<TextBtn>Cadastrar</TextBtn>
-						{loader && (
-							<ActivityIndicator size="small" color="#fff" />
-						)}
+						{loader && <ActivityIndicator size="small" color="#fff" />}
 					</Btn>
 				</ContainerButton>
 			</ContentScrollView>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
 	Image,
 	KeyboardAvoidingView,
@@ -9,10 +9,12 @@ import {
 	Keyboard,
 	ActivityIndicator,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
 
-import {IconText} from '../../components/elements/Icon';
-import {InputText} from '../../components/elements/Input';
+import { useNavigation } from '@react-navigation/native';
+
+import { IconText } from '../../components/elements/Icon';
+import { InputText } from '../../components/elements/Input';
+import { useAuth } from '../../hooks/Auth';
 
 import {
 	BtnLogar,
@@ -25,18 +27,17 @@ import {
 	BtnNewAcount,
 	TextBtnNewAcount,
 } from './style';
-import {useAuth} from './../../hooks/Auth';
 
 export function Login() {
 	const navigate = useNavigation();
-	const {loginIn} = useAuth();
+	const { loginIn } = useAuth();
 	const [loader, setLoader] = useState<boolean>(false);
-	const [email, setEmail] = useState<string>('admin');
-	const [password, setPassword] = useState<string>('admin');
+	const [email, setEmail] = useState<string>('');
+	const [password, setPassword] = useState<string>('');
 
 	async function handleLogin() {
 		setLoader(true);
-		const status = await loginIn({email, password});
+		const status = await loginIn({ email, password });
 		if (!status) {
 			setLoader(false);
 		}
@@ -45,15 +46,13 @@ export function Login() {
 	return (
 		<>
 			<KeyboardAvoidingView
-				style={{flex: 1}}
+				style={{ flex: 1 }}
 				keyboardVerticalOffset={100}
 				behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
 				enabled>
 				<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 					<Container>
-						<Image
-							source={require('./../../assets/img/logotype.png')}
-						/>
+						<Image source={require('../../assets/img/logotype.png')} />
 						<Title> Faça seu login</Title>
 						<Content>
 							<InputText
@@ -63,7 +62,7 @@ export function Login() {
 								onChangeText={setEmail}
 								autoCorrect={false}
 								backgroundColor="#fff"
-								outline={true}
+								outline
 								keyboardType="email-address"
 							/>
 							<InputText
@@ -73,7 +72,7 @@ export function Login() {
 								onChangeText={setPassword}
 								secureTextEntry
 								backgroundColor="#fff"
-								outline={true}
+								outline
 								returnKeyType="send"
 								onSubmitEditing={() => {
 									handleLogin();
@@ -84,16 +83,14 @@ export function Login() {
 								{loader && <ActivityIndicator size="small" color="#fff" />}
 							</BtnLogar>
 							<ForgotPass onPress={() => navigate.navigate('ForgotPassword')}>
-								<TextForgotPass>
-									Esqueci minha senha
-								</TextForgotPass>
+								<TextForgotPass>Esqueci minha senha</TextForgotPass>
 							</ForgotPass>
 						</Content>
 					</Container>
 				</TouchableWithoutFeedback>
 			</KeyboardAvoidingView>
 			<BtnNewAcount onPress={() => navigate.navigate('SignUp')}>
-				<IconText name={'exit-to-app'} color={'#00EB84'} size={18} />
+				<IconText name="exit-to-app" color="#00EB84" size={18} />
 				<TextBtnNewAcount>Criar uma conta</TextBtnNewAcount>
 			</BtnNewAcount>
 		</>

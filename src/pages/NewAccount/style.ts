@@ -1,4 +1,5 @@
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
+
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
@@ -6,7 +7,7 @@ export const Container = styled.View`
 	align-items: center;
 	justify-content: center;
 	background-color: #f5f6fc;
-	padding: 0 30px ${Platform.OS === 'android' ? 0 : 40}px;
+	padding: 0 30px ${Platform.OS === 'android' ? 90 : 40}px;
 	margin-bottom: 16px;
 	/* background-color: black; */
 `;

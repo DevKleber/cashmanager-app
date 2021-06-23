@@ -1,23 +1,28 @@
+import React, { useEffect, useState } from 'react';
 import {
 	ActivityIndicator,
+	Keyboard,
+	KeyboardAvoidingView,
 	Platform,
-	RefreshControl,
 	StatusBar,
 	Text,
+	TouchableWithoutFeedback,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {useNavigation} from '@react-navigation/core';
-import {save, optionsParcel} from '../services';
-import {InputText} from '../../../components/elements/Input';
-import {AccountProps, getAccounts} from '../../Account/services';
-import {Select} from '../../../components/elements/Select';
-import {CreditCard, getCreditCards} from '../../CreditCard/services';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import {IconText} from '../../../components/elements/Icon';
-import {getPlannedExpenses} from '../../PlannedExpenses/services';
-import {getCategories, getCategoryById} from '../../Category/services';
 import NumberFormat from 'react-number-format';
-import {getDashboardData} from '../../Dashboard/services';
+
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { useNavigation } from '@react-navigation/core';
+
+import { IconText } from '../../../components/elements/Icon';
+import { InputText } from '../../../components/elements/Input';
+import { Select } from '../../../components/elements/Select';
+import { AccountProps, getAccounts } from '../../Account/services';
+import { getCategories, getCategoryById } from '../../Category/services';
+import { CreditCard, getCreditCards } from '../../CreditCard/services';
+import { getDashboardData } from '../../Dashboard/services';
+import { getPlannedExpenses } from '../../PlannedExpenses/services';
+import { save, optionsParcel } from '../services';
+
 import {
 	Container,
 	ContentScrollView,
@@ -151,9 +156,9 @@ export function TransactionInsert() {
 	}
 
 	function alterBackgroundColor(bgIsIncome: boolean) {
-		let color: string = '#E62E4D';
-		let title: string = '#fff';
-		let colorBg: string = '#cf2945';
+		let color = '#E62E4D';
+		let title = '#fff';
+		let colorBg = '#cf2945';
 
 		if (bgIsIncome) {
 			title = '#666666';
@@ -181,21 +186,19 @@ export function TransactionInsert() {
 	}
 
 	async function getPlannedExpensesItem(planejamento: any[], category: any) {
-		console.log('category', category);
 		if (planejamento.length > 0) {
 			const planned = planejamento.filter((elem: any) => {
-				return elem.id_category == category.id_category_parent;
+				return elem.id_category === category.id_category_parent;
 			})[0];
 
 			const total = planned?.total;
 			const income = planned?.income;
 
-			let value =
-				(parseFloat(total ?? 0) * 100) / parseFloat(income ?? 0);
+			let valuePlanned = (parseFloat(total ?? 0) * 100) / parseFloat(income ?? 0);
 
-			value = isNaN(value) ? 0 : value;
+			valuePlanned = Number.isNaN(valuePlanned) ? 0 : valuePlanned;
 
-			setValuePercent(Number(value.toFixed(2)) ?? 0);
+			setValuePercent(Number(valuePlanned.toFixed(2)) ?? 0);
 			return;
 		}
 
@@ -232,309 +235,279 @@ export function TransactionInsert() {
 	}, []);
 
 	return (
-		<Container selected={isIncome}>
-			<BoxOptions>
-				<BtnOptionIncome
-					onPress={() => (
-						setIsIncome(true),
-						setIdAccount(''),
-						setIdCreditCard(''),
-						clearSelecteds(),
-						alterBackgroundColor(true),
-						listCategories(true)
-					)}
-					selected={isIncome}>
-					<IconTextIncome selected={isIncome}>Entrada</IconTextIncome>
-					<IconText
-						name="arrow-circle-up"
-						color={isIncome ? '#fff' : '#a7e9d1'}
-						size={26}
-					/>
-				</BtnOptionIncome>
-				<BtnOptionExpense
-					onPress={() => (
-						setIsIncome(false),
-						setIdAccount(''),
-						setIdCreditCard(''),
-						clearSelecteds(),
-						alterBackgroundColor(false),
-						listCategories(false)
-					)}
-					selected={isIncome}>
-					<TextBoldExpense selected={isIncome}>Saída</TextBoldExpense>
-					<IconText
-						name="arrow-circle-down"
-						color={isIncome !== false ? '#e8d1d9' : '#fff'}
-						size={26}
-					/>
-				</BtnOptionExpense>
-			</BoxOptions>
-			<ViewContainer style={{width: '100%', paddingTop: 50}}>
-				<ContentScrollView>
-					<BoxIsPaidOut>
-						<ContentIcon>
-							<IconText name="add-task" />
-							<Text style={{marginLeft: 10}}>Pago</Text>
-						</ContentIcon>
-						<ContentCheckBox>
-							<CheckBox
-								selected={isIncome}
-								style={{
-									backgroundColor: isPaid ? colorBG : '#ddd',
-								}}>
-								<Check
-									style={{marginLeft: isPaid ? 44 : 0}}
-									onPress={() => setIsPaid(!isPaid)}></Check>
-							</CheckBox>
-						</ContentCheckBox>
-					</BoxIsPaidOut>
+		<KeyboardAvoidingView style={{ flex: 1 }} keyboardVerticalOffset={150} behavior="height">
+			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+				<Container selected={isIncome}>
+					<BoxOptions>
+						<BtnOptionIncome
+							onPress={() => {
+								setIsIncome(true);
+								setIdAccount('');
+								setIdCreditCard('');
+								clearSelecteds();
+								alterBackgroundColor(true);
+								listCategories(true);
+							}}
+							selected={isIncome}>
+							<IconTextIncome selected={isIncome}>Entrada</IconTextIncome>
+							<IconText name="arrow-circle-up" color={isIncome ? '#fff' : '#a7e9d1'} size={26} />
+						</BtnOptionIncome>
+						<BtnOptionExpense
+							onPress={() => {
+								setIsIncome(false);
+								setIdAccount('');
+								setIdCreditCard('');
+								clearSelecteds();
+								alterBackgroundColor(false);
+								listCategories(false);
+							}}
+							selected={isIncome}>
+							<TextBoldExpense selected={isIncome}>Saída</TextBoldExpense>
+							<IconText
+								name="arrow-circle-down"
+								color={isIncome !== false ? '#e8d1d9' : '#fff'}
+								size={26}
+							/>
+						</BtnOptionExpense>
+					</BoxOptions>
+					<ViewContainer style={{ width: '100%', paddingTop: 50 }}>
+						<ContentScrollView>
+							<BoxIsPaidOut>
+								<ContentIcon>
+									<IconText name="add-task" />
+									<Text style={{ marginLeft: 10 }}>Pago</Text>
+								</ContentIcon>
+								<ContentCheckBox>
+									<CheckBox
+										selected={isIncome}
+										style={{
+											backgroundColor: isPaid ? colorBG : '#ddd',
+										}}>
+										<Check
+											style={{ marginLeft: isPaid ? 44 : 0 }}
+											onPress={() => setIsPaid(!isPaid)}
+										/>
+									</CheckBox>
+								</ContentCheckBox>
+							</BoxIsPaidOut>
 
-					{!isIncome ? (
-						<BoxCardAccount>
-							<BtnCreditCard
-								selected={isAccount}
-								colorBg={colorBG}
-								onPress={() => setIsAccount(false)}>
-								<IconText
-									name="credit-card"
-									color={!isAccount ? '#fff' : '#666360'}
+							{!isIncome ? (
+								<BoxCardAccount>
+									<BtnCreditCard
+										selected={isAccount}
+										colorBg={colorBG}
+										onPress={() => setIsAccount(false)}>
+										<IconText name="credit-card" color={!isAccount ? '#fff' : '#666360'} />
+										<Text
+											style={{
+												color: !isAccount ? '#fff' : '#666360',
+												marginLeft: 5,
+											}}>
+											Cartão de credito
+										</Text>
+									</BtnCreditCard>
+									<BtnAccount
+										selected={isAccount}
+										colorBg={colorBG}
+										onPress={() => setIsAccount(true)}>
+										<IconText
+											name="account-balance-wallet"
+											color={isAccount ? '#fff' : '#666360'}
+										/>
+										<Text
+											style={{
+												color: isAccount ? '#fff' : '#666360',
+												marginLeft: 5,
+											}}>
+											Conta
+										</Text>
+									</BtnAccount>
+								</BoxCardAccount>
+							) : null}
+
+							{isIncome || (!isIncome && isAccount) ? (
+								<Select
+									icon="account-balance-wallet"
+									onChange={setIdAccount}
+									options={accounts}
+									fields={{ label: 'description', value: 'id' }}
+									placeholder="Selecionar conta"
 								/>
-								<Text
-									style={{
-										color: !isAccount ? '#fff' : '#666360',
-										marginLeft: 5,
-									}}>
-									Cartão de credito
-								</Text>
-							</BtnCreditCard>
-							<BtnAccount
-								selected={isAccount}
-								colorBg={colorBG}
-								onPress={() => setIsAccount(true)}>
-								<IconText
-									name="account-balance-wallet"
-									color={isAccount ? '#fff' : '#666360'}
+							) : null}
+
+							{!isIncome && !isAccount ? (
+								<Select
+									icon="credit-card"
+									onChange={setIdCreditCard}
+									options={creditCard}
+									fields={{ label: 'name', value: 'id' }}
+									placeholder="Selecionar cartão"
 								/>
-								<Text
-									style={{
-										color: isAccount ? '#fff' : '#666360',
-										marginLeft: 5,
-									}}>
-									Conta
-								</Text>
-							</BtnAccount>
-						</BoxCardAccount>
-					) : null}
+							) : null}
 
-					{isIncome || (!isIncome && isAccount) ? (
-						<Select
-							icon="account-balance-wallet"
-							onChange={setIdAccount}
-							options={accounts}
-							fields={{label: 'description', value: 'id'}}
-							placeholder="Selecionar conta"
-						/>
-					) : null}
+							<InputText
+								icon="account-balance-wallet"
+								placeholder={isIncome ? 'Nome da entrada' : 'Nome da despesa'}
+								value={name}
+								onChangeText={setName}
+								autoCorrect={false}
+								backgroundColor="#fff"
+								outline
+							/>
 
-					{!isIncome && !isAccount ? (
-						<Select
-							icon="credit-card"
-							onChange={setIdCreditCard}
-							options={creditCard}
-							fields={{label: 'name', value: 'id'}}
-							placeholder="Selecionar cartão"
-						/>
-					) : null}
-
-					<InputText
-						icon="account-balance-wallet"
-						placeholder={isIncome ? 'Entrada' : 'Despesa'}
-						value={name}
-						onChangeText={setName}
-						autoCorrect={false}
-						backgroundColor="#fff"
-						outline={true}
-					/>
-
-					<InputText
+							{/* <InputText
 						icon="account-balance"
 						placeholder="Descrição"
 						value={description}
 						onChangeText={setDescription}
 						autoCorrect={false}
 						backgroundColor="#fff"
-						outline={true}
-					/>
-					<Text
-						style={{
-							color: '#666360',
-							marginLeft: 10,
-							fontSize: 15,
-							marginBottom: 10,
-						}}>
-						{isIncome ? 'Data do recebimento' : 'Data da despesa'}
-					</Text>
-					<BoxDate>
-						<BtnYesterday
-							selected={whatDate === 'yesterday'}
-							colorBg={colorBG}
-							onPress={() => (
-								setWhatDate('yesterday'), setDateYesterday()
-							)}>
-							<IconText
-								name="today"
-								color={
-									whatDate === 'yesterday'
-										? '#fff'
-										: '#666360'
-								}
-							/>
+						outline
+					/> */}
 							<Text
 								style={{
-									color:
-										whatDate === 'yesterday'
-											? '#fff'
-											: '#666360',
-									marginLeft: 5,
+									color: '#666360',
+									marginLeft: 10,
+									fontSize: 15,
+									marginBottom: 10,
 								}}>
-								Ontem
+								{isIncome ? 'Data do recebimento' : 'Data da despesa'}
 							</Text>
-						</BtnYesterday>
-						<BtnToday
-							selected={whatDate === 'today'}
-							colorBg={colorBG}
-							onPress={() => (
-								setWhatDate('today'), setDateToday()
-							)}>
-							<IconText
-								name="today"
-								color={
-									whatDate === 'today' ? '#fff' : '#666360'
-								}
+							<BoxDate>
+								<BtnYesterday
+									selected={whatDate === 'yesterday'}
+									colorBg={colorBG}
+									onPress={() => {
+										setWhatDate('yesterday');
+										setDateYesterday();
+									}}>
+									<IconText name="today" color={whatDate === 'yesterday' ? '#fff' : '#666360'} />
+									<Text
+										style={{
+											color: whatDate === 'yesterday' ? '#fff' : '#666360',
+											marginLeft: 5,
+										}}>
+										Ontem
+									</Text>
+								</BtnYesterday>
+								<BtnToday
+									selected={whatDate === 'today'}
+									colorBg={colorBG}
+									onPress={() => {
+										setWhatDate('today');
+										setDateToday();
+									}}>
+									<IconText name="today" color={whatDate === 'today' ? '#fff' : '#666360'} />
+									<Text
+										style={{
+											color: whatDate === 'today' ? '#fff' : '#666360',
+											marginLeft: 5,
+										}}>
+										Hoje
+									</Text>
+								</BtnToday>
+								<BtnInform
+									selected={whatDate === 'inform'}
+									colorBg={colorBG}
+									onPress={() => {
+										setWhatDate('inform');
+										showDatepicker();
+									}}>
+									<IconText
+										name="insert-invitation"
+										color={whatDate === 'inform' ? '#fff' : '#666360'}
+									/>
+									<Text
+										style={{
+											color: whatDate === 'inform' ? '#fff' : '#666360',
+											marginLeft: 5,
+										}}>
+										{whatDate === 'inform' ? date.toLocaleDateString('pt-BR') : 'Informar'}
+									</Text>
+								</BtnInform>
+
+								{show && (
+									<DateTimePicker
+										testID="dateTimePicker"
+										value={date}
+										mode="date"
+										is24Hour
+										display="default"
+										onChange={onChange}
+										textColor="#fff"
+										locale="pt-BR"
+									/>
+								)}
+							</BoxDate>
+							<Select
+								icon="category"
+								onChange={handleCategory}
+								options={categories}
+								fields={{ label: 'name', value: 'id' }}
+								placeholder="Selecionar categorias"
+								isTree
 							/>
-							<Text
+							{!isIncome && (
+								<>
+									<BoxPorcent>
+										<Porcent
+											selected={isIncome}
+											style={{
+												width: valuePercent >= 100 ? '100%' : `${valuePercent}%`,
+											}}
+										/>
+									</BoxPorcent>
+									<BoxPorcentText>
+										<TextPorcent>Planejamento {valuePercent}%</TextPorcent>
+									</BoxPorcentText>
+								</>
+							)}
+							<Select
+								icon="repeat"
+								onChange={setInstallment}
+								options={optionsParcel}
+								fields={{ label: 'label', value: 'value' }}
+								placeholder={isIncome ? 'Repetir' : 'Quantas parcelas'}
+							/>
+
+							<InputText
+								icon="attach-money"
+								placeholder="Valor ex: 10.00"
+								value={value}
+								onChangeText={setValue}
+								autoCorrect={false}
+								keyboardType="numeric"
+								backgroundColor="#fff"
+								outline
+							/>
+							<BoxInstallment>
+								{!isIncome && installment && value ? (
+									<Text>
+										{`${installment}x de `}
+										<NumberFormat
+											value={Number(value) / Number(installment)}
+											prefix="R$ "
+											displayType="text"
+											thousandSeparator="."
+											decimalSeparator=","
+											renderText={valueInstallment => <Text>{valueInstallment}</Text>}
+										/>
+									</Text>
+								) : null}
+							</BoxInstallment>
+
+							<BtnNewCard
+								onPress={saveAccount}
 								style={{
-									color:
-										whatDate === 'today'
-											? '#fff'
-											: '#666360',
-									marginLeft: 5,
+									backgroundColor: isIncome ? '#00d377' : '#cf2945',
 								}}>
-								Hoje
-							</Text>
-						</BtnToday>
-						<BtnInform
-							selected={whatDate === 'inform'}
-							colorBg={colorBG}
-							onPress={() => (
-								setWhatDate('inform'), showDatepicker()
-							)}>
-							<IconText
-								name="insert-invitation"
-								color={
-									whatDate === 'inform' ? '#fff' : '#666360'
-								}
-							/>
-							<Text
-								style={{
-									color:
-										whatDate === 'inform'
-											? '#fff'
-											: '#666360',
-									marginLeft: 5,
-								}}>
-								{whatDate === 'inform'
-									? date.toLocaleDateString('pt-BR')
-									: 'Informar'}
-							</Text>
-						</BtnInform>
-
-						{show && (
-							<DateTimePicker
-								testID="dateTimePicker"
-								value={date}
-								mode="date"
-								is24Hour={true}
-								display="default"
-								onChange={onChange}
-								textColor="#fff"
-								locale="pt-BR"
-							/>
-						)}
-					</BoxDate>
-					<Select
-						icon="category"
-						onChange={handleCategory}
-						options={categories}
-						fields={{label: 'name', value: 'id'}}
-						placeholder="Selecionar categorias"
-						isTree={true}
-					/>
-					{!isIncome && (
-						<>
-							<BoxPorcent>
-								<Porcent
-									selected={isIncome}
-									style={{
-										width:
-											valuePercent >= 100
-												? '100%'
-												: `${valuePercent}%`,
-									}}></Porcent>
-							</BoxPorcent>
-							<BoxPorcentText>
-								<TextPorcent>
-									Planejamento {valuePercent}%
-								</TextPorcent>
-							</BoxPorcentText>
-						</>
-					)}
-					<Select
-						icon="repeat"
-						onChange={setInstallment}
-						options={optionsParcel}
-						fields={{label: 'label', value: 'value'}}
-						placeholder={isIncome ? 'Repetir' : 'Quantas parcelas'}
-					/>
-
-					<InputText
-						icon="attach-money"
-						placeholder="Valor ex: 10.00"
-						value={value}
-						onChangeText={setValue}
-						autoCorrect={false}
-						keyboardType="numeric"
-						backgroundColor="#fff"
-						outline={true}
-					/>
-					<BoxInstallment>
-						{!isIncome && installment && value ? (
-							<Text>
-								{`${installment}x de `}
-								<NumberFormat
-									value={Number(value) / Number(installment)}
-									prefix={'R$ '}
-									displayType={'text'}
-									thousandSeparator="."
-									decimalSeparator=","
-									renderText={value => <Text>{value}</Text>}
-								/>
-							</Text>
-						) : null}
-					</BoxInstallment>
-
-					<BtnNewCard
-						onPress={saveAccount}
-						style={{
-							backgroundColor: isIncome ? '#00d377' : '#cf2945',
-						}}>
-						<TextBtnNewCard>Lançar</TextBtnNewCard>
-						{loader && (
-							<ActivityIndicator size="small" color="#fff" />
-						)}
-					</BtnNewCard>
-				</ContentScrollView>
-			</ViewContainer>
-		</Container>
+								<TextBtnNewCard>Lançar</TextBtnNewCard>
+								{loader && <ActivityIndicator size="small" color="#fff" />}
+							</BtnNewCard>
+						</ContentScrollView>
+					</ViewContainer>
+				</Container>
+			</TouchableWithoutFeedback>
+		</KeyboardAvoidingView>
 	);
 }
