@@ -36,6 +36,8 @@
 		"@typescript-eslint/no-floating-promises": "off",
 		"@typescript-eslint/no-unsafe-assignment": "off",
 		// "import/no-extraneous-dependencies":"off",
+		"@typescript-eslint/no-explicit-any":"off",
+		"eslint-disable-next-line no-console": "off",
 		"import-helpers/order-imports": [
 			"warn",
 			{

@@ -17,7 +17,17 @@ export interface DashboardProps {
 			name: string;
 			total: number;
 			value_percent: number;
+			icon: string;
 			income: number;
+		},
+	];
+	planejamentoSemMovimentacao: [
+		{
+			id_category: number;
+			name: string;
+			total: number;
+			value_percent: number;
+			icon: string;
 		},
 	];
 

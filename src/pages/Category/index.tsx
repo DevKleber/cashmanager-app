@@ -1,5 +1,11 @@
-import React, {useEffect, useState} from 'react';
-import {IconText} from '../../components/elements/Icon';
+import React, { useEffect, useState } from 'react';
+import { StatusBar, View } from 'react-native';
+
+import { useNavigation } from '@react-navigation/core';
+
+import { IconText } from '../../components/elements/Icon';
+import { getCategories } from './services';
+
 import {
 	Container,
 	ContentScrollView,
@@ -19,14 +25,10 @@ import {
 	TextAdd,
 	ContainerBtnNewItem,
 } from './style';
-import {RefreshControl, StatusBar, View} from 'react-native';
-import {getCategories} from './services';
-import {useNavigation, useRoute} from '@react-navigation/core';
 
 export function CategoryList() {
 	const navigate = useNavigation();
 	const [isIncome, setIsIncome] = useState<boolean>(true);
-	const [refreshing, setRefreshing] = useState<boolean>(false);
 	const [categoriesIncome, setCategoriesIncome] = useState<any[]>([]);
 	const [categoriesOutcome, setCategoriesOutcome] = useState<any[]>([]);
 	const [categoriesActive, setCategoriesActive] = useState<any[]>([]);
@@ -52,23 +54,13 @@ export function CategoryList() {
 		alterBackgroundColor(status);
 	}
 
-	const wait = (timeout: number) => {
-		return new Promise(resolve => setTimeout(resolve, timeout));
-	};
-
-	const onRefresh = React.useCallback(() => {
-		setRefreshing(true);
-		wait(2000).then(() => setRefreshing(false));
-	}, []);
-
-	function loadData() {
-		alterBackgroundColor(isIncome);
-		listCategories();
-	}
-
 	useEffect(() => {
+		function loadData() {
+			alterBackgroundColor(isIncome);
+			listCategories();
+		}
 		return navigate.addListener('focus', () => loadData());
-	}, [refreshing]);
+	}, [navigate]);
 
 	function alterBackgroundColor(bgIsIncome: boolean) {
 		const color: string = bgIsIncome ? '#207868' : '#F44236';
@@ -93,93 +85,57 @@ export function CategoryList() {
 	return (
 		<Container selected={isIncome}>
 			<BoxOptions>
-				<BtnOptionIncome
-					onPress={() => handleSetIincome(true)}
-					selected={isIncome}>
+				<BtnOptionIncome onPress={() => handleSetIincome(true)} selected={isIncome}>
 					<IconTextIncome selected={isIncome}>Entrada</IconTextIncome>
-					<IconText
-						name="arrow-circle-up"
-						color={isIncome ? '#fff' : '#CAD8DA'}
-						size={26}
-					/>
+					<IconText name="arrow-circle-up" color={isIncome ? '#fff' : '#CAD8DA'} size={26} />
 				</BtnOptionIncome>
-				<BtnOptionExpense
-					onPress={() => handleSetIincome(false)}
-					selected={isIncome}>
+				<BtnOptionExpense onPress={() => handleSetIincome(false)} selected={isIncome}>
 					<TextBoldExpense selected={isIncome}>Saída</TextBoldExpense>
-					<IconText
-						name="arrow-circle-down"
-						color={isIncome !== false ? '#E8CDD6' : '#fff'}
-						size={26}
-					/>
+					<IconText name="arrow-circle-down" color={isIncome !== false ? '#E8CDD6' : '#fff'} size={26} />
 				</BtnOptionExpense>
 			</BoxOptions>
 
-			<ContentScrollView
-				refreshControl={
-					<RefreshControl
-						refreshing={refreshing}
-						onRefresh={onRefresh}
-					/>
-				}>
+			<ContentScrollView>
 				<CardInvoice>
 					{categoriesActive?.map((item: any, index: number) => (
 						<React.Fragment key={item.id}>
 							<View>
 								<ItemList>
 									<ItemIcon>
-										<IconText
-											name={item.icon}
-											color="#989898"
-										/>
+										<IconText name={item.icon} color="#989898" />
 									</ItemIcon>
 									<ItemContent>
-										<ItemTextDescription>
-											{item.name}
-										</ItemTextDescription>
+										<ItemTextDescription>{item.name}</ItemTextDescription>
 									</ItemContent>
 									<BtnNewCategory
 										selected={isIncome}
-										onPress={() =>
-											navigate.navigate(
-												'CategoryInsert',
-												{id: item.id, isIncome},
-											)
-										}>
+										onPress={() => navigate.navigate('CategoryInsert', { id: item.id, isIncome })}>
 										<IconText name="add" color="#fff" />
 									</BtnNewCategory>
 								</ItemList>
 								<RowHr />
 							</View>
-							{item.children?.map(
-								(subItem: any, subIndex: number) => (
-									<View
-										key={subItem.id}
-										style={{
-											paddingLeft: 40,
-											paddingRight: 40,
-										}}>
-										<ItemList>
-											<ItemIcon>
-												<IconText
-													name={subItem.icon}
-													color="#989898"
-												/>
-											</ItemIcon>
-											<ItemContent>
-												<ItemTextDescription>
-													{subItem.name}
-												</ItemTextDescription>
-											</ItemContent>
-										</ItemList>
-										{item.children.length == subIndex + 1 &&
-										categoriesActive.length ==
-											index + 1 ? null : (
-											<RowHr />
-										)}
-									</View>
-								),
-							)}
+							{item.children?.map((subItem: any, subIndex: number) => (
+								<View
+									key={subItem.id}
+									style={{
+										paddingLeft: 40,
+										paddingRight: 40,
+									}}>
+									<ItemList>
+										<ItemIcon>
+											<IconText name={subItem.icon} color="#989898" />
+										</ItemIcon>
+										<ItemContent>
+											<ItemTextDescription>{subItem.name}</ItemTextDescription>
+										</ItemContent>
+									</ItemList>
+									{item.children.length === subIndex + 1 &&
+									categoriesActive.length === index + 1 ? null : (
+										<RowHr />
+									)}
+								</View>
+							))}
 						</React.Fragment>
 					))}
 					<ContainerBtnNewItem>
@@ -192,10 +148,7 @@ export function CategoryList() {
 									isIncome,
 								})
 							}>
-							<IconText
-								name="add-circle"
-								color={isIncome ? '#1D6C5E' : '#dc3b31'}
-							/>
+							<IconText name="add-circle" color={isIncome ? '#1D6C5E' : '#dc3b31'} />
 							<TextAdd>Adicionar nova categoria</TextAdd>
 						</BtnNewCard>
 					</ContainerBtnNewItem>
