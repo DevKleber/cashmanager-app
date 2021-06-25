@@ -146,7 +146,7 @@ export function CreditCardDetail() {
 									<TextPrePrice>R$</TextPrePrice>
 									<TextItemPrice>{item.value}</TextItemPrice>
 									<DatePrice>
-										{formatDate(item.created_at)}
+										{formatDate(item.due_date)}
 									</DatePrice>
 								</ItemPrice>
 							</ItemList>
