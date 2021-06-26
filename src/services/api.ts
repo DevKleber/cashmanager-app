@@ -5,19 +5,15 @@ import axios from 'axios';
 
 import environment from './environment';
 
-const token = async () => AsyncStorage.getItem('@CashManager:token');
-
 export const api = axios.create({
 	baseURL: environment.api,
-	headers: {
-		Authorization: `Basic ${token}`,
-	},
 });
 
 api.interceptors.response.use(
 	response => response,
 	error => {
 		const { status, data } = error.response;
+		console.log(data.error);
 
 		switch (status) {
 			case 500:
@@ -25,14 +21,15 @@ api.interceptors.response.use(
 				break;
 			case 400:
 				switch (data.error) {
-					case `"Token·is·Invalid"`:
+					case `"Token is Invalid"`:
 						Alert.alert(data.error);
 						break;
 					default:
 						if (data.message) {
 							Alert.alert(data.message);
-						} else {
-							Alert.alert(data.response);
+						}
+						if (data.error) {
+							Alert.alert(data.error);
 						}
 
 						break;
