@@ -21,6 +21,18 @@ export const View = styled.View`
 	padding: 0px 25px 0px 25px;
 	margin-top: 100px;
 `;
+export const NameUser = styled.Text`
+	text-align: center;
+	font-family: 'Poppins-Bold';
+	font-size: 24px;
+	color: #407c93;
+`;
+export const EmailUser = styled.Text`
+	text-align: center;
+	font-family: 'Poppins-Regular';
+	font-size: 14px;
+	color: #407c93;
+`;
 export const ViewBox = styled.View`
 	width: 100%;
 	justify-content: center;

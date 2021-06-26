@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { Alert } from 'react-native';
+/* eslint-disable camelcase */
+import React, { useEffect, createContext, useContext, useState, ReactNode } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -8,6 +8,15 @@ import { api } from '../services/api';
 interface LoginProps {
 	password: string;
 	email: string;
+}
+interface meProps {
+	created_at: string;
+	email: string;
+	email_verified_at: string;
+	id: number;
+	is_active: boolean;
+	name: string;
+	updated_at: string;
 }
 
 interface AuthProps {
@@ -21,6 +30,7 @@ interface AuthProviderProps {
 
 interface AuthContextData {
 	user: boolean;
+	me: meProps;
 	loginIn: (data: LoginProps) => Promise<void | boolean>;
 	signOut(): void;
 	createNewAccount: (form: any) => Promise<void | boolean>;
@@ -28,8 +38,24 @@ interface AuthContextData {
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
-export function AuthProvider({ children }: AuthProviderProps) {
+export function AuthProvider({ children }: AuthProviderProps): JSX.Element {
 	const [data, setData] = useState<AuthProps>({} as AuthProps);
+
+	useEffect(() => {
+		async function getStorage() {
+			const getAccess_token = await AsyncStorage.getItem('@CashManager:token');
+			const user = await AsyncStorage.getItem('@CashManager:user');
+
+			const token = getAccess_token !== null ? getAccess_token : '';
+			const userObjeto = user !== null ? JSON.parse(user) : {};
+			if (token !== '') {
+				api.defaults.headers.authorization = `Bearer ${token}`;
+
+				setData({ access_token: token, me: userObjeto });
+			}
+		}
+		getStorage();
+	}, []);
 
 	function signOut() {
 		clearAllData();
@@ -71,7 +97,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 	}
 
 	return (
-		<AuthContext.Provider value={{ user: data.me, loginIn, signOut, createNewAccount }}>
+		<AuthContext.Provider value={{ user: data.me, me: data.me, loginIn, signOut, createNewAccount }}>
 			{children}
 		</AuthContext.Provider>
 	);
