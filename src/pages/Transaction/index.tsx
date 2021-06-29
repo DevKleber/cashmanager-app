@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, Button, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { StatusBar, View } from 'react-native';
 
 import { useNavigation } from '@react-navigation/core';
-import { format } from 'date-fns';
 
 import { IconText } from '../../components/elements/Icon';
 import { getMonths } from '../Account/services';
@@ -56,7 +54,11 @@ export function TransactionList(): JSX.Element {
 		setModalVisible(true);
 		setTransactionChosen(item);
 	}
-
+	
+	function setColor() {
+		StatusBar.setBarStyle('dark-content');
+		StatusBar.setBackgroundColor('#f0f2f5');
+	}
 	useEffect(() => {
 		// Como usar useEffect => https://reactjs.org/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies
 
@@ -94,6 +96,7 @@ export function TransactionList(): JSX.Element {
 		}
 
 		async function loadData() {
+			setColor();
 			setCurrentMonth();
 			listTransactions();
 		}
@@ -101,7 +104,7 @@ export function TransactionList(): JSX.Element {
 		loadData();
 
 		return navigate.addListener('focus', () => loadData());
-	}, [month, navigate]);
+	}, [month]);
 	return (
 		<Container>
 			<HeaderDate>
@@ -139,7 +142,7 @@ export function TransactionList(): JSX.Element {
 			<ContentScrollView>
 				<CardInvoice>
 					{transactions?.map((item: TransactionProps, index: number) => (
-						<View key={item.id} style={{ paddingLeft: 20, paddingRight: 20 }}>
+						<View key={item.created_at} style={{ paddingLeft: 20, paddingRight: 20 }}>
 							<ItemList onPress={() => handleTransactionChosen(item)}>
 								<ItemIcon>
 									<IconText name={item.icon} />

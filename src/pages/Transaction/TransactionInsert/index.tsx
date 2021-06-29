@@ -20,7 +20,6 @@ import { AccountProps, getAccounts } from '../../Account/services';
 import { getCategories, getCategoryById } from '../../Category/services';
 import { CreditCard, getCreditCards } from '../../CreditCard/services';
 import { getDashboardData } from '../../Dashboard/services';
-import { getPlannedExpenses } from '../../PlannedExpenses/services';
 import { save, optionsParcel } from '../services';
 
 import {
@@ -216,22 +215,26 @@ export function TransactionInsert() {
 			setValuePercent(0);
 		}
 	}
+	function setColor() {
+		StatusBar.setBarStyle('dark-content');
+		StatusBar.setBackgroundColor('#00d377');
+	}
 
 	function loadData(alterBackGround = true) {
+		setIsIncome(alterBackGround);
+		setColor();
 		clearForm();
 		setIdCategory('');
 		setValuePercent(0);
-		if (alterBackGround) {
-			alterBackgroundColor(isIncome);
-		}
-		listCategories(isIncome);
+		alterBackgroundColor(alterBackGround);
+		listCategories(alterBackGround);
 		listAccounts();
 		creditCards();
 	}
 
 	useEffect(() => {
 		alterBackgroundColor(true);
-		return navigate.addListener('focus', () => loadData(false));
+		return navigate.addListener('focus', () => loadData(true));
 	}, []);
 
 	return (
