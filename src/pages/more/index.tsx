@@ -10,13 +10,17 @@ import { Container, Item, Text, View, ViewBox, NameUser, EmailUser } from './sty
 
 export function More(): JSX.Element {
 	const { signOut, me } = useAuth();
+	const navigate = useNavigation();
 
-	useEffect(() => {
+	function setColor() {
 		StatusBar.setBarStyle('light-content');
 		StatusBar.setBackgroundColor('#407c93');
+	}
+
+	useEffect(() => {
+		return navigate.addListener('focus', () => setColor());
 	}, []);
 
-	const navigate = useNavigation();
 	return (
 		<Container>
 			<View>

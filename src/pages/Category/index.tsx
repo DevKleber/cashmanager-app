@@ -55,12 +55,13 @@ export function CategoryList() {
 	}
 
 	useEffect(() => {
-		function loadData() {
+		function loadData(isIncome: any) {
+			setIsIncome(isIncome);
 			alterBackgroundColor(isIncome);
 			listCategories();
 		}
-		return navigate.addListener('focus', () => loadData());
-	}, [navigate]);
+		return navigate.addListener('focus', () => loadData(true));
+	}, []);
 
 	function alterBackgroundColor(bgIsIncome: boolean) {
 		const color: string = bgIsIncome ? '#207868' : '#F44236';
@@ -79,6 +80,7 @@ export function CategoryList() {
 			},
 			headerTintColor: '#fff',
 		});
+		StatusBar.setBarStyle('light-content');
 		StatusBar.setBackgroundColor(color);
 	}
 

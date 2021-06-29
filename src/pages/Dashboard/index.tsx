@@ -36,9 +36,13 @@ export function Dashboard() {
 	}, []);
 
 	function loadData() {
-		StatusBar.setBarStyle('light-content');
-		StatusBar.setBackgroundColor('#009788');
+		setColor();
 		getDataToDashboard();
+	}
+
+	function setColor() {
+		StatusBar.setBarStyle('dark-content');
+		StatusBar.setBackgroundColor('#f0f2f5');
 	}
 
 	useEffect(() => {
