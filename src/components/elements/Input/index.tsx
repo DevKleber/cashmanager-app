@@ -25,7 +25,7 @@ export function InputText({
 				...style,
 			}}>
 			<BoxIcon>{icon ? <IconText name={icon} /> : <TextPreFixer>{preFixer}</TextPreFixer>}</BoxIcon>
-			<Input onChangeText={text => onChangeText(text)} {...rest} />
+			<Input onChangeText={text => onChangeText(text)} {...rest} placeholderTextColor={'#666360'}/>
 		</Container>
 	);
 }

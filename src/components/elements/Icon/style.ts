@@ -19,4 +19,5 @@ export const BoxIcon = styled.View`
 
 export const Input = styled.TextInput`
     width: 100%;
+    color: #666360;
 `;

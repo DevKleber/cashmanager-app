@@ -106,4 +106,5 @@ export const TextPercent = styled.Text`
 export const Input = styled.TextInput`
 	width: 40px;
 	background-color: #e8e9ef;
+	color: #666360;
 `;

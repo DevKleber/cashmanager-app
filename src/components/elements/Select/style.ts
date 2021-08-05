@@ -18,7 +18,9 @@ export const BoxIcon = styled.View`
 	justify-content: center;
 `;
 
-export const Input = styled.TextInput``;
+export const Input = styled.TextInput`
+	color: #666360;
+`;
 
 export const TextPreFixer = styled.Text`
 	font-size: 18px;
