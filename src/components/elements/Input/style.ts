@@ -20,6 +20,7 @@ export const BoxIcon = styled.View`
 
 export const Input = styled.TextInput`
 	flex: 1;
+	color: #666360;
 `;
 
 export const TextPreFixer = styled.Text`
